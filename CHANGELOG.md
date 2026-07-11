@@ -1,0 +1,243 @@
+# Elite Sports Academy Changelog
+
+## 2026-07-11 - Academy Identity 1.0: Make It My Academy
+
+### Added
+- `VISION.md` with the creative vision statement, five pillars, core design rule, and milestone philosophy.
+- Saved academy identity fields for academy name, motto, crest, color theme, and founded date.
+- Academy Identity editor in World settings with built-in crests, color themes, and motto presets.
+- Academy Profile section with founded date, countries completed, current country, competitions won, medals, reputation, championship trophies, academy rank, favorite sport, highest facility, athletes trained, and coaches recruited.
+- Hall of Fame framework as a Coming Soon section.
+- Save version 7 migration for academy identity.
+
+### Changed
+- The sticky header now presents the player's academy crest, academy name, reputation-based academy rank, motto, and current country instead of a generic game title.
+- Mission, primary buttons, Campus, highlights, and progress bars now pick up the selected academy color theme subtly.
+- Documentation now references `VISION.md`, the Five Pillars, and the Core Design Rule.
+
+### Fixed
+- The top identity now supports player ownership and emotional attachment instead of only showing generic World Tour branding.
+
+## 2026-07-11 - Academy Campus 5.0: A Living Academy
+
+### Added
+- State-driven campus activity labels for Sports Center, Academy Offices, Competition Hall, and World Tour Gate.
+- Visual evolution stages for campus buildings using existing level, staff, win, and chapter-progress data.
+- Subtle micro-animations for mission progress, building lights, office windows, competition banners, world flags, and ready badges.
+- Department-style facility visuals with future SVG replacement slots.
+- Coach and athlete portrait placeholders for future roster art.
+
+### Changed
+- Resource Bar typography and spacing are clearer while still showing only country, TP, and TP/sec.
+- World Tour route stops now show route order and clearer Complete, Current, Open, and Future states.
+- Sports, Academy, and Competitions tabs received presentation polish without changing gameplay behavior.
+- Documentation now defines living-campus states, visual evolution rules, and motion boundaries.
+
+### Fixed
+- Campus panels no longer feel static when upgrades, staff actions, competitions, or chapter rewards are available.
+
+## 2026-07-11 - Academy Campus 4.0: From UI to World
+
+### Added
+- Collapsible Home Mission Card with current mission, progress, reward, next unlock, and expandable objective details.
+- Campus building components with roof, body, wings, door, banner, light, level indicator, status badge, and future SVG slot structure.
+- Stronger World Tour journey strip with route line and destination-stop styling.
+
+### Changed
+- Academy Campus now reads more like shared academy grounds with departments instead of a grid of menu cards.
+- Resource and mission surfaces remain compact so Home still prioritizes Session Drill and campus navigation.
+- Documentation now defines screen-purpose rules and future SVG preparation.
+
+### Fixed
+- Reduced Home vertical pressure from always-expanded mission objectives.
+
+## 2026-07-10 - Academy Campus 3.0: Living Headquarters
+
+### Added
+- Living Academy Campus treatment with shared plaza grounding, stronger building depth, and subtle CSS motion.
+- Flag, glow, building, and status pulse micro-animations that respect the existing animations setting.
+- Screenshot checkpoints for Home, Sports, Academy, Competitions, and World.
+
+### Changed
+- Home now flows from Mission to Session Drill to Academy Campus to Current Event before secondary guidance.
+- World Tour route stops now look more like destination cards along a journey.
+- Documentation now describes the living headquarters direction and motion rules.
+
+### Fixed
+- Reduced the feeling that Home is only a collection of navigation cards.
+
+## 2026-07-10 - Japan Chapter: Precision & Technique
+
+### Added
+- Japan as the second playable chapter with Swimming/Cycling focus.
+- Japan chapter goals for Swimming Center Level 15, Cycling Velodrome Level 15, 5 Japan chapter competition wins, and any athlete reaching Skill Level 10.
+- Data-driven Japan bonuses: +15% Athlete Experience and +10% Competition Rewards.
+- Japan completion reward: +2 Medals, +200 Reputation, and Brazil unlock as a preview destination.
+- Save version 6 migration for per-country competition win tracking.
+- Subtle Academy Campus activity indicators.
+- `STYLE_GUIDE.md` as the project visual reference.
+
+### Changed
+- Resource Bar now shows only country flag, country name, TP, and TP/sec.
+- Recommendation priority now better follows chapter goals: facilities, competitions, athletes, coaches, then click upgrades.
+- World route order now highlights USA, Japan, Brazil, Australia, Kenya, and Norway.
+
+### Fixed
+- Japan competition wins now count per country instead of relying on the global competition win stat.
+
+## 2026-07-10 - Academy Campus Phase 2: Visual Buildings, Flags, and Stronger Headquarters Feel
+
+### Added
+- Stronger Academy Campus building visuals with roof shapes, window structures, depth, section accents, and lightweight hover polish.
+- World Tour route strip using country flags and route order.
+- `PARKING_LOT.md` for future ideas that are not currently scheduled.
+- `BALANCE.md` for current economy numbers, multipliers, rewards, and progression formulas.
+
+### Changed
+- Home campus navigation now reads more like a headquarters map and less like a flat menu.
+- World Tour campus navigation is now labeled World Tour Gate.
+- Resource Bar country identity has a stronger active-country flag/accent treatment.
+- World Campaign destination rows now share the premium flag/route visual direction.
+
+### Fixed
+- Improved the visual weight of the Home campus without adding dashboard clutter or changing gameplay.
+
+## 2026-07-10 - Academy Campus UI + Persistent Resource Bar
+
+### Added
+- Compact persistent Resource Bar with current country, TP, TP/sec, medals, and reputation.
+- Country flag data for current and future destinations.
+- Building-style Academy Campus navigation panels for Sports Center, Academy Offices, Competitions Hall, and World Tour.
+- `UI_VISION.md` as the long-term UI direction document.
+
+### Changed
+- Home now flows from Academy Mission to Session Drill to Academy Campus navigation before secondary guidance panels.
+- World Campaign destination rows now use prominent country flags.
+- Japan documentation is clarified as a Swimming/Cycling-only planned chapter for the current scope.
+
+### Fixed
+- Restored always-visible TP and TP/sec without bringing back large fixed dashboard cards.
+
+## 2026-07-10 - Academy Mission Hub & Player Guidance
+
+### Added
+- Home Academy Mission card with current country, chapter goals, progress bars, overall completion, chapter rewards, and next unlock.
+- Dynamic Recommended Next Action card.
+- Home Reward Preview card for the next destination, sports, coaches, facilities, and reward.
+- Academy Hub navigation cards for Sports Center, Academy Offices, Competitions, and World Tour.
+- Locked future destination previews in World for Australia and Norway.
+
+### Changed
+- Home now more clearly communicates what the player is working toward, what to do next, and what reward comes after.
+- World Campaign now includes display-only future destinations without implementing new gameplay countries.
+
+### Fixed
+- Reduced the need to search through tabs to understand current chapter objectives.
+
+## 2026-07-10 - Country / Chapter Progression: USA Chapter Complete
+
+### Added
+- Data-driven USA chapter goals: Track Facility Level 10, Swimming Facility Level 10, 3 competition wins, and 25,000 TP earned during the USA chapter.
+- Saved per-country progress records for completed goals, chapter TP earned, completion time, and reward claim state.
+- Real saved Medals and Reputation progression values.
+- USA chapter completion modal with reward summary and Continue to Japan action.
+- World Campaign map showing current, unlocked, completed, and future countries.
+- Save version 5 migration for country progress, medals, and reputation.
+
+### Changed
+- Medals and Reputation are no longer derived from total TP.
+- World tab now carries expanded campaign information while Home remains play-first.
+- Claiming USA completion grants +1 Medal, +100 Reputation, unlocks Japan, and switches the current country to Japan.
+
+### Fixed
+- Existing saves now receive country progress fields without resetting gameplay progress.
+
+## 2026-07-10 - UI Cleanup: Remove Persistent Home Mini-Stats
+
+### Added
+- Academy Dashboard section in the World tab for relocated live readouts.
+
+### Changed
+- Removed the persistent mini-stat card grid from the sticky top header.
+- Home now has more open space for Session Drill, click training, and live play context.
+
+### Fixed
+- The top of Home no longer appears crowded by frozen stat squares.
+
+## 2026-07-10 - UI Fix: Compact World Tour Chapter Header
+
+### Added
+- Tap-to-expand World Tour chapter details in the sticky header.
+
+### Changed
+- The World Tour chapter header now defaults to a compact summary with current country, chapter progress, and next-country path.
+- Home keeps more vertical room for Session Drill and active play.
+
+### Fixed
+- The oversized chapter card no longer visually dominates the top of the Home layout.
+
+## 2026-07-10 - UI Refactor: Play-First Home / Tabbed Management / Preferences
+
+### Added
+- Dedicated Home tab for active play with compact country status, Session Drill, click progression, and live event/competition context.
+- Optional pinned Session Drill preference for drilling from non-Home tabs.
+- Preferences controls for pinned drill, floating numbers, animations, confirm prestige, export save, import save, and reset save.
+- Save version 4 migration for new UI preferences and legacy tab mapping.
+
+### Changed
+- Management panels now live in dedicated tabs: Sports for facilities, Academy for coaches and athletes, Competitions for competitions and sponsorship context, and World for country progress, prestige, statistics, achievements, and preferences.
+- Prestige moved from the old Academy view into World as a meta-progression system.
+- Existing gameplay economy, click upgrades, coaches, athletes, competitions, offline progress, and prestige rewards remain intact.
+
+### Fixed
+- Prestige reset now guards against direct reset attempts before the unlock threshold, even when confirmation is disabled.
+
+## 2026-07-10 - UI Upgrade: World Tour / Academy Dashboard / Country Progress / Bottom Navigation
+
+### Added
+- World Tour header with active country and chapter goal progress.
+- Headquarters-style dashboard stats for TP, TP/sec, country, medals, reputation, trophies, coaches, and athletes.
+- Country progress cards with goals, percent complete, unlock reward, and next-country path.
+- Bottom navigation for Academy, Sports, Competitions, Roster, and World.
+- Facility sport marks and coach/athlete connection pills.
+
+### Changed
+- Moved facilities into a dedicated Sports section.
+- Moved progress, achievements, and settings into the World section.
+- Kept the existing gameplay loop and save format intact.
+
+## 2026-07-10 - Content Registry + Sport Foundation
+
+### Added
+- Central `CONTENT` registry for all major content categories.
+- `BY_ID` lookup maps for content id access.
+- Country data entries for USA, Japan, Kenya, and Brazil.
+- Sport data entries for Track & Field, Swimming, Cycling, and Soccer.
+- `sportId` metadata for facilities, coaches, athletes, and competitions.
+- Save version 3 migration for country foundation fields.
+
+### Changed
+- Facility income now rolls up through sport income helpers.
+- Coach output bonuses now use data-driven effect definitions.
+- Athlete output, click, XP, and competition reward bonuses now use data-driven effect definitions.
+- Competition power now uses sport-linked facility and athlete helpers.
+- Academy UI now shows the current country foundation panel.
+- Existing visible gameplay loop remains intact.
+
+### Fixed
+- Removed repeated `.find(...)` lookups in active gameplay paths in favor of id-map helpers.
+
+## 2026-07-10 - Upgradeable Click Power + Stabilization Fixes
+
+### Added
+- Click upgrade progression: Basic Drill, Technique Drill, Elite Form, National Standard, Championship Routine.
+- Click income and drill upgrade stats.
+- Save version 2 migration for click upgrades.
+
+### Changed
+- Session Drill scales with click upgrades, coach bonuses, athlete bonuses, and passive-income sync.
+- Offline progress awards for any elapsed time.
+- Tick handling uses catch-up simulation instead of a 5-second cap.
+
+### Fixed
+- Short offline absences no longer produce zero earnings when passive income exists.
