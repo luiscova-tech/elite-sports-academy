@@ -1,5 +1,81 @@
 # Elite Sports Academy Changelog
 
+## 2026-07-12 - World Tour 3.0: Global Academy Architecture
+
+### Added
+- `WORLD_TOUR.md` as the design blueprint for future countries, global academy progression, local country campuses, competition cycles, continental events, World Championships, and Olympic Games.
+- Documentation for the global academy model: permanent academy identity, reputation, medals, trophies, rank, Hall of Fame, future research, and future sponsors.
+- Documentation for future country campuses: local Training Points, facilities, athletes, competitions, buildings, local progress, visual theme, chapter progress, and country bonus.
+
+### Changed
+- Future countries are now defined as permanent academy campuses instead of isolated country resets.
+- Coaches are documented as future global academy resources that can eventually be assigned or transferred between campuses.
+- Athletes are documented as local country-campus recruits with no Version 1 transfer plan.
+- Future country design now follows the 2 core sports, 2 shared sports, and 1 wildcard sport template.
+
+### Fixed
+- Clarified that Brazil and later countries should remain preview-only until they support the Global Academy Architecture.
+- Clarified that Olympic Games are a long-term culmination layer, not an ordinary competition or endpoint.
+
+## 2026-07-12 - Visual Identity 1.0: From Prototype to Game
+
+### Added
+- Welcome Coach ceremony and mission board on Home.
+- Shared inline SVG academy icon language for navigation, campus, sports, coaches, athletes, and World/competition surfaces.
+- Sport-specific facility department silhouettes.
+- Passport/travel styling for World Tour destinations.
+- Event-board and ticket styling for Competitions.
+
+### Changed
+- Home orientation and mission now render as one cohesive experience instead of separate checklist and mission cards.
+- First-run identity setup now opens as a compact ceremony summary with optional edit controls so Session Drill stays closer to the first viewport.
+- The first-run orientation path now stays behind an optional expander instead of reading as a permanent checklist.
+- The welcome ceremony now includes a compact Session Drill call-to-action while preserving the full Session Drill panel below.
+- Academy Campus buildings now have more distinct department silhouettes.
+- Coach cards now feel more like premium staff boards while preserving tier behavior.
+- Sports, Academy, Competitions, and World now use more distinct visual language.
+- World now leads with the passport-style campaign route before profile and dashboard details.
+
+### Fixed
+- Reduced the prototype/web-app feel caused by repeated generic rounded rectangles and placeholder icons.
+
+## 2026-07-12 - Quality of Life 1.0: Orientation, Drill Choices, Competition Results, and Coach Tiers
+
+### Added
+- Real academy identity choices in the first-run welcome and Home orientation card.
+- Guided recommendation navigation with highlighted target areas for Sports, Academy, Competitions, World, Session Drill, and Click Training.
+- Latest competition result card showing outcome, TP reward, win chance, academy power, target power, and result explanation.
+- Coach tier presentation with Unrecruited, Junior, Senior, Elite, and Olympic stages.
+- `PLAYTEST_JOURNAL.md` using current game-director feedback only.
+
+### Changed
+- Recommendation and onboarding management actions now route the player to the correct screen instead of auto-completing facility, coach, athlete, competition, or world actions.
+- Click Training now displays every named drill program with status, unlock requirement, per-level power/sync gains, and per-program upgrade buttons.
+- Competition offer cards now identify meet type and relevant sports more clearly.
+- Coach cards now show specialty path, current tier, next tier, and tier progress while preserving existing upgrade behavior.
+
+### Fixed
+- New players now make actual academy identity choices instead of only confirming default text.
+- Competition outcomes are no longer visible only as a brief toast.
+- Drill progression no longer reads as a single opaque upgrade path.
+
+## 2026-07-12 - Academy Orientation: First-Time Experience
+
+### Added
+- Coach-led first-run welcome modal focused on academy ownership, Session Drill, Mission Card guidance, recruiting, competitions, and World Tour travel.
+- Saved Home orientation card for fresh saves with a checklist for identity confirmation, first drill, first facility upgrade, first coach, first athlete, Mission review, and World Tour review.
+- First competition briefing in the Competitions tab for players who have not entered a competition yet.
+- Save version 8 migration for onboarding flags.
+- `FIRST_TIME_EXPERIENCE.md` as the dedicated onboarding blueprint.
+
+### Changed
+- The old generic tutorial now uses the academy coach voice and starts the first-time orientation.
+- Existing saves that already completed the old tutorial are treated as onboarding-complete so veteran players are not interrupted.
+- Documentation now tracks first-time experience, onboarding presentation rules, future social/account ideas, and save version 8.
+
+### Fixed
+- New players now get a clearer opening path instead of relying on the generic tutorial and scattered management panels.
+
 ## 2026-07-11 - Academy Identity 1.0: Make It My Academy
 
 ### Added

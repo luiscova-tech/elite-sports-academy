@@ -428,6 +428,13 @@
       font-weight: 950;
     }
 
+    .passport-stamp {
+      border-radius: 8px 999px 999px 8px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--teal)) 22%, transparent), rgba(255, 255, 255, 0.08));
+      transform: rotate(-2deg);
+    }
+
     .chapter-line {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -515,8 +522,24 @@
     }
 
     .tab-icon {
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
       font-size: 1rem;
       line-height: 1;
+    }
+
+    .academy-icon {
+      width: 100%;
+      height: 100%;
+      display: block;
+      color: currentColor;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .tab-btn.active {
@@ -721,6 +744,23 @@
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
     }
 
+    .passport-destination {
+      border-radius: 6px 14px 6px 6px;
+    }
+
+    .passport-destination::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px dashed color-mix(in srgb, var(--accent, var(--teal)) 42%, rgba(255, 255, 255, 0.2));
+      opacity: 0.36;
+      pointer-events: none;
+    }
+
     .country-node::before {
       content: "";
       position: absolute;
@@ -827,22 +867,46 @@
       font-weight: 900;
     }
 
+    .sport-mark .academy-icon {
+      width: 26px;
+      height: 26px;
+      stroke-width: 1.9;
+    }
+
     .facility-card {
       display: grid;
       gap: 10px;
+      border-radius: 6px 10px 6px 6px;
+      background:
+        radial-gradient(circle at 88% 0, color-mix(in srgb, var(--accent, var(--teal)) 16%, transparent), transparent 88px),
+        linear-gradient(180deg, rgba(20, 29, 47, 0.98), rgba(11, 16, 28, 0.98));
     }
 
     .facility-department {
+      position: relative;
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 10px;
       align-items: center;
+      overflow: hidden;
       padding: 9px;
       border: 1px solid color-mix(in srgb, var(--accent, var(--teal)) 22%, var(--line));
-      border-radius: var(--radius);
+      border-radius: 6px 12px 6px 6px;
       background:
         linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--teal)) 12%, transparent), rgba(255, 255, 255, 0.035)),
         rgba(255, 255, 255, 0.035);
+    }
+
+    .facility-department::after {
+      content: "";
+      position: absolute;
+      inset: auto 8px 8px auto;
+      width: 76px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(ellipse at center, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), transparent 70%);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
     .department-building {
@@ -850,6 +914,14 @@
       width: calc(72px * var(--department-scale, 1));
       height: calc(52px * var(--department-scale, 1));
       min-width: 62px;
+    }
+
+    .department-building::before,
+    .department-building::after {
+      content: "";
+      position: absolute;
+      display: block;
+      pointer-events: none;
     }
 
     .department-svg-slot {
@@ -908,6 +980,74 @@
       border-radius: 6px 6px 2px 2px;
       background: color-mix(in srgb, var(--accent, var(--teal)) 40%, rgba(255, 255, 255, 0.12));
       transform: translateX(-50%);
+    }
+
+    .department-track .department-roof {
+      inset: 8px 7px auto;
+      height: 10px;
+      border-radius: 999px;
+      clip-path: none;
+    }
+
+    .department-track .department-body {
+      inset: 19px 6px 5px;
+      border-radius: 999px 999px 6px 6px;
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.45) 0 2px, transparent 2px 12px),
+        linear-gradient(180deg, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), rgba(255, 255, 255, 0.04));
+    }
+
+    .department-aquatics .department-roof {
+      inset: 5px 6px auto;
+      height: 14px;
+      clip-path: polygon(0 70%, 16% 35%, 32% 70%, 48% 35%, 64% 70%, 80% 35%, 100% 70%, 100% 100%, 0 100%);
+      border-radius: 0;
+    }
+
+    .department-aquatics .department-body {
+      background:
+        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0 4px, transparent 4px 10px),
+        linear-gradient(180deg, color-mix(in srgb, var(--accent, var(--teal)) 22%, transparent), rgba(255, 255, 255, 0.04));
+    }
+
+    .department-cycling .department-building::before {
+      left: 8px;
+      bottom: 7px;
+      width: 25px;
+      height: 25px;
+      border-radius: 999px;
+      border: 3px solid color-mix(in srgb, var(--accent, var(--teal)) 62%, white);
+      box-shadow: 32px 0 0 -3px transparent, 32px 0 0 0 color-mix(in srgb, var(--accent, var(--teal)) 42%, white);
+      opacity: 0.65;
+    }
+
+    .department-cycling .department-body {
+      inset: 14px 10px 9px;
+      border-radius: 999px 999px 4px 4px;
+    }
+
+    .department-soccer .department-roof {
+      inset: 4px 8px auto;
+      height: 13px;
+      border-radius: 2px;
+      clip-path: polygon(0 100%, 16% 0, 84% 0, 100% 100%);
+    }
+
+    .department-soccer .department-building::before,
+    .department-soccer .department-building::after {
+      top: 6px;
+      width: 4px;
+      height: 31px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .department-soccer .department-building::before {
+      left: 5px;
+    }
+
+    .department-soccer .department-building::after {
+      right: 5px;
     }
 
     .department-status {
@@ -970,6 +1110,14 @@
       box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, var(--teal)) 10%, transparent);
     }
 
+    .profile-orb .academy-icon {
+      position: relative;
+      z-index: 2;
+      width: 23px;
+      height: 23px;
+      stroke-width: 2;
+    }
+
     .profile-orb::after {
       content: "";
       position: absolute;
@@ -990,6 +1138,55 @@
       background:
         radial-gradient(circle at 90% 0, color-mix(in srgb, var(--accent, var(--gold)) 18%, transparent), transparent 74px),
         linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .coach-card {
+      border-radius: 6px 12px 6px 6px;
+      background:
+        radial-gradient(circle at 88% 0, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), transparent 86px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(12, 17, 29, 0.98));
+    }
+
+    .coach-card::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      width: 86px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(ellipse at center, color-mix(in srgb, var(--accent, var(--teal)) 17%, transparent), transparent 70%);
+      pointer-events: none;
+    }
+
+    .competition-card {
+      border-radius: 6px 14px 6px 14px;
+    }
+
+    .event-ticket {
+      border-style: solid;
+      background:
+        radial-gradient(circle at left 50%, rgba(7, 10, 18, 0.96) 0 12px, transparent 13px),
+        radial-gradient(circle at right 50%, rgba(7, 10, 18, 0.96) 0 12px, transparent 13px),
+        linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--gold)) 14%, transparent), rgba(255, 255, 255, 0.02)),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .event-board {
+      padding: 12px;
+      border: 1px solid color-mix(in srgb, var(--gold) 24%, var(--line));
+      border-radius: 6px 14px 6px 6px;
+      background:
+        linear-gradient(180deg, rgba(247, 201, 72, 0.08), rgba(255, 255, 255, 0.025)),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .passport-card {
+      border-radius: 6px 18px 6px 6px;
+      background:
+        radial-gradient(circle at 90% 6%, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), transparent 90px),
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 9px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(10, 15, 26, 0.98));
     }
 
     .competition-card::after,
@@ -1017,6 +1214,10 @@
       overflow: hidden;
       margin: 2px 0 10px;
       padding: 12px;
+      border-radius: 6px 16px 6px 6px;
+      background:
+        linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(45, 212, 191, 0.06)),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
     }
 
     .drill-card::before {
@@ -1042,18 +1243,46 @@
       min-height: 68px;
       padding: 10px;
       overflow: hidden;
+      border-radius: 5px 14px 5px 5px;
       background: linear-gradient(135deg, color-mix(in srgb, var(--academy-accent) 78%, #1d4ed8), color-mix(in srgb, var(--academy-accent-2) 76%, #13b8a6));
       color: white;
       box-shadow: 0 16px 30px rgba(19, 184, 166, 0.2);
     }
 
+    .drill-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 18px);
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .drill-button::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
     .drill-button strong {
+      position: relative;
+      z-index: 1;
       display: block;
       font-size: 1.15rem;
       letter-spacing: 0;
     }
 
     .drill-button span {
+      position: relative;
+      z-index: 1;
       display: block;
       margin-top: 4px;
       color: rgba(255, 255, 255, 0.86);
@@ -1216,6 +1445,391 @@
       background-size: 180% 100%;
       transition: width 240ms ease;
       animation: missionProgressFlow 3800ms linear infinite;
+    }
+
+    .welcome-mission-card {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      border-radius: 6px 16px 6px 6px;
+      background:
+        radial-gradient(circle at 92% 6%, color-mix(in srgb, var(--academy-accent) 28%, transparent), transparent 96px),
+        linear-gradient(145deg, rgba(25, 35, 56, 0.98), rgba(8, 13, 25, 0.98));
+      border-color: color-mix(in srgb, var(--academy-accent) 28%, var(--line));
+      animation: missionBreath 6800ms ease-in-out infinite;
+    }
+
+    .welcome-mission-card::before {
+      width: 6px;
+      background: linear-gradient(180deg, var(--academy-accent), var(--gold), var(--academy-accent-2));
+    }
+
+    .welcome-mission-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 12px 10px;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--academy-accent) 62%, white), transparent);
+      opacity: 0.46;
+      pointer-events: none;
+    }
+
+    .ceremony-banner,
+    .ceremony-action-board,
+    .mission-board {
+      position: relative;
+      z-index: 1;
+      margin: 12px;
+    }
+
+    .ceremony-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 0;
+      padding: 12px;
+      border-radius: 5px 14px 5px 5px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--academy-accent) 18%, transparent), rgba(255, 255, 255, 0.035)),
+        rgba(255, 255, 255, 0.035);
+      border: 1px solid color-mix(in srgb, var(--academy-accent) 22%, var(--line));
+    }
+
+    .ceremony-kicker {
+      color: color-mix(in srgb, var(--academy-accent) 72%, white);
+      font-size: 0.62rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .ceremony-title {
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 1.24rem;
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .ceremony-copy {
+      margin-top: 5px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 740;
+      line-height: 1.34;
+    }
+
+    .ceremony-seal {
+      display: grid;
+      place-items: center;
+      min-width: 66px;
+      min-height: 66px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--academy-accent) 36%, rgba(255, 255, 255, 0.18));
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.22), transparent 18px),
+        color-mix(in srgb, var(--academy-accent) 16%, rgba(255, 255, 255, 0.04));
+      box-shadow:
+        inset 0 0 24px rgba(255, 255, 255, 0.04),
+        0 0 0 5px color-mix(in srgb, var(--academy-accent) 10%, transparent);
+    }
+
+    .ceremony-seal .academy-crest {
+      width: 46px;
+      height: 46px;
+    }
+
+    .ceremony-action-board {
+      display: grid;
+      gap: 9px;
+      padding: 10px;
+      border-radius: 5px 12px 5px 5px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--academy-accent) 12%, transparent), transparent),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .ceremony-program {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .ceremony-step-title {
+      color: var(--text);
+      font-size: 0.96rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .ceremony-step-note {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 740;
+      line-height: 1.32;
+    }
+
+    .ceremony-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .ceremony-step {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+      padding: 6px;
+      border-radius: 5px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .ceremony-step.done {
+      border-color: rgba(74, 222, 128, 0.24);
+      background: rgba(74, 222, 128, 0.07);
+    }
+
+    .ceremony-step.current {
+      border-color: color-mix(in srgb, var(--academy-accent) 38%, var(--line));
+      background: color-mix(in srgb, var(--academy-accent) 10%, rgba(255, 255, 255, 0.035));
+    }
+
+    .ceremony-step-index {
+      color: color-mix(in srgb, var(--academy-accent) 70%, white);
+      font-size: 0.62rem;
+      font-weight: 950;
+    }
+
+    .ceremony-step-label {
+      overflow: hidden;
+      color: var(--soft);
+      font-size: 0.68rem;
+      font-weight: 820;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .compact-identity .crest-picker-row {
+      grid-template-columns: auto 1fr;
+    }
+
+    .identity-details {
+      border-radius: 6px;
+      border: 1px dashed color-mix(in srgb, var(--academy-accent) 34%, var(--line));
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .identity-details summary {
+      cursor: pointer;
+      min-height: 38px;
+      padding: 10px;
+      color: color-mix(in srgb, var(--academy-accent) 68%, white);
+      font-size: 0.72rem;
+      font-weight: 900;
+      list-style: none;
+      text-transform: uppercase;
+    }
+
+    .identity-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .identity-details summary::after {
+      content: "Open";
+      float: right;
+      color: var(--muted);
+      font-size: 0.66rem;
+    }
+
+    .identity-details[open] summary::after {
+      content: "Close";
+    }
+
+    .identity-details .identity-form {
+      padding: 0 10px 10px;
+    }
+
+    .ceremony-path-details {
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .ceremony-path-details summary {
+      cursor: pointer;
+      min-height: 34px;
+      padding: 8px 10px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 900;
+      list-style: none;
+      text-transform: uppercase;
+    }
+
+    .ceremony-path-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .ceremony-path-details summary::after {
+      content: "Show";
+      float: right;
+      color: color-mix(in srgb, var(--academy-accent) 64%, white);
+      font-size: 0.64rem;
+    }
+
+    .ceremony-path-details[open] summary::after {
+      content: "Hide";
+    }
+
+    .ceremony-path-details .ceremony-steps {
+      padding: 0 8px 8px;
+    }
+
+    .ceremony-drill-button {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid color-mix(in srgb, var(--academy-accent) 36%, rgba(255, 255, 255, 0.18));
+      border-radius: 6px;
+      color: var(--text);
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--academy-accent) 34%, var(--primary)), color-mix(in srgb, var(--academy-accent-2) 42%, var(--teal)));
+      box-shadow: 0 10px 28px color-mix(in srgb, var(--academy-accent) 16%, transparent);
+    }
+
+    .ceremony-drill-button span {
+      overflow: hidden;
+      font-weight: 950;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ceremony-drill-button strong {
+      font-size: 0.78rem;
+    }
+
+    .mission-board {
+      display: grid;
+      gap: 8px;
+      margin-top: 0;
+      padding: 10px;
+      border-radius: 5px 5px 14px 5px;
+      border: 1px solid color-mix(in srgb, var(--gold) 22%, var(--line));
+      background:
+        linear-gradient(135deg, rgba(247, 201, 72, 0.08), transparent 62%),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .orientation-card {
+      display: grid;
+      gap: 10px;
+      background:
+        radial-gradient(circle at 90% 0, color-mix(in srgb, var(--academy-accent) 18%, transparent), transparent 78px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .orientation-card.complete {
+      border-color: rgba(74, 222, 128, 0.32);
+      background:
+        radial-gradient(circle at 88% 0, rgba(74, 222, 128, 0.16), transparent 80px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .orientation-copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .orientation-title {
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1.15;
+    }
+
+    .orientation-note {
+      color: var(--soft);
+      font-size: 0.8rem;
+      font-weight: 720;
+      line-height: 1.35;
+    }
+
+    .orientation-checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .orientation-step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 7px;
+      align-items: center;
+      min-width: 0;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .orientation-step.done {
+      border-color: rgba(74, 222, 128, 0.25);
+      background: rgba(74, 222, 128, 0.08);
+    }
+
+    .orientation-step .goal-check {
+      width: 22px;
+      height: 22px;
+      font-size: 0.66rem;
+    }
+
+    .orientation-step.done .goal-check {
+      color: #04110a;
+      background: var(--green);
+      border-color: transparent;
+    }
+
+    .orientation-step-title {
+      overflow: hidden;
+      color: var(--soft);
+      font-size: 0.7rem;
+      font-weight: 850;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .orientation-identity {
+      display: grid;
+      gap: 9px;
+      padding: 9px;
+      border: 1px solid color-mix(in srgb, var(--academy-accent) 24%, var(--line));
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .orientation-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .orientation-actions .small-btn {
+      min-height: 42px;
     }
 
     .recommendation-card {
@@ -1640,6 +2254,49 @@
       animation: flagWave 3200ms ease-in-out infinite;
     }
 
+    .campus-offices .building-roof {
+      inset-inline: 20px;
+      clip-path: polygon(0 100%, 12% 28%, 50% 0, 88% 28%, 100% 100%);
+    }
+
+    .campus-offices .building-wing {
+      width: 18px;
+      border-radius: 4px;
+    }
+
+    .campus-events .building-body {
+      border-radius: 4px 4px 12px 12px;
+    }
+
+    .campus-events .campus-building::before,
+    .campus-events .campus-building::after {
+      content: "";
+      position: absolute;
+      top: 31px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(7, 10, 18, 0.72);
+      z-index: 2;
+    }
+
+    .campus-events .campus-building::before {
+      left: 10px;
+    }
+
+    .campus-events .campus-building::after {
+      right: 10px;
+    }
+
+    .campus-world .building-body {
+      border-radius: 999px 999px 5px 5px;
+    }
+
+    .campus-world .building-door {
+      width: 18px;
+      border-radius: 999px 999px 2px 2px;
+    }
+
     .stage-2 .building-banner,
     .stage-3 .building-banner {
       display: block;
@@ -1660,6 +2317,12 @@
       box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, var(--teal)) 10%, transparent);
       font-size: 0.98rem;
       line-height: 1;
+    }
+
+    .campus-mark .academy-icon {
+      width: 17px;
+      height: 17px;
+      stroke-width: 2;
     }
 
     .campus-level {
@@ -2113,6 +2776,18 @@
       opacity: 0.62;
     }
 
+    .click-program-row.current {
+      border-color: color-mix(in srgb, var(--program, var(--teal)) 38%, var(--line));
+      background: color-mix(in srgb, var(--program, var(--teal)) 11%, rgba(255, 255, 255, 0.045));
+    }
+
+    .click-program-actions {
+      display: grid;
+      justify-items: end;
+      gap: 6px;
+      min-width: 92px;
+    }
+
     .upgrade-dot {
       width: 11px;
       height: 11px;
@@ -2137,6 +2812,79 @@
       color: var(--muted);
       font-size: 0.7rem;
       line-height: 1.25;
+    }
+
+    .coach-tier-row {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0 2px;
+    }
+
+    .coach-tier-meta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      color: var(--soft);
+      font-size: 0.74rem;
+      font-weight: 850;
+    }
+
+    .competition-result-card {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 92% 0, color-mix(in srgb, var(--accent, var(--gold)) 22%, transparent), transparent 82px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .competition-result-card.win {
+      border-color: rgba(74, 222, 128, 0.3);
+    }
+
+    .competition-result-card.participation {
+      border-color: rgba(247, 201, 72, 0.26);
+    }
+
+    .result-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 9px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid var(--line);
+    }
+
+    .result-outcome {
+      color: var(--text);
+      font-size: 0.94rem;
+      font-weight: 950;
+      line-height: 1.15;
+    }
+
+    .result-context {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 760;
+    }
+
+    .result-strength {
+      display: grid;
+      gap: 5px;
+    }
+
+    .guide-highlight {
+      position: relative;
+      border-color: color-mix(in srgb, var(--accent, var(--academy-accent)) 56%, rgba(255, 255, 255, 0.24)) !important;
+      box-shadow:
+        var(--shadow),
+        0 0 0 3px color-mix(in srgb, var(--accent, var(--academy-accent)) 22%, transparent),
+        0 0 24px color-mix(in srgb, var(--accent, var(--academy-accent)) 18%, transparent);
+    }
+
+    .guide-highlight::before {
+      opacity: 0.82;
     }
 
     .pinned-drill {
@@ -2390,6 +3138,40 @@
         grid-template-columns: 1fr;
       }
 
+      .ceremony-banner,
+      .ceremony-program {
+        grid-template-columns: 1fr;
+      }
+
+      .ceremony-seal {
+        justify-self: start;
+        min-width: 58px;
+        min-height: 58px;
+      }
+
+      .ceremony-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .orientation-checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .click-program-row {
+        grid-template-columns: auto 1fr;
+      }
+
+      .click-program-actions {
+        grid-column: 1 / -1;
+        justify-items: stretch;
+        min-width: 0;
+      }
+
+      .coach-tier-meta,
+      .result-banner {
+        grid-template-columns: 1fr;
+      }
+
       .hub-card {
         min-height: 134px;
       }
@@ -2419,7 +3201,7 @@
     (() => {
       "use strict";
 
-      const SAVE_VERSION = 7;
+      const SAVE_VERSION = 8;
       const STORAGE_KEY = "elite_sports_academy_save_v1";
       const SAVE_INTERVAL_MS = 10000;
       const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
@@ -2616,6 +3398,14 @@
         }
       ];
 
+      const COACH_TIERS = [
+        { min: 0, name: "Unrecruited", label: "Scout", nextAt: 1 },
+        { min: 1, name: "Junior", label: "Junior Coach", nextAt: 4 },
+        { min: 4, name: "Senior", label: "Senior Coach", nextAt: 8 },
+        { min: 8, name: "Elite", label: "Elite Coach", nextAt: 12 },
+        { min: 12, name: "Olympic", label: "Olympic Coach", nextAt: null }
+      ];
+
       const FACILITIES = [
         {
           id: "track",
@@ -2684,6 +3474,7 @@
           id: "sprint",
           name: "Sprint Coach",
           specialty: "Explosive starts",
+          path: "Track Power Path",
           baseCost: 150,
           growth: 2.15,
           maxLevel: 12,
@@ -2698,6 +3489,7 @@
           id: "pool",
           name: "Pool Coach",
           specialty: "Stroke mechanics",
+          path: "Aquatics Technique Path",
           baseCost: 400,
           growth: 2.25,
           maxLevel: 12,
@@ -2712,6 +3504,7 @@
           id: "endurance",
           name: "Endurance Coach",
           specialty: "Race stamina",
+          path: "Endurance Performance Path",
           baseCost: 900,
           growth: 2.35,
           maxLevel: 12,
@@ -2899,11 +3692,11 @@
       };
 
       const TABS = [
-        { id: "home", label: "Home", icon: "HM" },
-        { id: "sports", label: "Sports", icon: "SP" },
-        { id: "academy", label: "Academy", icon: "AC" },
-        { id: "events", label: "Competitions", icon: "CP" },
-        { id: "world", label: "World", icon: "WT" }
+        { id: "home", label: "Home", icon: "home" },
+        { id: "sports", label: "Sports", icon: "sports" },
+        { id: "academy", label: "Academy", icon: "academy" },
+        { id: "events", label: "Competitions", icon: "events" },
+        { id: "world", label: "World", icon: "world" }
       ];
 
       let state = createDefaultState();
@@ -2912,6 +3705,7 @@
       let worldHeaderExpanded = false;
       let missionExpanded = false;
       let activeChapterModalCountryId = "";
+      let activeGuideTarget = null;
 
       function now() {
         return Date.now();
@@ -2924,6 +3718,18 @@
           crestId: "shield",
           themeId: "blue",
           foundedAt
+        };
+      }
+
+      function defaultOnboardingState() {
+        return {
+          completed: false,
+          dismissed: false,
+          introSeen: false,
+          identityConfirmed: false,
+          chapterReviewed: false,
+          worldTourViewed: false,
+          firstCompetitionBriefed: false
         };
       }
 
@@ -2956,6 +3762,7 @@
           medals: 0,
           reputation: 0,
           academy: defaultAcademyIdentity(current),
+          onboarding: defaultOnboardingState(),
           currentCountryId: "usa",
           unlockedCountryIds: ["usa"],
           completedCountryIds: [],
@@ -2971,6 +3778,7 @@
           eventBonusEnd: 0,
           nextEventTime: current + randomBetween(EVENT_MIN_MS, EVENT_MAX_MS),
           activeCompetition: null,
+          lastCompetitionResult: null,
           nextCompetitionTime: current + 45000,
           moraleBoostEnd: 0,
           tutorialSeen: false,
@@ -3020,6 +3828,7 @@
         s.medals = Math.max(0, Math.floor(cleanNumber(raw.medals, 0)));
         s.reputation = Math.max(0, Math.floor(cleanNumber(raw.reputation, 0)));
         s.academy = normalizeAcademyIdentity(raw.academy, base.academy);
+        s.onboarding = normalizeOnboarding(raw.onboarding, raw);
         s.lastSave = cleanNumber(raw.lastSave, base.lastSave);
         s.lastTick = now();
         s.eventBonusEnd = cleanNumber(raw.eventBonusEnd, 0);
@@ -3106,6 +3915,7 @@
           const expiresAt = cleanNumber(raw.activeCompetition.expiresAt, 0);
           if (comp && expiresAt > now()) s.activeCompetition = { id: comp.id, expiresAt };
         }
+        s.lastCompetitionResult = normalizeCompetitionResult(raw.lastCompetitionResult);
 
         if (s.nextEventTime < now() - 1000) {
           s.nextEventTime = now() + randomBetween(EVENT_MIN_MS, EVENT_MAX_MS);
@@ -3172,6 +3982,9 @@
         }
         if (version < 7) {
           migrated.academy = normalizeAcademyIdentity(migrated.academy, defaultAcademyIdentity(cleanNumber(migrated.runStart, now())));
+        }
+        if (version < 8) {
+          migrated.onboarding = normalizeOnboarding(migrated.onboarding, migrated);
         }
         migrated.saveVersion = SAVE_VERSION;
         return migrated;
@@ -3265,6 +4078,50 @@
         };
       }
 
+      function normalizeOnboarding(raw, rawSave = {}) {
+        const legacySeen = Boolean(rawSave && rawSave.tutorialSeen);
+        const saved = raw && typeof raw === "object" ? raw : null;
+        const base = defaultOnboardingState();
+        if (!saved && legacySeen) {
+          return {
+            ...base,
+            completed: true,
+            dismissed: true,
+            introSeen: true,
+            identityConfirmed: true,
+            chapterReviewed: true,
+            worldTourViewed: true,
+            firstCompetitionBriefed: true
+          };
+        }
+        const normalized = { ...base };
+        if (!saved && rawSave && typeof rawSave.academy === "object") normalized.identityConfirmed = true;
+        if (saved) {
+          Object.keys(base).forEach(key => {
+            normalized[key] = typeof saved[key] === "boolean" ? saved[key] : base[key];
+          });
+        }
+        return normalized;
+      }
+
+      function normalizeCompetitionResult(raw) {
+        if (!raw || typeof raw !== "object") return null;
+        const comp = getCompetition(raw.competitionId);
+        if (!comp) return null;
+        return {
+          competitionId: comp.id,
+          name: String(raw.name || comp.name),
+          type: String(raw.type || competitionTypeLabel(comp)),
+          won: Boolean(raw.won),
+          outcome: String(raw.outcome || (raw.won ? "Win" : "Participation Reward")),
+          reward: Math.max(0, cleanNumber(raw.reward, 0)),
+          chance: clamp(cleanNumber(raw.chance, 0), 0, 1),
+          power: Math.max(0, cleanNumber(raw.power, 0)),
+          targetPower: Math.max(0, cleanNumber(raw.targetPower, comp.targetPower)),
+          timestamp: cleanNumber(raw.timestamp, now())
+        };
+      }
+
       function academyTheme() {
         return ACADEMY_THEMES.find(theme => theme.id === state.academy.themeId) || ACADEMY_THEMES[0];
       }
@@ -3296,6 +4153,26 @@
           "\"": "&quot;",
           "'": "&#39;"
         }[char]));
+      }
+
+      function academyIcon(type) {
+        const icons = {
+          home: `<path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10.5V20h11v-9.5"/><path d="M10 20v-5h4v5"/>`,
+          sports: `<path d="M4 18c3-5 7-8 16-8"/><path d="M4 14c4-3 8-5 16-5"/><path d="M7 20h10"/><path d="M8 7h8"/>`,
+          academy: `<path d="M5 9l7-4 7 4-7 4-7-4Z"/><path d="M7 11v4c2.4 2 7.6 2 10 0v-4"/><path d="M19 10v5"/>`,
+          events: `<path d="M7 20h10"/><path d="M9 20v-4"/><path d="M15 20v-4"/><path d="M7 5h10v4a5 5 0 0 1-10 0V5Z"/><path d="M7 7H4v2a3 3 0 0 0 3 3"/><path d="M17 7h3v2a3 3 0 0 1-3 3"/>`,
+          world: `<circle cx="12" cy="12" r="8"/><path d="M12 4c2 2.1 3 4.7 3 8s-1 5.9-3 8"/><path d="M12 4c-2 2.1-3 4.7-3 8s1 5.9 3 8"/><path d="M4.5 12h15"/>`,
+          track: `<path d="M4 18c4-7 9-10 16-10"/><path d="M4 14c5-4 10-6 16-6"/><path d="M5 20h14"/>`,
+          aquatics: `<path d="M4 10c2 0 2-1.4 4-1.4s2 1.4 4 1.4 2-1.4 4-1.4 2 1.4 4 1.4"/><path d="M4 15c2 0 2-1.4 4-1.4s2 1.4 4 1.4 2-1.4 4-1.4 2 1.4 4 1.4"/><path d="M6 19h12"/>`,
+          cycling: `<circle cx="7" cy="16" r="3"/><circle cx="17" cy="16" r="3"/><path d="M7 16l4-7 3 7H7Z"/><path d="M11 9h3"/><path d="M13 7h3"/>`,
+          soccer: `<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 6v12"/><circle cx="12" cy="12" r="2.5"/><path d="M4 10h3v4H4"/><path d="M20 10h-3v4h3"/>`,
+          coach: `<path d="M7 8h10"/><path d="M7 12h7"/><path d="M7 16h5"/><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 4.5V3h6v1.5"/>`,
+          athlete: `<circle cx="12" cy="6.5" r="2.5"/><path d="M8 21v-5l4-3 4 3v5"/><path d="M7 12l5-3 5 3"/>`,
+          ticket: `<path d="M5 7h14v10H5z"/><path d="M8 7v10"/><path d="M11 10h5"/><path d="M11 14h4"/>`,
+          whistle: `<path d="M6 14a5 5 0 1 0 5-5H8l-2 5Z"/><path d="M11 9l6-4"/><path d="M16 5l2 2"/>`
+        };
+        const body = icons[type] || icons.home;
+        return `<svg class="academy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${body}</svg>`;
       }
 
       function loadState() {
@@ -3539,6 +4416,29 @@
         return lockedCandidate;
       }
 
+      function unlockedClickUpgradeChoices() {
+        return CONTENT.clickUpgrades.filter(upgrade => {
+          const level = state.clickUpgrades[upgrade.id].level;
+          return level < upgrade.maxLevel && clickUpgradeUnlocked(upgrade);
+        });
+      }
+
+      function recommendedClickUpgradeChoice() {
+        const choices = unlockedClickUpgradeChoices();
+        const affordable = choices.filter(upgrade => state.tp >= clickUpgradeCost(upgrade.id));
+        if (affordable.length) {
+          return affordable.sort((a, b) => clickUpgradeCost(a.id) - clickUpgradeCost(b.id))[0];
+        }
+        return choices[0] || nextClickUpgrade();
+      }
+
+      function nextLockedClickUpgrade() {
+        return CONTENT.clickUpgrades.find(upgrade => {
+          const level = state.clickUpgrades[upgrade.id].level;
+          return level < upgrade.maxLevel && !clickUpgradeUnlocked(upgrade);
+        }) || null;
+      }
+
       function clickUpgradeCost(id) {
         const upgrade = getClickUpgrade(id);
         const level = state.clickUpgrades[id].level;
@@ -3580,11 +4480,11 @@
           const playableNext = nextPlayableCountry(country);
           return {
             title: `Claim ${country.name} Chapter Reward`,
-            note: `${country.name} is complete. Claim the reward to unlock the next World Tour destination.`,
+            note: `${country.name} is complete. Open World Tour and claim the reward when you are ready.`,
             reason: "Reward",
-            cta: playableNext ? `Continue to ${playableNext.name}` : next ? `Unlock ${next.name}` : "Claim Chapter Reward",
-            action: "claim-country-reward",
-            dataset: { id: country.id },
+            cta: playableNext ? `Review ${playableNext.name} Unlock` : next ? `Review ${next.name} Unlock` : "Open World Tour",
+            action: "navigate-guide",
+            dataset: { tab: "world", "guide-type": "country", "guide-id": country.id },
             accent: country.accent
           };
         }
@@ -3594,8 +4494,8 @@
             note: `${country.name} is unlocked, but its chapter goals are planned for a later milestone. Use World Tour to review destinations and rewards.`,
             reason: "Tour",
             cta: "Open World Tour",
-            action: "tab",
-            dataset: { tab: "world" },
+            action: "navigate-guide",
+            dataset: { tab: "world", "guide-type": "route", "guide-id": country.id },
             accent: country.accent
           };
         }
@@ -3629,8 +4529,8 @@
           note: "Check the current chapter, future destinations, and long-term academy rewards.",
           reason: "Guide",
           cta: "Open World Tour",
-          action: "tab",
-          dataset: { tab: "world" },
+          action: "navigate-guide",
+          dataset: { tab: "world", "guide-type": "route", "guide-id": state.currentCountryId },
           accent: "var(--teal)"
         };
       }
@@ -3644,11 +4544,11 @@
           if (state.tp >= cost) {
             return {
               title: `Upgrade ${facility.name}`,
-              note: `${facility.short} is level ${level}/${goal.target}. Buy the next level to advance the chapter.`,
+              note: `${facility.short} is level ${level}/${goal.target}. Open Sports Center and buy the next level there.`,
               reason: "Goal",
-              cta: `Buy Level ${level + 1}`,
-              action: "buy-facility",
-              dataset: { id: facility.id, qty: "1" },
+              cta: "Open Sports Center",
+              action: "navigate-guide",
+              dataset: { tab: "sports", "guide-type": "facility", "guide-id": facility.id },
               accent: facility.accent
             };
           }
@@ -3657,8 +4557,8 @@
             note: `${facility.short} needs level ${goal.target}. Next level costs ${fmt(cost)} TP.`,
             reason: "Goal",
             cta: "Open Sports Center",
-            action: "tab",
-            dataset: { tab: "sports" },
+            action: "navigate-guide",
+            dataset: { tab: "sports", "guide-type": "facility", "guide-id": facility.id },
             accent: facility.accent
           };
         }
@@ -3670,8 +4570,8 @@
             note: `${goal.currentLabel}/${goal.targetLabel} wins complete. Watch for the next competition offer and improve team power.`,
             reason: "Goal",
             cta: "Open Competitions",
-            action: "tab",
-            dataset: { tab: "events" },
+            action: "navigate-guide",
+            dataset: { tab: "events", "guide-type": "competition", "guide-id": state.activeCompetition ? state.activeCompetition.id : "" },
             accent: "var(--gold)"
           };
         }
@@ -3684,8 +4584,8 @@
             note: `${goal.currentLabel}/${goal.targetLabel} skill reached. Recruit or train an athlete to complete this chapter goal.`,
             reason: "Technique",
             cta: "Open Academy Offices",
-            action: "tab",
-            dataset: { tab: "academy" },
+            action: "navigate-guide",
+            dataset: { tab: "academy", "guide-type": "athlete", "guide-id": "" },
             accent: "#4ade80"
           };
         }
@@ -3697,9 +4597,9 @@
             title: "Run Session Drill",
             note: `${goal.currentLabel}/${goal.targetLabel} TP earned for this goal. Tapping and passive income both move the chapter forward.`,
             reason: "Goal",
-            cta: "Session Drill",
-            action: "drill",
-            dataset: {},
+            cta: "Focus Session Drill",
+            action: "navigate-guide",
+            dataset: { tab: "home", "guide-type": "drill", "guide-id": "session" },
             accent: "var(--teal)"
           };
         }
@@ -3713,25 +4613,25 @@
           title: comp ? `Enter ${comp.name}` : "Enter Competition",
           note: comp ? `${comp.description} Current win chance: ${Math.round(clamp(0.35 + (competitionPower() - comp.targetPower) / comp.targetPower * 0.28, 0.18, 0.95) * 100)}%.` : "A competition offer is ready.",
           reason: "Event",
-          cta: "Enter Competition",
-          action: "enter-competition",
-          dataset: {},
+          cta: "Open Competition Hall",
+          action: "navigate-guide",
+          dataset: { tab: "events", "guide-type": "competition", "guide-id": comp ? comp.id : "" },
           accent: "var(--gold)"
         };
       }
 
       function nextAffordableClickUpgrade() {
-        const upgrade = nextClickUpgrade();
+        const upgrade = recommendedClickUpgradeChoice();
         if (!upgrade || !clickUpgradeUnlocked(upgrade)) return null;
         const cost = clickUpgradeCost(upgrade.id);
         if (state.tp < cost) return null;
         return {
           title: `Upgrade ${upgrade.name}`,
-          note: `${upgrade.name} increases Session Drill power and passive sync. Next level costs ${fmt(cost)} TP.`,
+          note: `${upgrade.name} increases Session Drill power and passive sync. Open Click Training to choose this or another unlocked drill.`,
           reason: "Power",
-          cta: `Upgrade ${upgrade.name}`,
-          action: "buy-click-upgrade",
-          dataset: { id: upgrade.id },
+          cta: "Open Click Training",
+          action: "navigate-guide",
+          dataset: { tab: "home", "guide-type": "click", "guide-id": "training" },
           accent: upgrade.accent
         };
       }
@@ -3746,11 +4646,11 @@
           if (state.tp < cost) continue;
           return {
             title: `${isNew ? "Recruit" : "Upgrade"} ${coach.name}`,
-            note: `${coach.specialty}. ${isNew ? "Recruiting" : "Upgrading"} this coach improves academy output.`,
+            note: `${coach.specialty}. Open Academy Offices and ${isNew ? "recruit" : "upgrade"} this coach there.`,
             reason: "Staff",
-            cta: isNew ? "Recruit Coach" : "Upgrade Coach",
-            action: "recruit-coach",
-            dataset: { id: coach.id },
+            cta: "Open Academy Offices",
+            action: "navigate-guide",
+            dataset: { tab: "academy", "guide-type": "coach", "guide-id": coach.id },
             accent: "#4ade80"
           };
         }
@@ -3765,11 +4665,11 @@
           if (state.tp < cost) continue;
           return {
             title: `Train ${athlete.name}`,
-            note: `${athlete.name} can improve to skill ${record.skill + 1}.`,
+            note: `${athlete.name} can improve to skill ${record.skill + 1}. Open Academy Offices and train them there.`,
             reason: "Roster",
-            cta: "Train Athlete",
-            action: "train-athlete",
-            dataset: { id: athlete.id },
+            cta: "Open Academy Offices",
+            action: "navigate-guide",
+            dataset: { tab: "academy", "guide-type": "athlete", "guide-id": athlete.id },
             accent: sportAccent(athlete.sportId)
           };
         }
@@ -3778,11 +4678,11 @@
           if (record.recruited || athletesUsed() >= athleteCap() || state.tp < athlete.baseCost) continue;
           return {
             title: `Recruit ${athlete.name}`,
-            note: `${athlete.rarity} ${sportLabel(athlete.sportId, "short")} athlete. ${athlete.bonus(1)}.`,
+            note: `${athlete.rarity} ${sportLabel(athlete.sportId, "short")} athlete. Open Academy Offices and recruit them there.`,
             reason: "Roster",
-            cta: "Recruit Athlete",
-            action: "recruit-athlete",
-            dataset: { id: athlete.id },
+            cta: "Open Academy Offices",
+            action: "navigate-guide",
+            dataset: { tab: "academy", "guide-type": "athlete", "guide-id": athlete.id },
             accent: sportAccent(athlete.sportId)
           };
         }
@@ -3853,6 +4753,22 @@
       function coachCost(id) {
         const coach = getCoach(id);
         return Math.ceil(coach.baseCost * Math.pow(coach.growth, state.coaches[id].level));
+      }
+
+      function coachTier(level) {
+        return COACH_TIERS.reduce((current, tier) => level >= tier.min ? tier : current, COACH_TIERS[0]);
+      }
+
+      function nextCoachTier(level) {
+        return COACH_TIERS.find(tier => tier.min > level) || null;
+      }
+
+      function coachTierProgress(level) {
+        const current = coachTier(level);
+        const next = nextCoachTier(level);
+        if (!next) return 100;
+        const span = Math.max(1, next.min - current.min);
+        return clamp((level - current.min) / span * 100, 0, 100);
       }
 
       function recruitAthlete(id) {
@@ -3990,11 +4906,24 @@
           progress.competitionsWon += 1;
           state.moraleBoostEnd = now() + 15000;
         }
+        state.lastCompetitionResult = {
+          competitionId: comp.id,
+          name: comp.name,
+          type: competitionTypeLabel(comp),
+          won,
+          outcome: won ? "Win" : "Participation Reward",
+          reward,
+          chance,
+          power,
+          targetPower: comp.targetPower,
+          timestamp: now()
+        };
         state.activeCompetition = null;
         state.nextCompetitionTime = now() + randomBetween(85000, 135000);
         toast(`${won ? "Won" : "Entered"} ${comp.name}: +${fmt(reward)} TP${won ? " and 1.5x momentum." : "."}`);
         checkAchievements();
         checkCountryProgress();
+        saveState();
         renderSoon();
       }
 
@@ -4049,6 +4978,7 @@
           medals: state.medals,
           reputation: state.reputation,
           academy: { ...state.academy },
+          onboarding: { ...state.onboarding },
           tutorialSeen: state.tutorialSeen,
           achievements: { ...state.achievements },
           settings: { ...state.settings },
@@ -4066,6 +4996,7 @@
         state.medals = keep.medals;
         state.reputation = keep.reputation;
         state.academy = keep.academy;
+        state.onboarding = keep.onboarding;
         state.tutorialSeen = keep.tutorialSeen;
         state.achievements = keep.achievements;
         state.settings = keep.settings;
@@ -4207,19 +5138,122 @@
       function renderTabs() {
         const tabs = document.getElementById("tabs");
         tabs.innerHTML = TABS.map(tab => {
-          return `<button class="tab-btn ${state.ui.activeTab === tab.id ? "active" : ""}" data-action="tab" data-tab="${tab.id}" aria-label="${tab.label}"><span class="tab-icon">${tab.icon}</span><span>${tab.label}</span></button>`;
+          return `<button class="tab-btn ${state.ui.activeTab === tab.id ? "active" : ""}" data-action="tab" data-tab="${tab.id}" aria-label="${tab.label}"><span class="tab-icon">${academyIcon(tab.icon)}</span><span>${tab.label}</span></button>`;
         }).join("");
       }
 
       function renderHomeTab() {
         return `
-          ${renderAcademyMissionCard()}
+          ${renderWelcomeMissionCard()}
           ${renderDrillCard()}
           ${renderAcademyHubCards()}
           ${renderActivePlayPanel()}
           ${renderRecommendedActionCard()}
           ${renderRewardPreviewCard()}
           ${renderClickTrainingPanel()}
+        `;
+      }
+
+      function renderWelcomeMissionCard() {
+        const country = currentCountry();
+        const progress = countryProgressSummary(country);
+        const next = nextCountry(country);
+        const playableNext = nextPlayableCountry(country);
+        const reward = country.chapterReward || {};
+        const currentGoal = currentMissionGoal(progress);
+        const rewardLabel = reward.label || countryRewardLabel(country);
+        const nextLabel = next ? `${countryFlag(next)} ${next.name}` : "Future destination pending";
+        const showOrientation = onboardingVisible();
+        const steps = showOrientation ? onboardingStepDefinitions() : [];
+        const activeStep = showOrientation ? steps.find(step => !step.complete) : null;
+        const readyToFinish = showOrientation && !activeStep;
+        const ceremonyTitle = "Welcome, Coach.";
+        const ceremonyCopy = showOrientation
+          ? readyToFinish
+            ? "Your academy is ready for open training. The headquarters is yours now."
+            : "This is your academy headquarters. Set the identity, run training, and follow the chapter mission."
+          : `${country.name} is the active World Tour chapter. Run training, improve departments, and move the academy toward its next destination.`;
+        const goals = progress.goals.length
+          ? progress.goals.map(renderMissionGoal).join("")
+          : `<div class="lock-card">Chapter goals for ${country.name} are not active yet. Review the World Tour while the next chapter plan is prepared.</div>`;
+        return `
+          <section>
+            <div class="card welcome-mission-card ${showOrientation ? "orientation-active" : ""}" style="--accent:var(--academy-accent)">
+              <div class="ceremony-banner">
+                <div>
+                  <div class="ceremony-kicker">${countryFlag(country)} ${country.name} Academy Headquarters</div>
+                  <div class="ceremony-title">${ceremonyTitle}</div>
+                  <div class="ceremony-copy">${ceremonyCopy}</div>
+                </div>
+                <div class="ceremony-seal">${renderAcademyCrest()}</div>
+              </div>
+              ${showOrientation ? `
+                <div class="ceremony-action-board">
+                  <div class="ceremony-program">
+                    <div>
+                      <div class="ceremony-step-title">${readyToFinish ? "Opening ceremony complete." : activeStep.title}</div>
+                      <div class="ceremony-step-note">${readyToFinish ? "You know the core loop: train, upgrade, recruit, follow the mission, and travel the World Tour." : activeStep.note}</div>
+                    </div>
+                    <div class="level-token"><span>Chapter</span><strong>${country.short}</strong></div>
+                  </div>
+                  <div class="boost-strip">
+                    <span class="pill">${progress.percent}% chapter</span>
+                    <span class="pill">${next ? `Next ${countryFlag(next)} ${next.name}` : "Next tour pending"}</span>
+                  </div>
+                  <button class="ceremony-drill-button" data-action="drill" aria-label="Session Drill">
+                    <span>Session Drill</span>
+                    <strong>+${fmt(clickReward())} TP</strong>
+                  </button>
+                  ${activeStep && activeStep.id === "identity" ? renderOnboardingIdentityEditor() : ""}
+                  <div class="orientation-actions">
+                    ${readyToFinish
+                      ? `<button class="primary-btn" data-action="finish-onboarding">Finish Orientation</button>`
+                      : renderOnboardingAction(activeStep)}
+                    <button class="small-btn" data-action="skip-onboarding">Skip</button>
+                  </div>
+                  <details class="ceremony-path-details">
+                    <summary>Orientation path</summary>
+                    <div class="ceremony-steps" aria-label="Academy orientation path">
+                      ${steps.map((step, index) => `
+                        <div class="ceremony-step ${step.complete ? "done" : activeStep && activeStep.id === step.id ? "current" : ""}">
+                          <div class="ceremony-step-index">${String(index + 1).padStart(2, "0")}</div>
+                          <div class="ceremony-step-label">${step.label}</div>
+                        </div>
+                      `).join("")}
+                    </div>
+                  </details>
+                </div>
+              ` : ""}
+              <div class="mission-board">
+                <div class="mission-brief">
+                  <div class="mission-brief-head">
+                    <div>
+                      <div class="mission-primary">Current Mission: ${currentGoal.label}</div>
+                      <div class="mission-meta-line">${country.name} Chapter - ${progress.completed}/${progress.total} goals - ${progress.percent}% complete</div>
+                    </div>
+                    <div class="level-token"><span>Progress</span><strong>${progress.percent}%</strong></div>
+                  </div>
+                  <div class="chapter-progress" aria-hidden="true"><div class="chapter-fill" style="width:${progress.percent}%"></div></div>
+                  <div class="mission-reward-line"><span>Reward</span><span>${rewardLabel}. Next: ${nextLabel}.</span></div>
+                  <div class="mission-toggle-row">
+                    <div class="mission-meta-line">${currentGoal.currentLabel} / ${currentGoal.targetLabel}</div>
+                    <button class="small-btn mission-toggle" data-action="toggle-mission" aria-expanded="${missionExpanded}" aria-label="${missionExpanded ? "Collapse" : "Expand"} Academy Mission details">${missionExpanded ? "Less" : "Goals"}</button>
+                  </div>
+                </div>
+                ${missionExpanded ? `
+                  <div class="mission-details">
+                    <div class="boost-strip">
+                      <span class="pill">${country.specialization || country.theme}</span>
+                      ${countryBonusLabels(country).map(label => `<span class="pill good">${label}</span>`).join("")}
+                    </div>
+                    <div class="mission-goals">${goals}</div>
+                    <div class="result-box">Chapter rewards: ${rewardLabel}. ${next ? `Next unlock: ${countryFlag(next)} ${next.name}.` : "Next destination pending."}</div>
+                  </div>
+                ` : ""}
+                ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${playableNext ? `Continue to ${playableNext.name}` : next ? `Unlock ${next.name}` : "Claim Chapter Reward"}</button></div>` : ""}
+              </div>
+            </div>
+          </section>
         `;
       }
 
@@ -4271,6 +5305,196 @@
             </div>
           </section>
         `;
+      }
+
+      function renderOrientationCard() {
+        if (!onboardingVisible()) return "";
+        const country = currentCountry();
+        const progress = countryProgressSummary(country);
+        const steps = onboardingStepDefinitions();
+        const activeStep = steps.find(step => !step.complete);
+        const readyToFinish = !activeStep;
+        const next = nextCountry(country);
+        return `
+          <section>
+            <div class="section-title">
+              <h2>Coach Orientation</h2>
+              <span class="badge ${readyToFinish ? "good" : ""}">${readyToFinish ? "Ready" : "First Run"}</span>
+            </div>
+            <div class="card orientation-card ${readyToFinish ? "complete" : ""}" style="--accent:var(--academy-accent)">
+              <div class="card-head">
+                <div class="orientation-copy">
+                  <div class="orientation-title">${readyToFinish ? "Your academy is ready for open training." : activeStep.title}</div>
+                  <div class="orientation-note">${readyToFinish ? "You know the core loop: train, upgrade, recruit, follow the mission, and travel the World Tour." : activeStep.note}</div>
+                </div>
+                <div class="level-token"><span>Chapter</span><strong>${country.short}</strong></div>
+              </div>
+              <div class="boost-strip">
+                <span class="pill">${countryFlag(country)} ${country.name}</span>
+                <span class="pill">${progress.percent}% chapter</span>
+                <span class="pill">${next ? `Next ${countryFlag(next)} ${next.name}` : "Next tour pending"}</span>
+              </div>
+              ${activeStep && activeStep.id === "identity" ? renderOnboardingIdentityEditor() : ""}
+              <div class="orientation-actions">
+                ${readyToFinish
+                  ? `<button class="primary-btn" data-action="finish-onboarding">Finish Orientation</button>`
+                  : renderOnboardingAction(activeStep)}
+                <button class="small-btn" data-action="skip-onboarding">Skip</button>
+              </div>
+              <div class="orientation-checklist">
+                ${steps.map(step => `
+                  <div class="orientation-step ${step.complete ? "done" : ""}">
+                    <div class="goal-check">${step.complete ? "OK" : ""}</div>
+                    <div class="orientation-step-title">${step.label}</div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderOnboardingIdentityEditor() {
+        return `
+          <div class="orientation-identity compact-identity">
+            <div class="crest-picker-row">
+              ${renderAcademyCrest()}
+              <div>
+                <h3>${escapeHTML(state.academy.name)}</h3>
+                <div class="role">${escapeHTML(state.academy.motto)}</div>
+              </div>
+            </div>
+            <details class="identity-details">
+              <summary>Edit academy identity</summary>
+              ${renderIdentityFields("onboarding")}
+            </details>
+          </div>
+        `;
+      }
+
+      function renderIdentityFields(prefix) {
+        return `
+          <div class="identity-form">
+            <div class="field-grid">
+              <label class="field wide">Academy Name
+                <input id="${prefix}AcademyNameInput" maxlength="32" value="${escapeHTML(state.academy.name)}">
+              </label>
+              <label class="field wide">Academy Motto
+                <input id="${prefix}AcademyMottoInput" maxlength="72" list="${prefix}AcademyMottoPresets" value="${escapeHTML(state.academy.motto)}">
+              </label>
+              <label class="field">Academy Crest
+                <select id="${prefix}AcademyCrestSelect">
+                  ${ACADEMY_CRESTS.map(crest => `<option value="${crest.id}" ${crest.id === state.academy.crestId ? "selected" : ""}>${escapeHTML(crest.name)}</option>`).join("")}
+                </select>
+              </label>
+              <label class="field">Color Theme
+                <select id="${prefix}AcademyThemeSelect">
+                  ${ACADEMY_THEMES.map(theme => `<option value="${theme.id}" ${theme.id === state.academy.themeId ? "selected" : ""}>${escapeHTML(theme.name)}</option>`).join("")}
+                </select>
+              </label>
+            </div>
+            <datalist id="${prefix}AcademyMottoPresets">
+              ${ACADEMY_MOTTO_PRESETS.map(motto => `<option value="${escapeHTML(motto)}"></option>`).join("")}
+            </datalist>
+          </div>
+        `;
+      }
+
+      function renderOnboardingAction(step) {
+        const attrs = Object.entries(step.dataset || {})
+          .map(([key, value]) => `data-${key}="${value}"`)
+          .join(" ");
+        return `<button class="primary-btn" data-action="${step.action}" ${attrs}>${step.cta}</button>`;
+      }
+
+      function onboardingStepDefinitions() {
+        const country = currentCountry();
+        const progress = countryProgressSummary(country);
+        const facilityGoal = progress.goals.find(goal => !goal.complete && goal.type === "facilityLevel");
+        const firstFacility = facilityGoal ? getFacility(facilityGoal.facilityId) : activeFacilities()[0];
+        const facilityCostNow = firstFacility ? facilityCost(firstFacility.id, 1) : 0;
+        const coachAction = nextAffordableCoach();
+        const athleteAction = nextAthleteAction();
+        const next = nextCountry(country);
+
+        return [
+          {
+            id: "identity",
+            label: "Confirm identity",
+            complete: Boolean(state.onboarding.identityConfirmed),
+            title: "This is your academy.",
+            note: "Choose a name, motto, crest, and theme so this feels like your academy from the first session.",
+            cta: "Save Academy Identity",
+            action: "confirm-onboarding-identity"
+          },
+          {
+            id: "drill",
+            label: "Tap Session Drill",
+            complete: state.stats.totalClicks >= 1,
+            title: "Start training with Session Drill.",
+            note: "Session Drill is the heartbeat of the academy. Tap it to earn your first Training Points.",
+            cta: "Run Session Drill",
+            action: "drill"
+          },
+          {
+            id: "facility",
+            label: "Upgrade facility",
+            complete: state.stats.facilitiesBought >= 1,
+            title: firstFacility ? `Build the ${firstFacility.short} program.` : "Build your first facility.",
+            note: firstFacility
+              ? `${firstFacility.name} starts passive TP/sec and supports the current chapter goal. Open Sports Center and buy the next level there.`
+              : "Facilities turn your academy into an automated training center.",
+            cta: firstFacility && state.tp >= facilityCostNow ? "Open Sports Center" : "Run Session Drill",
+            action: firstFacility && state.tp >= facilityCostNow ? "navigate-guide" : "drill",
+            dataset: firstFacility && state.tp >= facilityCostNow ? { tab: "sports", "guide-type": "facility", "guide-id": firstFacility.id } : {}
+          },
+          {
+            id: "coach",
+            label: "Recruit coach",
+            complete: state.stats.coachesRecruited >= 1,
+            title: coachAction ? coachAction.title : "Open your first coach slot.",
+            note: coachAction
+              ? coachAction.note
+              : coachSlotsCap() === 0
+                ? "Facilities unlock coach slots. Track level 5 is the quickest path to your first staff hire."
+                : "Save TP for your first coach so training output and Session Drill power start scaling.",
+            cta: coachAction ? coachAction.cta : "Open Sports Center",
+            action: coachAction ? coachAction.action : "navigate-guide",
+            dataset: coachAction ? coachAction.dataset : { tab: "sports", "guide-type": "facility", "guide-id": firstFacility ? firstFacility.id : "" }
+          },
+          {
+            id: "athlete",
+            label: "Recruit athlete",
+            complete: state.stats.athletesRecruited >= 1,
+            title: athleteAction ? athleteAction.title : "Bring in your first athlete.",
+            note: athleteAction
+              ? athleteAction.note
+              : athleteCap() === 0
+                ? "Buying any facility creates athlete capacity. Athletes make the academy feel alive and improve sport output."
+                : "Save TP for your first athlete, then assign them to a matching facility.",
+            cta: athleteAction ? athleteAction.cta : athleteCap() === 0 ? "Open Sports Center" : "Open Academy Offices",
+            action: athleteAction ? athleteAction.action : "navigate-guide",
+            dataset: athleteAction ? athleteAction.dataset : athleteCap() === 0 ? { tab: "sports", "guide-type": "facility", "guide-id": firstFacility ? firstFacility.id : "" } : { tab: "academy", "guide-type": "athlete", "guide-id": "" }
+          },
+          {
+            id: "mission",
+            label: "Review mission",
+            complete: Boolean(state.onboarding.chapterReviewed),
+            title: "Read the chapter goals.",
+            note: `${country.name} is your current World Tour chapter. The Mission Card shows every goal, progress bar, reward, and unlock path.`,
+            cta: "Review Chapter Goals",
+            action: "review-chapter-goals"
+          },
+          {
+            id: "world",
+            label: "View World Tour",
+            complete: Boolean(state.onboarding.worldTourViewed),
+            title: "See where the academy goes next.",
+            note: next ? `The World tab shows completed countries, ${country.name}, locked destinations, and the path toward ${next.name}.` : "The World tab shows your medals, reputation, prestige path, and future destinations.",
+            cta: "View World Tour Path",
+            action: "open-world-tour"
+          }
+        ];
       }
 
       function currentMissionGoal(progress) {
@@ -4341,6 +5565,22 @@
         return `<button class="primary-btn" data-action="${recommendation.action}" ${attrs}>${recommendation.cta}</button>`;
       }
 
+      function guideClass(type, id = "") {
+        if (!activeGuideTarget || activeGuideTarget.type !== type) return "";
+        if (activeGuideTarget.id && id && activeGuideTarget.id !== id) return "";
+        return "guide-highlight";
+      }
+
+      function navigateGuide(tab, type, id = "") {
+        state.ui.activeTab = TABS.some(item => item.id === tab) ? tab : "home";
+        activeGuideTarget = { type, id, createdAt: now() };
+        if (tab === "world") markOnboardingFlag("worldTourViewed");
+        if (tab === "events") markOnboardingFlag("firstCompetitionBriefed");
+        saveState();
+        renderSoon();
+        toast("Coach focus set. Look for the highlighted academy area.");
+      }
+
       function renderAcademyHubCards() {
         const country = currentCountry();
         const progress = countryProgressSummary(country);
@@ -4348,10 +5588,10 @@
         const highestFacility = Math.max(0, ...activeFacilities().map(facility => state.facilities[facility.id].level));
         const staffCount = coachSlotsUsed() + athletesUsed();
         const cards = [
-          { label: "Sports Center", icon: "🏟", note: "Facilities, training output, and academy strength.", signal: signals.sports.label, tone: signals.sports.tone, activity: signals.sports.activity, stage: visualStageFromLevel(highestFacility), level: `Lv ${highestFacility}`, tab: "sports", type: "sports", accent: "#60a5fa" },
-          { label: "Academy Offices", icon: "👥", note: "Coaches, athletes, roster capacity, and development.", signal: signals.academy.label, tone: signals.academy.tone, activity: signals.academy.activity, stage: visualStageFromStaff(staffCount), level: `Staff ${staffCount}`, tab: "academy", type: "offices", accent: "#4ade80" },
-          { label: "Competition Hall", icon: "🏆", note: "Events, chapter wins, and today's prizes.", signal: signals.competitions.label, tone: signals.competitions.tone, activity: signals.competitions.activity, stage: visualStageFromWins(state.stats.competitionsWon), level: `Wins ${state.stats.competitionsWon}`, tab: "events", type: "events", accent: "#f7c948" },
-          { label: "World Tour Gate", icon: "🌎", note: "Route progress, countries, rewards, and destination path.", signal: signals.world.label, tone: signals.world.tone, activity: signals.world.activity, stage: visualStageFromPercent(progress.percent), level: `${progress.percent}%`, tab: "world", type: "world", accent: "#2dd4bf" }
+          { label: "Sports Center", icon: "sports", note: "Facilities, training output, and academy strength.", signal: signals.sports.label, tone: signals.sports.tone, activity: signals.sports.activity, stage: visualStageFromLevel(highestFacility), level: `Lv ${highestFacility}`, tab: "sports", type: "sports", accent: "#60a5fa" },
+          { label: "Academy Offices", icon: "academy", note: "Coaches, athletes, roster capacity, and development.", signal: signals.academy.label, tone: signals.academy.tone, activity: signals.academy.activity, stage: visualStageFromStaff(staffCount), level: `Staff ${staffCount}`, tab: "academy", type: "offices", accent: "#4ade80" },
+          { label: "Competition Hall", icon: "events", note: "Events, chapter wins, and today's prizes.", signal: signals.competitions.label, tone: signals.competitions.tone, activity: signals.competitions.activity, stage: visualStageFromWins(state.stats.competitionsWon), level: `Wins ${state.stats.competitionsWon}`, tab: "events", type: "events", accent: "#f7c948" },
+          { label: "World Tour Gate", icon: "world", note: "Route progress, countries, rewards, and destination path.", signal: signals.world.label, tone: signals.world.tone, activity: signals.world.activity, stage: visualStageFromPercent(progress.percent), level: `${progress.percent}%`, tab: "world", type: "world", accent: "#2dd4bf" }
         ];
         return `
           <section>
@@ -4373,7 +5613,7 @@
         return `
           <button class="hub-card campus-${card.type} status-${card.tone} activity-${card.activity} stage-${card.stage}" style="--accent:${card.accent}" data-action="tab" data-tab="${card.tab}" aria-label="${card.label}. ${card.signal}. ${card.level}.">
             <span class="campus-topline">
-              <span class="campus-mark" aria-hidden="true">${card.icon}</span>
+              <span class="campus-mark" aria-hidden="true">${academyIcon(card.icon)}</span>
               <span></span>
               <span class="campus-level">${card.level}</span>
             </span>
@@ -4470,7 +5710,7 @@
         const program = activeClickProgram();
         const programLevel = state.clickUpgrades[program.id].level;
         return `
-          <section class="drill-card">
+          <section class="drill-card ${guideClass("drill", "session")}">
             <div class="drill-grid">
               <button class="drill-button" data-action="drill" aria-label="Session Drill">
                 <strong>Session Drill</strong>
@@ -4491,34 +5731,34 @@
       }
 
       function renderClickTrainingPanel() {
-        const next = nextClickUpgrade();
         const active = activeClickProgram();
-        const cost = next ? clickUpgradeCost(next.id) : 0;
-        const nextLevel = next ? state.clickUpgrades[next.id].level : 0;
-        const unlocked = next ? clickUpgradeUnlocked(next) : false;
-        const canBuy = next && unlocked && state.tp >= cost;
+        const choice = recommendedClickUpgradeChoice();
+        const locked = nextLockedClickUpgrade();
+        const choiceCost = choice && clickUpgradeUnlocked(choice) ? clickUpgradeCost(choice.id) : 0;
+        const choiceLabel = choice && clickUpgradeUnlocked(choice) ? `${choice.name} - ${fmt(choiceCost)} TP` : "No unlocked upgrades";
+        const nextProgramLabel = locked ? `${locked.name} at ${clickUpgradeRequirementLabel(locked)}` : "All programs visible";
         return `
           <section>
             <div class="section-title">
               <h2>Click Training</h2>
               <span class="badge">${active.name}</span>
             </div>
-            <div class="card" style="--accent:${active.accent}">
+            <div class="card ${guideClass("click", "training")}" style="--accent:${active.accent}">
               <div class="card-head">
                 <div>
                   <h3>Session Drill Progression</h3>
-                  <div class="role">Current drill standard, tap value, and passive sync.</div>
+                  <div class="role">Choose any unlocked drill program. Each upgrade increases tap power and passive sync.</div>
                 </div>
                 <div class="level-token"><span>Tap</span><strong>${fmt(clickReward())}</strong></div>
               </div>
               <div class="metric-row">
-                <div class="metric"><b>${fmt(baseClickPower())}</b><span>Base drill</span></div>
-                <div class="metric"><b>${clickPassiveSeconds().toFixed(2)}s</b><span>Passive sync</span></div>
+                <div class="metric"><b>${active.name} L${state.clickUpgrades[active.id].level}</b><span>Current drill</span></div>
+                <div class="metric"><b>${choice ? choiceLabel : "Maxed"}</b><span>Best available upgrade</span></div>
+                <div class="metric"><b>${nextProgramLabel}</b><span>Next unlock</span></div>
+                <div class="metric"><b>+Power +Sync</b><span>Every upgrade</span></div>
               </div>
+              <div class="result-box">Upgrading now adds that program's base click power and passive-income sync to every Session Drill. Later programs can be upgraded as soon as their unlock level is reached.</div>
               <div class="click-ladder">${CONTENT.clickUpgrades.map(renderClickProgramRow).join("")}</div>
-              <div class="button-row" style="grid-template-columns: 1fr;">
-                ${next ? `<button class="primary-btn" data-action="buy-click-upgrade" data-id="${next.id}" ${canBuy ? "" : "disabled"}>${unlocked ? `Upgrade ${next.name} L${nextLevel + 1} - ${fmt(cost)} TP` : `Unlock ${next.name}: ${clickUpgradeRequirementLabel(next)}`}</button>` : `<button class="primary-btn" disabled>All Drill Programs Maxed</button>`}
-              </div>
             </div>
           </section>
         `;
@@ -4528,16 +5768,57 @@
         const level = state.clickUpgrades[upgrade.id].level;
         const unlocked = clickUpgradeUnlocked(upgrade);
         const maxed = level >= upgrade.maxLevel;
+        const cost = !maxed && unlocked ? clickUpgradeCost(upgrade.id) : 0;
+        const canBuy = unlocked && !maxed && state.tp >= cost;
+        const current = activeClickProgram().id === upgrade.id;
         const status = maxed ? "Max" : unlocked ? `L${level}/${upgrade.maxLevel}` : "Locked";
         return `
-          <div class="click-program-row ${unlocked ? "" : "locked"}" style="--program:${upgrade.accent}">
+          <div class="click-program-row ${unlocked ? "" : "locked"} ${current ? "current" : ""}" style="--program:${upgrade.accent}">
             <span class="upgrade-dot" aria-hidden="true"></span>
             <div class="program-copy">
-              <div class="program-name">${upgrade.name}</div>
-              <div class="program-note">${unlocked ? upgrade.cue : `Requires ${clickUpgradeRequirementLabel(upgrade)}`}</div>
+              <div class="program-name">${upgrade.name} ${current ? `<span class="pill good">Current</span>` : ""}</div>
+              <div class="program-note">${unlocked ? upgrade.cue : `Unlocks at ${clickUpgradeRequirementLabel(upgrade)}`}</div>
+              <div class="program-note">Each level: +${fmt(upgrade.powerPerLevel)} base, +${upgrade.passiveSecondsPerLevel.toFixed(3)}s sync.</div>
             </div>
-            <span class="badge ${maxed ? "good" : ""}">${status}</span>
+            <div class="click-program-actions">
+              <span class="badge ${maxed ? "good" : ""}">${status}</span>
+              ${!maxed && unlocked ? `<button class="small-btn" data-action="buy-click-upgrade" data-id="${upgrade.id}" ${canBuy ? "" : "disabled"}>${fmt(cost)} TP</button>` : ""}
+            </div>
           </div>
+        `;
+      }
+
+      function renderCompetitionResultPanel() {
+        const result = state.lastCompetitionResult;
+        if (!result) return "";
+        const comp = getCompetition(result.competitionId);
+        const accent = result.won ? "var(--green)" : "var(--gold)";
+        const chancePct = Math.round(result.chance * 100);
+        const powerPct = result.targetPower > 0 ? clamp(result.power / result.targetPower * 100, 0, 140) : 100;
+        const resultClass = result.won ? "win" : "participation";
+        return `
+          <article class="card competition-result-card ${resultClass}" style="--accent:${accent}">
+            <div class="result-banner">
+              <div>
+                <div class="result-outcome">${escapeHTML(result.outcome)}</div>
+                <div class="result-context">${escapeHTML(result.name)} - ${escapeHTML(result.type)}</div>
+              </div>
+              <span class="badge ${result.won ? "good" : "hot"}">+${fmt(result.reward)} TP</span>
+            </div>
+            <div class="metric-row">
+              <div class="metric"><b>${chancePct}%</b><span>Win chance</span></div>
+              <div class="metric"><b>${fmt(result.power)}</b><span>Academy power</span></div>
+              <div class="metric"><b>${fmt(result.targetPower)}</b><span>Target power</span></div>
+              <div class="metric"><b>${result.won ? "Momentum" : "Entry reward"}</b><span>Result bonus</span></div>
+            </div>
+            <div class="result-strength">
+              <div class="progress" aria-hidden="true"><div class="progress-fill" style="width:${Math.min(powerPct, 100)}%; animation:none; background:${accent}; transform:none;"></div></div>
+              <div class="fine-print">${result.won ? "Victory added chapter competition progress and a short momentum boost." : "The academy still earned a participation payout. Upgrade facilities, coaches, and athletes to raise future odds."}</div>
+            </div>
+            <div class="button-row" style="grid-template-columns: 1fr;">
+              <button class="small-btn" data-action="dismiss-competition-result">${comp ? "Clear Result" : "Dismiss Result"}</button>
+            </div>
+          </article>
         `;
       }
 
@@ -4553,6 +5834,7 @@
               <span class="badge">Live play</span>
             </div>
             <div class="competition-panel">
+              ${renderCompetitionResultPanel()}
               ${state.activeEvent ? `
                 <article class="card" style="--accent:#a78bfa">
                   <div class="card-head">
@@ -4568,11 +5850,11 @@
                 </article>
               ` : ""}
               ${comp ? `
-                <article class="card" style="--accent:var(--gold)">
+                <article class="card competition-card event-ticket ${guideClass("competition", comp.id)}" style="--accent:var(--gold)">
                   <div class="card-head">
                     <div>
                       <h3>${comp.name}</h3>
-                      <div class="role">${comp.description}</div>
+                      <div class="role">${competitionTypeLabel(comp)} - ${comp.description}</div>
                     </div>
                     <div class="level-token"><span>Chance</span><strong>${Math.round(chance * 100)}%</strong></div>
                   </div>
@@ -4585,7 +5867,7 @@
                   </div>
                 </article>
               ` : ""}
-              ${!state.activeEvent && !comp ? `<div class="lock-card">No live offer right now. Next sponsorship in ${formatDuration(nextSponsor)} and next competition in ${formatDuration(nextCompetition)}.</div>` : ""}
+              ${!state.activeEvent && !comp ? `<div class="lock-card ${guideClass("competition", "")}">No live offer right now. Next sponsorship in ${formatDuration(nextSponsor)} and next competition in ${formatDuration(nextCompetition)}.</div>` : ""}
             </div>
           </section>
         `;
@@ -4648,10 +5930,10 @@
 
       function renderWorldTab() {
         return `
-          ${renderAcademyProfile()}
           ${renderCampaignMap()}
-          ${renderHallOfFame()}
           ${renderCountryProgressCard("full")}
+          ${renderAcademyProfile()}
+          ${renderHallOfFame()}
           ${renderWorldDashboard()}
           ${renderPrestigeCard()}
           ${renderProgressTab()}
@@ -4719,7 +6001,7 @@
               <h2>World Campaign</h2>
               <span class="badge">${completed} complete / ${unlocked} unlocked</span>
             </div>
-            <div class="card" style="--accent:${currentCountry().accent || "var(--teal)"}">
+            <div class="card passport-card" style="--accent:${currentCountry().accent || "var(--teal)"}">
               <div class="metric-row">
                 <div class="metric"><b>${countryFlag(currentCountry())} ${currentCountry().name}</b><span>Current country</span></div>
                 <div class="metric"><b>${unlocked}</b><span>Unlocked countries</span></div>
@@ -4769,14 +6051,14 @@
         const unlocked = state.unlockedCountryIds.includes(country.id);
         const completed = state.completedCountryIds.includes(country.id);
         const current = state.currentCountryId === country.id;
-        const status = completed ? "✓ Completed" : current ? "★ Current" : unlocked ? "Unlocked" : "🔒 Locked";
+        const status = completed ? "Completed" : current ? "Current" : unlocked ? "Unlocked" : "Locked";
         const next = nextCountry(country);
         const note = unlocked
           ? `${summary.completed}/${summary.total} goals - ${summary.percent}%${next ? ` - Next: ${next.name}` : ""}`
           : unlockRequirementLabel(country);
         return `
-          <div class="country-node ${current ? "current" : ""} ${unlocked ? "" : "locked"}" style="--accent:${country.accent || "var(--teal)"}">
-            <div class="country-token">${countryFlag(country)}</div>
+          <div class="country-node passport-destination ${current ? "current" : ""} ${unlocked ? "" : "locked"} ${guideClass("country", country.id)} ${guideClass("route", country.id)}" style="--accent:${country.accent || "var(--teal)"}">
+            <div class="country-token passport-stamp">${countryFlag(country)}</div>
             <div>
               <div class="country-node-title">${country.name}</div>
               <div class="country-node-note">${country.description || note}</div>
@@ -4789,14 +6071,14 @@
 
       function renderFutureDestinationNode(destination) {
         return `
-          <div class="country-node locked" style="--accent:${destination.accent}">
-            <div class="country-token">${countryFlag(destination)}</div>
+          <div class="country-node passport-destination locked" style="--accent:${destination.accent}">
+            <div class="country-token passport-stamp">${countryFlag(destination)}</div>
             <div>
               <div class="country-node-title">${destination.name}</div>
               <div class="country-node-note">${destination.description}</div>
               <div class="country-node-note">${destination.preview}</div>
             </div>
-            <span class="badge">🔒 Locked</span>
+            <span class="badge">Locked</span>
           </div>
         `;
       }
@@ -4949,10 +6231,10 @@
         const athletes = facilityAthleteLinks(facility);
         const stage = visualStageFromLevel(level);
         return `
-          <article class="card facility-card facility-stage-${stage}" style="--accent: ${facility.accent}; --bar-speed: ${barSpeed.toFixed(2)}s">
+          <article class="card facility-card facility-stage-${stage} ${guideClass("facility", facility.id)}" style="--accent: ${facility.accent}; --bar-speed: ${barSpeed.toFixed(2)}s">
             <div class="card-head">
               <div class="facility-banner">
-                <div class="sport-mark">${sportMark(facility.sportId)}</div>
+                <div class="sport-mark" aria-hidden="true">${academyIcon(facility.sportId)}</div>
                 <div>
                   <h3>${facility.name}</h3>
                   <div class="role">${sportLabel(facility.sportId)} - ${rankTitle(level)} ${nextRank ? `<span class="muted">- ${nextRank}</span>` : ""}</div>
@@ -4986,7 +6268,7 @@
       function renderFacilityDepartmentVisual(facility, level, income, stage) {
         const status = level <= 0 ? "Idle" : income > 0 ? "Training Active" : "Ready";
         return `
-          <div class="facility-department" aria-label="${facility.short} department visual stage ${stage}">
+          <div class="facility-department department-${facility.sportId}" aria-label="${facility.short} department visual stage ${stage}">
             <div class="department-building" aria-hidden="true">
               <span class="department-svg-slot" data-facility="${facility.id}"></span>
               <span class="department-wing left"></span>
@@ -5037,21 +6319,39 @@
         const noSlot = isNew && coachSlotsUsed() >= coachSlotsCap();
         const maxed = level >= coach.maxLevel;
         const canBuy = !maxed && !noSlot && state.tp >= cost;
+        const tier = coachTier(level);
+        const nextTier = nextCoachTier(level);
+        const tierPct = coachTierProgress(level);
+        const accent = coach.sportIds && coach.sportIds.length ? sportAccent(coach.sportIds[0]) : "#4ade80";
+        const sportPath = coach.sportIds.map(id => sportLabel(id, "short")).join(" / ");
         return `
-          <article class="card staff-card coach-card" style="--accent: #4ade80">
+          <article class="card staff-card coach-card ${guideClass("coach", coach.id)}" style="--accent: ${accent}">
             <div class="card-head">
               <div class="staff-heading">
-                <div class="profile-orb" aria-hidden="true"><span>${coach.name.split(" ").map(part => part[0]).join("").slice(0, 2)}</span></div>
+                <div class="profile-orb" aria-hidden="true">${academyIcon("coach")}</div>
                 <div>
                   <h3>${coach.name}</h3>
-                  <div class="role">${coach.specialty} - ${level ? coach.summary(level) : "Not recruited"}</div>
+                  <div class="role">${coach.specialty} - ${coach.path}</div>
                 </div>
               </div>
-              <div class="level-token"><span>Tier</span><strong>${level}</strong></div>
+              <div class="level-token"><span>Tier</span><strong>${tier.name}</strong></div>
             </div>
             <div class="metric-row">
               <div class="metric"><b>${maxed ? "Max" : fmt(cost) + " TP"}</b><span>${isNew ? "Recruit cost" : "Upgrade cost"}</span></div>
               <div class="metric"><b>${level ? coach.summary(level) : coach.summary(1)}</b><span>${level ? "Current bonus" : "First tier"}</span></div>
+              <div class="metric"><b>${nextTier ? `L${nextTier.min}` : "Max"}</b><span>Next tier</span></div>
+              <div class="metric"><b>${sportPath}</b><span>Specialty</span></div>
+            </div>
+            <div class="coach-tier-row">
+              <div class="coach-tier-meta">
+                <span>${tier.label} - Level ${level}/${coach.maxLevel}</span>
+                <span>${nextTier ? `${Math.ceil(tierPct)}% to ${nextTier.name}` : "Tier path complete"}</span>
+              </div>
+              <div class="progress" aria-hidden="true"><div class="progress-fill" style="width:${tierPct}%; animation:none; background:${accent}; transform:none;"></div></div>
+            </div>
+            <div class="boost-strip">
+              <span class="pill">${coach.path}</span>
+              <span class="pill">${level ? coach.summary(level) : "Recruit to activate"}</span>
             </div>
             <div class="button-row" style="grid-template-columns: 1fr;">
               <button class="primary-btn" data-action="recruit-coach" data-id="${coach.id}" ${canBuy ? "" : "disabled"}>${maxed ? "Max Tier" : isNew ? "Recruit Coach" : "Upgrade Coach"}</button>
@@ -5067,10 +6367,10 @@
         const canRecruit = !rec.recruited && athletesUsed() < athleteCap() && state.tp >= athlete.baseCost;
         const canTrain = rec.recruited && rec.skill < athlete.potential && state.tp >= athleteTrainCost(athlete.id);
         return `
-          <article class="card staff-card athlete-card" style="--accent: ${sportAccent(athlete.sportId)}">
+          <article class="card staff-card athlete-card ${guideClass("athlete", athlete.id)}" style="--accent: ${sportAccent(athlete.sportId)}">
             <div class="card-head">
               <div class="staff-heading">
-                <div class="profile-orb" aria-hidden="true"><span>${athlete.name.split(" ").map(part => part[0]).join("").slice(0, 2)}</span></div>
+                <div class="profile-orb" aria-hidden="true">${academyIcon(athlete.sportId)}</div>
                 <div>
                   <h3>${athlete.name}</h3>
                   <div class="role">${sportLabel(athlete.sportId)} - ${athlete.rarity} - ${athlete.bonus(rec.skill)}</div>
@@ -5092,24 +6392,61 @@
         `;
       }
 
+      function renderFirstCompetitionGuide() {
+        if (state.stats.competitionsEntered > 0) return "";
+        const comp = state.activeCompetition ? getCompetition(state.activeCompetition.id) : null;
+        const chance = comp ? clamp(0.35 + (competitionPower() - comp.targetPower) / comp.targetPower * 0.28, 0.18, 0.95) : 0;
+        return `
+          <section>
+            <div class="section-title">
+              <h2>First Meet Briefing</h2>
+              <span class="badge">Coach note</span>
+            </div>
+            <div class="card orientation-card event-ticket" style="--accent:var(--gold)">
+              <div class="card-head">
+                <div>
+                  <h3>${comp ? `${comp.name} is open.` : "Competitions are optional chances to test the academy."}</h3>
+                  <div class="role">${comp ? `Your current win chance is ${Math.round(chance * 100)}%. Entering still awards TP if you miss the win.` : "Upgrade facilities, recruit staff, and watch for an offer. Early meets teach the team and can still pay out even before you are favored."}</div>
+                </div>
+                <div class="level-token"><span>Risk</span><strong>Low</strong></div>
+              </div>
+              <div class="boost-strip">
+                <span class="pill">Wins advance chapter goals</span>
+                <span class="pill">Entries award TP</span>
+                <span class="pill">Momentum follows wins</span>
+              </div>
+              ${comp ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="enter-competition">Enter First Competition</button></div>` : ""}
+            </div>
+          </section>
+        `;
+      }
+
       function renderEventsTab() {
         const comp = state.activeCompetition ? getCompetition(state.activeCompetition.id) : null;
         const nextCompetition = Math.max(0, state.nextCompetitionTime - now());
         const nextSponsor = Math.max(0, state.nextEventTime - now());
         const chance = comp ? clamp(0.35 + (competitionPower() - comp.targetPower) / comp.targetPower * 0.28, 0.18, 0.95) : 0;
         return `
+          ${renderFirstCompetitionGuide()}
+          ${state.lastCompetitionResult ? `<section>
+            <div class="section-title">
+              <h2>Latest Result</h2>
+              <span class="badge">${formatDate(state.lastCompetitionResult.timestamp)}</span>
+            </div>
+            <div class="competition-panel">${renderCompetitionResultPanel()}</div>
+          </section>` : ""}
           <section>
             <div class="section-title">
               <h2>Competitions</h2>
               <span class="badge">Power ${fmt(competitionPower())}</span>
             </div>
-            <div class="competition-panel">
+            <div class="competition-panel event-board">
               ${comp ? `
-                <article class="card competition-card" style="--accent: var(--gold)">
+                <article class="card competition-card event-ticket ${guideClass("competition", comp.id)}" style="--accent: var(--gold)">
                   <div class="card-head">
                     <div>
                       <h3>${comp.name}</h3>
-                      <div class="role">${comp.description} ${comp.sportIds.map(id => sportLabel(id, "short")).join(" / ")}</div>
+                      <div class="role">${competitionTypeLabel(comp)} - ${comp.description} ${comp.sportIds.map(id => sportLabel(id, "short")).join(" / ")}</div>
                     </div>
                     <div class="level-token"><span>Chance</span><strong>${Math.round(chance * 100)}%</strong></div>
                   </div>
@@ -5122,7 +6459,7 @@
                   </div>
                 </article>
               ` : `
-                <div class="lock-card">Next competition opportunity in ${formatDuration(nextCompetition)}. Assign athletes and upgrade coaches to improve your team power.</div>
+                <div class="lock-card ${guideClass("competition", "")}">Next competition opportunity in ${formatDuration(nextCompetition)}. Assign athletes and upgrade coaches to improve your team power.</div>
               `}
               <div class="result-box">Competition wins add TP and a 15-second 1.5x momentum boost. Cycling and Soccer development increase prize value.</div>
             </div>
@@ -5289,18 +6626,33 @@
 
       function showTutorial() {
         state.tutorialSeen = true;
+        markOnboardingFlag("introSeen");
+        const country = currentCountry();
+        const next = nextCountry(country);
         showModal(
-          "Welcome to Elite Sports Academy",
-          `<ul>
-             <li>Tap <b>Session Drill</b> to earn your first Training Points.</li>
-             <li>Upgrade <b>Basic Drill</b> and later drill programs to keep tapping powerful.</li>
-             <li>Buy a facility to start automatic TP/sec production.</li>
-             <li>Facilities unlock coach slots, so recruit coaches when capacity opens.</li>
-             <li>Recruit athletes, assign them to facilities, and let their skill grow.</li>
-             <li>Come back later to collect offline earnings, capped at 8 hours.</li>
-           </ul>`,
+          "Welcome, Coach",
+          `<div class="profile-hero">
+             ${renderAcademyCrest()}
+             <div>
+               <div class="profile-title">${escapeHTML(state.academy.name)}</div>
+               <div class="profile-motto">${escapeHTML(state.academy.motto)}</div>
+             </div>
+           </div>
+           <p>You have taken over a small local training center. Your job is to build it into the world's greatest Olympic training academy.</p>
+           <div class="orientation-identity">
+             <p class="fine-print" style="margin:0;">Start by making the academy yours. Pick a name, motto, crest, and theme; everything can still be changed later in World preferences.</p>
+             ${renderIdentityFields("intro")}
+           </div>
+           <ul>
+             <li><b>Session Drill</b> starts training and earns your first Training Points.</li>
+             <li><b>Academy Mission</b> shows exactly what the current chapter needs.</li>
+             <li><b>Recommended Next Action</b> points to the best move when you are unsure.</li>
+             <li>Grow by upgrading facilities, recruiting coaches, developing athletes, competing, and traveling the World Tour.</li>
+           </ul>
+           <div class="result-box">Current chapter: ${countryFlag(country)} ${country.name}. ${next ? `Next destination preview: ${countryFlag(next)} ${next.name}.` : "Future destination path pending."}</div>`,
           [
-            { label: "Begin Training", action: "close-modal", kind: "primary" }
+            { label: "Start My Academy", action: "start-onboarding", kind: "primary" },
+            { label: "Skip Orientation", action: "skip-onboarding" }
           ]
         );
         saveState();
@@ -5379,11 +6731,11 @@
         }
       }
 
-      function saveAcademyIdentity() {
-        const nameInput = document.getElementById("academyNameInput");
-        const mottoInput = document.getElementById("academyMottoInput");
-        const crestSelect = document.getElementById("academyCrestSelect");
-        const themeSelect = document.getElementById("academyThemeSelect");
+      function applyAcademyIdentityFromControls(ids) {
+        const nameInput = document.getElementById(ids.name);
+        const mottoInput = document.getElementById(ids.motto);
+        const crestSelect = document.getElementById(ids.crest);
+        const themeSelect = document.getElementById(ids.theme);
         state.academy = normalizeAcademyIdentity({
           ...state.academy,
           name: nameInput ? nameInput.value : state.academy.name,
@@ -5391,8 +6743,94 @@
           crestId: crestSelect ? crestSelect.value : state.academy.crestId,
           themeId: themeSelect ? themeSelect.value : state.academy.themeId
         }, state.academy);
+      }
+
+      function saveAcademyIdentity() {
+        applyAcademyIdentityFromControls({
+          name: "academyNameInput",
+          motto: "academyMottoInput",
+          crest: "academyCrestSelect",
+          theme: "academyThemeSelect"
+        });
+        markOnboardingFlag("identityConfirmed");
         saveState();
         toast("Academy identity updated.");
+        renderSoon();
+      }
+
+      function onboardingVisible() {
+        if (!state.onboarding) state.onboarding = defaultOnboardingState();
+        return !state.onboarding.completed && !state.onboarding.dismissed;
+      }
+
+      function markOnboardingFlag(key, value = true) {
+        if (!state.onboarding) state.onboarding = defaultOnboardingState();
+        if (Object.prototype.hasOwnProperty.call(state.onboarding, key)) state.onboarding[key] = Boolean(value);
+      }
+
+      function confirmOnboardingIdentity() {
+        applyAcademyIdentityFromControls({
+          name: "onboardingAcademyNameInput",
+          motto: "onboardingAcademyMottoInput",
+          crest: "onboardingAcademyCrestSelect",
+          theme: "onboardingAcademyThemeSelect"
+        });
+        state.tutorialSeen = true;
+        markOnboardingFlag("identityConfirmed");
+        saveState();
+        toast("Academy identity confirmed.");
+        renderSoon();
+      }
+
+      function startOnboarding() {
+        const introName = document.getElementById("introAcademyNameInput");
+        if (introName) {
+          applyAcademyIdentityFromControls({
+            name: "introAcademyNameInput",
+            motto: "introAcademyMottoInput",
+            crest: "introAcademyCrestSelect",
+            theme: "introAcademyThemeSelect"
+          });
+          markOnboardingFlag("identityConfirmed");
+        }
+        state.tutorialSeen = true;
+        markOnboardingFlag("introSeen");
+        closeModal();
+        saveState();
+        renderSoon();
+      }
+
+      function skipOnboarding() {
+        state.tutorialSeen = true;
+        markOnboardingFlag("dismissed");
+        closeModal();
+        saveState();
+        toast("Orientation skipped. You can still use Tutorial from World statistics.");
+        renderSoon();
+      }
+
+      function finishOnboarding() {
+        state.tutorialSeen = true;
+        markOnboardingFlag("completed");
+        closeModal();
+        saveState();
+        toast("Orientation complete. Welcome to your academy, Coach.");
+        renderSoon();
+      }
+
+      function reviewChapterGoals() {
+        missionExpanded = true;
+        state.tutorialSeen = true;
+        markOnboardingFlag("chapterReviewed");
+        saveState();
+        renderSoon();
+      }
+
+      function openWorldTour() {
+        state.ui.activeTab = "world";
+        state.tutorialSeen = true;
+        markOnboardingFlag("worldTourViewed");
+        saveState();
         renderSoon();
       }
 
@@ -5403,14 +6841,25 @@
         if (action === "drill") handleDrill(event, target);
         if (action === "tab") {
           state.ui.activeTab = target.dataset.tab;
+          activeGuideTarget = null;
+          if (state.ui.activeTab === "world") {
+            markOnboardingFlag("worldTourViewed");
+            saveState();
+          }
+          if (state.ui.activeTab === "events") {
+            markOnboardingFlag("firstCompetitionBriefed");
+            saveState();
+          }
           renderSoon();
         }
+        if (action === "navigate-guide") navigateGuide(target.dataset.tab, target.dataset.guideType || "", target.dataset.guideId || "");
         if (action === "toggle-world-summary") {
           worldHeaderExpanded = !worldHeaderExpanded;
           renderSoon();
         }
         if (action === "toggle-mission") {
           missionExpanded = !missionExpanded;
+          if (missionExpanded) markOnboardingFlag("chapterReviewed");
           renderSoon();
         }
         if (action === "buy-facility") buyFacility(target.dataset.id, target.dataset.qty);
@@ -5420,6 +6869,11 @@
         if (action === "train-athlete") trainAthlete(target.dataset.id);
         if (action === "assign-athlete") assignAthlete(target.dataset.id, target.dataset.facility);
         if (action === "enter-competition") enterCompetition();
+        if (action === "dismiss-competition-result") {
+          state.lastCompetitionResult = null;
+          saveState();
+          renderSoon();
+        }
         if (action === "claim-country-reward") claimCountryReward(target.dataset.id);
         if (action === "open-prestige") {
           if (state.settings.confirmPrestige) openPrestigeConfirm();
@@ -5428,6 +6882,12 @@
         if (action === "confirm-prestige") prestigeReset();
         if (action === "claim-event") claimEvent();
         if (action === "show-tutorial") showTutorial();
+        if (action === "start-onboarding") startOnboarding();
+        if (action === "skip-onboarding") skipOnboarding();
+        if (action === "finish-onboarding") finishOnboarding();
+        if (action === "confirm-onboarding-identity") confirmOnboardingIdentity();
+        if (action === "review-chapter-goals") reviewChapterGoals();
+        if (action === "open-world-tour") openWorldTour();
         if (action === "close-modal") closeModal();
         if (action === "toggle-setting") {
           const key = target.dataset.key;
@@ -5968,6 +7428,14 @@
 
       function getCompetition(id) {
         return BY_ID.competition[id];
+      }
+
+      function competitionTypeLabel(comp) {
+        const sportIds = comp && Array.isArray(comp.sportIds) ? comp.sportIds : [];
+        if (sportIds.length === 0) return "Open Meet";
+        if (sportIds.length === 1) return `${sportLabel(sportIds[0], "short")} Meet`;
+        if (sportIds.length === 2) return `${sportIds.map(id => sportLabel(id, "short")).join(" / ")} Dual Meet`;
+        return "Multi-Sport Meet";
       }
 
       function assignmentLabel(id) {

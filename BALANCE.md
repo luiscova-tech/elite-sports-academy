@@ -2,10 +2,14 @@
 
 This file records the current economy and progression values.
 
-Academy Identity 1.0 was a UI/UX and emotion milestone. It added saved academy identity data, but did not change economy, progression rewards, output formulas, or country gameplay.
+Visual Identity 1.0 is an experience and presentation milestone. It improves screen personality, silhouettes, iconography, visual hierarchy, and the feeling of being inside an academy, but does not change economy, progression rewards, output formulas, save shape, country gameplay, athlete systems, or competition mechanics.
+
+World Tour 3.0 is a design and documentation milestone. It defines one global academy with future local country campuses, but does not change current balance values, save data, formulas, country gameplay, athlete systems, coach mechanics, or competition mechanics.
+
+Future balance work should follow `WORLD_TOUR.md`: academy identity, reputation, medals, trophies, rank, Hall of Fame, future research, and future sponsors are global; Training Points, facilities, local athletes, competitions, buildings, local progress, visual theme, chapter progress, and country bonuses should eventually be campus-local.
 
 ## Global Values
-- Save version: 7
+- Save version: 8
 - Offline progress cap: 8 hours
 - Facility cost multiplier: 1.15 per level
 - Prestige unlock: 100,000 season TP
@@ -24,6 +28,11 @@ Academy rank is based on saved Reputation and does not provide a gameplay multip
 | International Academy | 300 |
 | Elite Academy | 500 |
 | Olympic Academy | 800 |
+
+## Academy Orientation
+Onboarding flags track whether the player has seen, skipped, or completed first-time guidance. These flags do not provide gameplay multipliers, TP rewards, discounts, or unlocks.
+
+Academy identity choices made during onboarding use the same saved identity fields available in World settings and do not affect gameplay balance.
 
 ## Click Progression
 Base click power is `1 + sum(click upgrade levels * power per level)`.
@@ -55,6 +64,18 @@ Facility income is `level * baseIncome * multipliers`.
 ## Coaches
 Coach cost is `baseCost * growth ^ currentLevel`.
 
+Coach tier labels are presentation over existing levels:
+
+| Tier | Level Required |
+| --- | ---: |
+| Unrecruited | 0 |
+| Junior | 1 |
+| Senior | 4 |
+| Elite | 8 |
+| Olympic | 12 |
+
+These tiers do not add separate multipliers, discounts, automation, or unlocks in the current milestone.
+
 | Coach | Base Cost | Growth | Max Level | Effects |
 | --- | ---: | ---: | ---: | --- |
 | Sprint Coach | 150 | 2.15 | 12 | Track output +25% per level; Drill +6% per level |
@@ -84,6 +105,8 @@ Rewards:
 - Loss/entry: `baseReward * competitionRewardMultiplier * 0.28`
 - Japan country bonus adds +10% Competition Rewards while Japan is the active country.
 
+The latest competition result is saved as presentation state so the UI can explain the most recent outcome after the active offer disappears. It does not change reward math.
+
 | Competition | Unlock TP/sec | Base Reward | Target Power | Sports |
 | --- | ---: | ---: | ---: | --- |
 | Regional Time Trial | 1 | 300 | 18 | Track, Cycling |
@@ -91,6 +114,8 @@ Rewards:
 | Academy Cup Derby | 35 | 6,000 | 180 | Track, Swimming, Cycling, Soccer |
 
 ## Country Progression
+Current implementation note: USA and Japan are playable with the current transitional prototype economy. Future countries should not be implemented as fully playable campuses until the save and economy architecture can support local country Training Points, local facilities, local athletes, local competitions, and return travel while preserving existing saves.
+
 USA active completion goals:
 - Track Facility reaches level 10
 - Swimming Facility reaches level 10

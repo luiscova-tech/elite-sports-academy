@@ -114,15 +114,54 @@
 - Added Hall of Fame framework as a Coming Soon profile section.
 - Added save version 7 migration for academy identity.
 
+### Academy Orientation - First-Time Experience
+- Added a coach-led first-run welcome that frames the player as the owner of a small academy growing toward Olympic greatness.
+- Added a saved, skippable Home orientation card that guides identity confirmation, Session Drill, first facility upgrade, first coach, first athlete, Mission review, and World Tour review.
+- Added first competition guidance so early meets feel optional, low-pressure, and useful even before strong win odds.
+- Added save version 8 migration for onboarding flags while preserving existing saves.
+- Created `FIRST_TIME_EXPERIENCE.md` as the onboarding blueprint.
+
+### Quality of Life 1.0 - Orientation, Drill Choices, Competition Results, and Coach Tiers
+- Added real academy identity choices to the first-run welcome and Home orientation card.
+- Changed recommendation and orientation management guidance to navigate to existing screens and highlight the relevant target instead of auto-completing actions.
+- Reworked Click Training so every named drill program is visible with status, unlock requirement, per-level effects, and upgrade actions for unlocked programs.
+- Added latest competition result presentation with outcome, reward, chance, academy power, and target power.
+- Added coach tier presentation for Unrecruited, Junior, Senior, Elite, and Olympic stages without changing coach balance.
+- Created `PLAYTEST_JOURNAL.md` from current game-director feedback only.
+
+### Visual Identity 1.0 - From Prototype to Game
+- Merged Home orientation and mission into one Welcome Coach ceremony and mission board.
+- Kept first-run identity editing available behind a compact ceremony expander so Session Drill remains closer to Home's play path.
+- Replaced generic campus emoji/text placeholders with a consistent inline SVG academy icon language.
+- Improved Academy Campus building silhouettes so Sports Center, Academy Offices, Competition Hall, and World Tour Gate feel more distinct.
+- Improved Sports facility cards with sport-specific department silhouettes.
+- Improved Academy coach presentation with office-board styling and premium SVG iconography.
+- Improved Competitions with event-board and ticket styling.
+- Improved World Tour with passport/travel-card destination styling.
+- Moved the World campaign route before profile and dashboard details.
+- Preserved all gameplay systems, economy values, countries, and save compatibility.
+
+### World Tour 3.0 - Global Academy Architecture
+- Created `WORLD_TOUR.md` as the blueprint for future countries, country campuses, competition cycles, continental events, World Championships, and Olympic Games.
+- Locked the long-term decision that the player owns one global academy that expands through permanent country campuses.
+- Defined global academy progression as permanent identity, reputation, medals, trophies, rank, Hall of Fame, future research, and future sponsors.
+- Defined future country campuses as local branches with their own Training Points, facilities, athletes, competitions, buildings, progress, visual theme, chapter progress, and country bonus.
+- Defined coaches as global academy resources that can eventually be assigned or transferred between campuses.
+- Defined athletes as local country-campus recruits with no Version 1 transfer plan.
+- Established the future country template: 2 core sports, 2 shared sports, and 1 wildcard sport.
+- Preserved current gameplay, economy values, save version, and Brazil preview-only status.
+
 ## Upcoming Milestones
 
-### Next Recommended: Brazil Preview + Post-Japan Guidance
-- Polish Brazil as an unlocked preview destination without gameplay.
-- Clarify post-Japan player guidance when no next playable chapter exists yet.
-- Keep Home play-first and avoid adding Brazil systems until approved.
-- Review Academy Identity 1.0 screenshots for header clarity, profile usefulness, and customization emotional impact.
+### Next Recommended: Global Academy Save Architecture Plan
+- Design the additive save migration path for `campusesByCountryId` without implementing Brazil gameplay yet.
+- Decide how current USA/Japan state maps into future global academy and local campus data.
+- Define travel/backtracking UX for returning to completed countries.
+- Define the first pass of global coach assignment while preserving current coach behavior.
 
 ### Later Milestones
+- Visual Identity QA + fresh save playtest.
+- Brazil preview polish and post-Japan guidance under the Global Academy Architecture.
 - Coach automation and deeper coach roles.
 - Athlete roster expansion and assignment strategy.
 - Country-aware competitions and chapter rewards.

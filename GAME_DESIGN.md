@@ -7,6 +7,8 @@ The game should reward short sessions, support long-term progression, and make e
 
 `VISION.md` is the high-level creative source of truth. Every feature should support the fantasy of building a small local training center into the world's greatest Olympic training academy.
 
+`WORLD_TOUR.md` is the source of truth for future country, campus, competition-cycle, and Olympic expansion work.
+
 The five creative pillars are:
 - Build
 - Develop
@@ -34,6 +36,16 @@ At any moment, the player should be able to answer these three questions within 
 
 Every future UI and gameplay decision should support this principle.
 
+## First-Time Experience Principle
+The first five minutes should make the player feel like the owner of a new Olympic academy, not a visitor to a spreadsheet. The player should be welcomed as Coach, confirm or recognize their academy identity, run Session Drill, understand the Mission Card, buy early upgrades, recruit staff and athletes, see the first competition as low-pressure, and understand the World Tour path.
+
+Onboarding should be compact, skippable, save-aware, and built from real gameplay actions. It should not create tutorial-only economies or hide the normal game loop.
+
+Current first-time experience decision:
+- Academy identity setup should be a real player choice, with editable academy name, motto, crest, and color theme available during orientation.
+- Tutorial guidance should send the player to the correct existing screen and highlight the relevant area instead of silently buying, recruiting, claiming, or completing actions for them.
+- The orientation can still ask the player to run Session Drill directly because that is the primary Home interaction and not a management shortcut.
+
 ## Main Loop
 1. Tap to train and earn Training Points.
 2. Spend TP on upgrades that improve click power, automation, and academy output.
@@ -43,7 +55,41 @@ Every future UI and gameplay decision should support this principle.
 6. Reset or prestige for long-term bonuses and replayability.
 
 ## Country / Chapter Structure
-The game should use countries as stages or chapters.
+The game should use countries as permanent World Tour campuses, not disposable resets.
+
+World Tour 3.0 decision:
+- The player owns one global academy.
+- The academy expands internationally by opening country campuses.
+- The player never abandons previous countries.
+- Completed countries remain playable forever.
+- Players can freely travel back to any completed country once travel support is implemented.
+- Brazil and later destinations must not become playable until they can support the Global Academy Architecture described in `WORLD_TOUR.md`.
+
+Global academy values never reset:
+- Academy Name
+- Academy Crest
+- Academy Theme
+- Academy Motto
+- Academy Rank
+- Reputation
+- Medals
+- Championship Trophies
+- Hall of Fame
+- Global Research, future
+- Sponsors, future
+
+Each country campus eventually owns its own:
+- Training Points
+- Facilities
+- Athletes
+- Competitions
+- Buildings
+- Local Progress
+- Visual Theme
+- Chapter Progress
+- Country Bonus
+
+The current implementation is a transitional prototype where some country and economy state is still global. Future country work should move toward per-country campus state through additive migrations that preserve existing saves.
 
 Each country should:
 - have a unique sport lineup
@@ -60,6 +106,8 @@ Examples:
 
 A country completion should feel like a milestone, not a simple reset.
 
+Every new country should be designed as a sporting ecosystem with 2 core sports, 2 shared sports, and 1 wildcard sport.
+
 Current foundation decision:
 - Countries exist in the content registry before chapter completion mechanics.
 - USA is the first complete chapter and includes Track & Field, Swimming, Cycling, and Soccer so the existing prototype loop remains intact.
@@ -71,6 +119,8 @@ Current foundation decision:
 - Claiming the Japan completion reward grants 2 Medals, +200 Reputation, and unlocks Brazil as the next preview destination without implementing Brazil gameplay.
 - Kenya and Brazil exist as data-driven future countries with unlock requirements and future reward data, but their playable chapter goals are not implemented yet.
 - Medals and Reputation are real saved progression values. They are awarded by chapter completion and are no longer derived from total TP.
+- The long-term route direction is USA, Japan, Brazil, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games.
+- Olympic Games are the culmination of years of academy building, not an ordinary competition and not the end of the game.
 
 ## Clicker System
 The clicker must stay useful past the opening minutes.
@@ -87,6 +137,11 @@ Suggested click progression examples:
 - Elite Form
 - National Standard
 - Championship Routine
+
+Current click progression decision:
+- The Home Click Training panel should show every named drill program, each program's unlock requirement, per-level tap power, passive-sync gain, and an upgrade button for each currently unlocked non-maxed program.
+- Players should be able to choose among unlocked drill upgrades instead of being forced through a single opaque "next upgrade" button.
+- Clicking should continue to matter alongside passive income by combining upgraded base tap power with passive-income sync.
 
 ## Coaches
 Coaches are a major progression system, not just flat buffs.
@@ -112,6 +167,12 @@ Coach effects can include:
 - improving athlete training
 - improving competition rewards
 - improving click value for a specific sport
+
+Current coach progression decision:
+- Existing coach levels now present as named tiers: Unrecruited, Junior, Senior, Elite, and Olympic.
+- Coach tiers are presentation and guidance over the existing coach level curve. They do not add new multipliers until a later coach-design milestone explicitly approves deeper coach mechanics.
+- Coach cards should show specialty, sport path, current tier, next tier, and tier progress so staff growth feels more intentional.
+- World Tour 3.0 direction: coaches belong to the global academy. Future systems should support assigning and transferring coaches between country campuses instead of making coaches local disposable hires.
 
 ## Athletes
 Athletes should feel collectible and upgradable.
@@ -143,6 +204,12 @@ Suggested athlete roles:
 - Diver
 - Playmaker
 
+Current World Tour 3.0 direction:
+- Athletes belong to their local country campus.
+- Each country recruits its own athletes.
+- Athletes remain at their home campus.
+- No athlete transfers are planned for Version 1.
+
 ## Sports / Training System
 Each sport should have its own training loop.
 
@@ -167,8 +234,21 @@ Requirements:
 - Competitions should feel different from passive income
 - Keep version 1 simple, but clearly separate from the idle loop
 
+Current competition presentation decision:
+- Competition offers should show their meet type, relevant sports, win chance, reward context, and time remaining.
+- After entry, the player should see a clear latest-result card with outcome, TP earned, win chance, academy power, target power, and whether the result advanced chapter momentum.
+- A non-winning entry remains a participation reward rather than a hard failure, so early competition attempts still feel useful.
+
+Current competition architecture direction:
+- Local meets support local campus progression.
+- Continental events bridge groups of countries.
+- World Championships test the global academy across multiple campuses and sports.
+- Olympic Games are a culmination layer and should wait until multiple country campuses, global coaches, local athletes, and academy-wide legacy tracking are stable.
+
 ## Prestige / Reset Layer
 Keep a prestige-style layer, but theme it to sports seasons or championship cycles.
+
+World Tour 3.0 constraint: prestige must not make the player feel like they abandoned completed country campuses. Any future reset layer should preserve global academy identity and respect permanent country branches. If local campus state is ever reset for a seasonal reason, the design must clearly frame it as a training cycle or competitive season, not the destruction of a campus.
 
 Requirements:
 - Reset the current run or country progress
@@ -223,11 +303,21 @@ Current UI direction:
 - Academy Identity 1.0 direction: the sticky header should represent the player's academy with crest, academy name, reputation-based academy rank, motto, and current country. The academy identity layer should be editable from World/Preferences and should support emotional attachment without changing gameplay balance.
 - Academy Profile should collect the academy's story in one place: founded date, countries completed, current country, competitions won, medals, reputation, championship trophies, academy rank, favorite sport, highest facility, athletes trained, and coaches recruited.
 - Hall of Fame exists as a framework only until athlete history is implemented. It should create anticipation for honoring future academy legends without adding athlete-history mechanics early.
+- Academy Orientation direction: fresh saves should see a coach-led welcome and a Home orientation card that guides identity confirmation, first Session Drill, first facility upgrade, first coach, first athlete, Mission review, and World Tour review without changing gameplay values.
+- First competition guidance should make competitions feel optional, low-pressure, and rewarding even before the player is favored to win.
+- Guidance highlights can be used after navigation to make the recommended Sports, Academy, Competitions, World, Session Drill, or Click Training target obvious.
+- Recommendation buttons should route the player to the right screen and highlighted area rather than completing management actions automatically.
 - The World tab should keep the same premium campaign identity by using route order, destination flags, current/completed/locked states, and future-country previews without implementing those future countries early.
 - Future countries should remain preview-only in the World tab until their chapter gameplay is intentionally implemented.
 - Japan remains a Swimming/Cycling-only playable chapter for the current design direction.
 - Players can optionally pin a small Session Drill button from Preferences so tapping remains available from non-Home tabs.
 - Sports facilities remain the core upgrade cards, but they should carry stronger sport identity and show coach/athlete connections.
+- Visual Identity 1.0 direction: the UI should feel less like identical cards and more like a set of academy places. Home uses a welcome ceremony and mission board, Sports uses department buildings, Academy uses office/coach-board presentation, Competitions uses event-ticket/event-board language, and World uses passport/travel-card language.
+- Generic emoji or text-placeholder icons should be replaced by coherent CSS/SVG academy icons except for country flags, which remain core World Tour identity markers.
+- First-run identity controls should remain available, but compact by default, so the welcome ceremony does not push Session Drill too far from the player's immediate play path.
+- The welcome ceremony may include a compact Session Drill call-to-action as long as the full Session Drill hero panel remains part of Home.
+- World should open on the campaign/passport route before showing profile, statistics, prestige, or preferences.
+- Visual identity work is presentation-only and must not change gameplay formulas, save shape, countries, athlete systems, or competition systems.
 
 Current screen-purpose direction:
 - Home answers: What should I do right now?

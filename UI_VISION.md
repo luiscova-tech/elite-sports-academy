@@ -11,6 +11,14 @@ Academy Campus 5.0 adds life to that place. The academy should react to existing
 
 Academy Identity 1.0 shifts the top-level presentation from a generic game header to the player's academy. The header should make the player see their crest, academy name, rank, motto, and current country before they see management menus.
 
+Academy Orientation makes the first session feel guided by a coach inside the academy. The welcome and Home orientation card should explain ownership, Session Drill, Mission progress, recruiting, competitions, and World Tour travel through real gameplay actions.
+
+Quality of Life 1.0 strengthens that guidance layer by making recommendations navigational instead of automatic. The UI should help the player find the correct place, highlight the relevant card or panel, and then let the player choose the action.
+
+Visual Identity 1.0 strengthens the feeling of place. The goal is not more cards; it is a more believable academy with distinct department identities, handcrafted silhouettes, consistent SVG/CSS iconography, and subtle depth.
+
+World Tour 3.0 defines the future map as one global academy with permanent country campuses. The UI should stop implying that countries are disposable stages. World screens should present campuses as branches the player can revisit, compare, and continue developing.
+
 ## Navigation Philosophy
 - Home is the Academy Headquarters and play-first screen.
 - Session Drill remains the primary interaction.
@@ -18,6 +26,9 @@ Academy Identity 1.0 shifts the top-level presentation from a generic game heade
 - Large Home campus panels should provide a more visual route into the same sections.
 - Navigation cards should evolve into academy buildings without changing underlying tab ownership.
 - The bottom navigation remains temporarily, but Home campus buildings should increasingly become the primary navigation experience.
+- First-time guidance should route players into existing tabs rather than introducing separate tutorial screens.
+- Recommendation buttons should navigate to the correct tab and visually highlight the target when possible.
+- Future travel navigation should clearly distinguish the global academy from the active local country campus.
 
 ## Academy Campus Vision
 The Academy Campus is the long-term visual identity for Home. It should eventually feel like a living headquarters with recognizable areas:
@@ -50,6 +61,8 @@ Current living-campus states:
 - Competition Hall shows Competition Ready, Event In Progress, or Waiting.
 - World Tour Gate shows Chapter Complete, Ready To Travel, or Awaiting Qualification.
 
+Guided highlights should be temporary, readable, and restrained. They exist to answer "where should I look now?" after the player follows a recommendation.
+
 Visual evolution is driven by existing progress data. Higher facility levels, staff count, competition wins, and country progress can make buildings feel larger or more developed through windows, banners, flags, and lighting. These visuals are placeholders for future SVG art and should not create or imply new mechanics.
 
 ## Resource Bar Philosophy
@@ -73,16 +86,40 @@ Country flags should be treated as identity markers in the Resource Bar, not dec
 Home should read in this order:
 1. Persistent Resource Bar.
 2. Compact World Tour header.
-3. Collapsed Academy Mission Card, with current mission, progress, reward, and expansion for details.
-4. Session Drill.
-5. Academy Campus buildings.
-6. Current Event.
-7. Recommended Next Action and Reward Preview.
-8. Secondary play context such as click training.
+3. Temporary Coach Orientation card for first-time players only.
+4. Collapsed Academy Mission Card, with current mission, progress, reward, and expansion for details.
+5. Session Drill.
+6. Academy Campus buildings.
+7. Current Event.
+8. Recommended Next Action and Reward Preview.
+9. Secondary play context such as click training.
+
+Click Training should make the manual drill path legible: every named drill program should show status, unlock requirement, per-level effect, and an upgrade action when available.
+
+Competition results should be visible after entry. The latest-result card should explain outcome, reward, chance, academy power, and target power so competitions feel understandable rather than random.
+
+Coach cards should express progression with named tiers and clear next-tier progress while preserving the existing dense management-card style.
+
+Visual Identity 1.0 updates the hierarchy:
+- Home begins with one cohesive Welcome Coach ceremony and Mission board instead of separate Orientation and Mission blocks.
+- First-run identity choices should stay available without pushing Session Drill too far below the first viewport; compact summaries and optional edit panels are preferred.
+- A compact Session Drill call-to-action can live inside the welcome ceremony so active play remains visible even during onboarding.
+- Sports facilities read as sport departments with sport-specific building silhouettes.
+- Academy coaches read more like staff office boards with premium iconography and tier paths.
+- Competitions read as event boards and tickets.
+- World reads as a passport and travel route.
 
 Country flags, destination names, progress bars, and clear rewards should carry the campaign identity.
 
-The World tab should share the same visual language as Home: flags, route order, completion state, destination cards, and locked previews should make it feel like a journey rather than a plain list.
+The World tab should share the same visual language as Home: flags, route order, completion state, destination cards, and locked previews should make it feel like a journey rather than a plain list. The campaign route should appear before profile and dashboard details so World opens as travel first.
+
+World Tour 3.0 UI direction:
+- World should become the global academy map.
+- Completed countries should read as playable campuses, not finished archives.
+- The active country should read as the current campus.
+- Locked future countries should remain preview destinations until implemented.
+- Future travel controls should support returning to completed campuses.
+- Global academy values and local campus values should be visually separated so the player understands what persists globally and what belongs to the current country.
 
 ## Screen Purpose Rules
 - Home answers: What should I do right now?
@@ -104,6 +141,8 @@ Identity surfaces should strengthen ownership without becoming another dashboard
 
 Current World route order is USA, Japan, Brazil, Australia, Kenya, and Norway. Brazil and later destinations remain preview/locked content until their gameplay milestones are approved.
 
+Long-term World Tour route direction is USA, Japan, Brazil, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games. `WORLD_TOUR.md` is the blueprint for this route.
+
 ## Future Academy Campus Direction
 - Add building illustrations or richer silhouettes once the core layout is stable.
 - Replace CSS building treatments with SVG illustrations when the campus art direction is approved.
@@ -112,9 +151,13 @@ Current World route order is USA, Japan, Brazil, Australia, Kenya, and Norway. B
 - Keep the campus useful as navigation first and decorative second.
 - Avoid adding new gameplay systems to Home unless they strengthen the play-first loop.
 
+Visual Identity 1.0 keeps CSS/SVG structures intentionally replaceable. Future art can swap the placeholder silhouettes without changing tab ownership or gameplay logic.
+
 ## Future World Map Direction
 - The World tab should become the campaign map.
 - Completed, current, unlocked, and locked destinations should be visually distinct.
 - Future countries can be previewed with flags, themes, and expected rewards before gameplay is implemented.
 - Country route progression should remain data-driven so adding destinations does not require rewriting UI logic.
 - Route-strip style navigation can remain as a compact summary until a larger illustrated world map is ready.
+- Completed countries should eventually expose return travel and campus status.
+- Continental events, World Championships, and Olympic Games should appear as milestone destinations distinct from ordinary country campuses.
