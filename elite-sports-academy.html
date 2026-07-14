@@ -3201,8 +3201,16 @@
     (() => {
       "use strict";
 
-      const SAVE_VERSION = 8;
+      const SAVE_VERSION = 12;
       const STORAGE_KEY = "elite_sports_academy_save_v1";
+      const ARCHITECTURE_VERSION = 1;
+      const COACH_ASSIGNMENT_VERSION = 2;
+      const COACH_HEADQUARTERS_REF = "state.academy.headquarters.coaches";
+      const MIGRATION_LOG_LIMIT = 40;
+      const USA_CAMPUS_ID = "usa";
+      const JAPAN_CAMPUS_ID = "japan";
+      const PHASE_ONE_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID];
+      const MIGRATED_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID];
       const SAVE_INTERVAL_MS = 10000;
       const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
       const PRESTIGE_UNLOCK = 100000;
@@ -3706,6 +3714,7 @@
       let missionExpanded = false;
       let activeChapterModalCountryId = "";
       let activeGuideTarget = null;
+      let saveBoxDraft = "";
 
       function now() {
         return Date.now();
@@ -3718,6 +3727,337 @@
           crestId: "shield",
           themeId: "blue",
           foundedAt
+        };
+      }
+
+      function defaultAcademyContainer(foundedAt = now()) {
+        const identity = defaultAcademyIdentity(foundedAt);
+        return {
+          ...identity,
+          architectureVersion: ARCHITECTURE_VERSION,
+          identityRef: {
+            storage: "state.academy",
+            fields: ["name", "motto", "crestId", "themeId", "foundedAt"]
+          },
+          globalProgression: {
+            reputationRef: "state.reputation",
+            medalsRef: "state.medals",
+            trophiesRef: "state.trophies",
+            funding: 0,
+            fundingStatus: "future"
+          },
+          headquarters: {
+            status: "planned",
+            playable: false,
+            preparedAfter: "global-coach-assignment-foundation"
+          },
+          coaches: createGlobalCoachContainer(),
+          campuses: {
+            storage: "state.campuses",
+            preparedCampusIds: [...PHASE_ONE_CAMPUS_IDS]
+          }
+        };
+      }
+
+      function coachEffectTypes(coach) {
+        const effectTypes = new Set();
+        (coach.effects || []).forEach(effect => {
+          if (effect && effect.type) effectTypes.add(effect.type);
+        });
+        return [...effectTypes];
+      }
+
+      function normalizeCoachAssignmentSource(saved = {}) {
+        const assignment = saved.currentAssignment && typeof saved.currentAssignment === "object" ? saved.currentAssignment : {};
+        return String(assignment.source || saved.assignmentSource || "global-coach-assignment-foundation");
+      }
+
+      function createCoachAssignmentRecord(coach, saved = {}, fallbackCampusId = USA_CAMPUS_ID) {
+        const defaultCampusId = normalizeCampusId(fallbackCampusId, USA_CAMPUS_ID);
+        const savedAssignment = saved.currentAssignment && typeof saved.currentAssignment === "object" ? saved.currentAssignment : {};
+        const savedTransfer = saved.transfer && typeof saved.transfer === "object" ? saved.transfer : {};
+        const savedSpecialty = saved.specialty && typeof saved.specialty === "object" ? saved.specialty : {};
+        const campusId = normalizeCampusId(
+          saved.currentCampusId || saved.assignmentCampusId || savedAssignment.campusId,
+          defaultCampusId
+        );
+        const sportIds = Array.isArray(savedSpecialty.sportIds)
+          ? savedSpecialty.sportIds.filter(id => getSport(id))
+          : Array.isArray(coach.sportIds)
+            ? [...coach.sportIds]
+            : [];
+        const effectTypes = Array.isArray(savedSpecialty.effectTypes) && savedSpecialty.effectTypes.length
+          ? [...new Set(savedSpecialty.effectTypes.map(type => String(type)))]
+          : coachEffectTypes(coach);
+        return {
+          coachId: coach.id,
+          assignmentVersion: COACH_ASSIGNMENT_VERSION,
+          assignmentCampusId: campusId,
+          currentCampusId: campusId,
+          currentAssignment: {
+            type: "campus",
+            campusId,
+            status: "assigned",
+            source: normalizeCoachAssignmentSource(saved)
+          },
+          headquartersRef: COACH_HEADQUARTERS_REF,
+          assignmentModel: "single-campus",
+          transferReady: true,
+          transfer: {
+            status: "metadata-only",
+            gameplayEnabled: false,
+            ready: typeof savedTransfer.ready === "boolean" ? savedTransfer.ready : true,
+            pending: false,
+            currentCampusId: campusId,
+            destinationCampusId: ""
+          },
+          specialty: {
+            status: "future-metadata",
+            label: String(savedSpecialty.label || coach.specialty || ""),
+            path: String(savedSpecialty.path || coach.path || ""),
+            sportIds,
+            effectTypes
+          }
+        };
+      }
+
+      function createGlobalCoachContainer(raw = {}, fallbackCampusId = USA_CAMPUS_ID) {
+        const assignments = {};
+        const defaultCampusId = normalizeCampusId(fallbackCampusId, USA_CAMPUS_ID);
+        CONTENT.coaches.forEach(coach => {
+          const saved = raw.assignments && typeof raw.assignments === "object" ? raw.assignments[coach.id] : null;
+          assignments[coach.id] = createCoachAssignmentRecord(coach, saved && typeof saved === "object" ? saved : {}, defaultCampusId);
+        });
+        return {
+          scope: "global-academy",
+          status: "prepared",
+          assignmentVersion: COACH_ASSIGNMENT_VERSION,
+          poolRef: "state.coaches",
+          levelRef: "state.coaches.*.level",
+          headquartersRef: COACH_HEADQUARTERS_REF,
+          assignmentModel: "single-campus",
+          transferModel: "metadata-only",
+          transferGameplay: "not-implemented",
+          specialtyModel: "future-metadata",
+          assignments
+        };
+      }
+
+      function normalizeFacilityRecords(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const records = {};
+        CONTENT.facilities.forEach(facility => {
+          const item = saved[facility.id] && typeof saved[facility.id] === "object" ? saved[facility.id] : {};
+          records[facility.id] = {
+            level: Math.max(0, Math.floor(cleanNumber(item.level, 0)))
+          };
+        });
+        return records;
+      }
+
+      function normalizeAthleteRecords(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const records = {};
+        CONTENT.athletes.forEach(athlete => {
+          const item = saved[athlete.id] && typeof saved[athlete.id] === "object" ? saved[athlete.id] : {};
+          const recruited = Boolean(item.recruited);
+          records[athlete.id] = {
+            recruited,
+            skill: clamp(Math.floor(cleanNumber(item.skill, 1)), 1, athlete.potential),
+            xp: Math.max(0, cleanNumber(item.xp, 0)),
+            assigned: recruited && getFacility(item.assigned) ? item.assigned : "",
+            recruitedAt: cleanNumber(item.recruitedAt, 0)
+          };
+        });
+        return records;
+      }
+
+      function isMigratedCampusId(countryId) {
+        return MIGRATED_CAMPUS_IDS.includes(countryId);
+      }
+
+      function campusMigrationPhase(countryId) {
+        if (countryId === USA_CAMPUS_ID) return "phase-2-usa-campus-migration";
+        if (countryId === JAPAN_CAMPUS_ID) return "phase-3-japan-campus-migration";
+        return "phase-1-placeholder";
+      }
+
+      function extractFacilityRecordSource(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw.records || raw : {};
+        return CONTENT.facilities.some(facility => saved[facility.id] && typeof saved[facility.id] === "object") ? saved : {};
+      }
+
+      function extractAthleteRecordSource(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw.records || raw : {};
+        return CONTENT.athletes.some(athlete => saved[athlete.id] && typeof saved[athlete.id] === "object") ? saved : {};
+      }
+
+      function hasFacilityProgress(records = {}) {
+        return CONTENT.facilities.some(facility => cleanNumber(records[facility.id] && records[facility.id].level, 0) > 0);
+      }
+
+      function hasAthleteProgress(records = {}) {
+        return CONTENT.athletes.some(athlete => {
+          const record = records[athlete.id];
+          return Boolean(record && (record.recruited || cleanNumber(record.skill, 1) > 1 || cleanNumber(record.xp, 0) > 0));
+        });
+      }
+
+      function campusOwnsFacilities(campus) {
+        return Boolean(campus && campus.facilities && campus.facilities.status === "campus-owned" && campus.facilities.records);
+      }
+
+      function campusOwnsAthletes(campus) {
+        return Boolean(campus && campus.athletes && campus.athletes.status === "campus-owned" && campus.athletes.records);
+      }
+
+      function campusOwnsCompetitions(campus) {
+        return Boolean(campus && campus.competitions && campus.competitions.status === "campus-owned");
+      }
+
+      function campusOwnsChapterProgress(campus) {
+        return Boolean(campus && campus.chapterProgress && campus.chapterProgress.status === "campus-owned" && campus.chapterProgress.record);
+      }
+
+      function normalizeCampusCompetitionState(raw = {}, rawSave = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const rawActive = saved.active && typeof saved.active === "object" ? saved.active : rawSave.activeCompetition;
+        let active = null;
+        if (rawActive && typeof rawActive === "object") {
+          const comp = getCompetition(rawActive.id);
+          const expiresAt = cleanNumber(rawActive.expiresAt, 0);
+          if (comp && expiresAt > now()) active = { id: comp.id, expiresAt };
+        }
+        return {
+          status: "campus-owned",
+          active,
+          lastResult: normalizeCompetitionResult(saved.lastResult || saved.result || rawSave.lastCompetitionResult),
+          nextCompetitionTime: cleanNumber(saved.nextCompetitionTime, rawSave.nextCompetitionTime || now() + 45000)
+        };
+      }
+
+      function normalizeCampusChapterProgress(raw = {}, rawSave = {}, countryId = USA_CAMPUS_ID) {
+        const savedWrapper = raw && typeof raw === "object" ? raw : {};
+        const saved = savedWrapper.record && typeof savedWrapper.record === "object"
+          ? savedWrapper.record
+          : rawSave.countryProgress && rawSave.countryProgress[countryId] && typeof rawSave.countryProgress[countryId] === "object"
+            ? rawSave.countryProgress[countryId]
+            : {};
+        return {
+          ...createCountryProgressRecord(),
+          ...saved,
+          completedGoalIds: Array.isArray(saved.completedGoalIds) ? [...new Set(saved.completedGoalIds)] : [],
+          chapterTPEarned: Math.max(0, cleanNumber(saved.chapterTPEarned, 0)),
+          competitionsWon: Math.max(0, Math.floor(cleanNumber(saved.competitionsWon, 0))),
+          completedAt: cleanNumber(saved.completedAt, 0),
+          rewardClaimed: Boolean(saved.rewardClaimed),
+          rewardClaimedAt: cleanNumber(saved.rewardClaimedAt, 0)
+        };
+      }
+
+      function activeCampusIdForState(targetState = state) {
+        return normalizeCampusId(targetState && targetState.currentCountryId, USA_CAMPUS_ID);
+      }
+
+      function createCampusRecord(countryId, raw = {}, rawSave = {}) {
+        const country = getCountry(countryId) || { id: countryId, name: countryId, flag: "", accent: "var(--teal)", playable: false };
+        const opened = countryId === USA_CAMPUS_ID || Boolean(raw.opened);
+        const activeCampusId = activeCampusIdForState(rawSave);
+        const isMigratedCampus = isMigratedCampusId(country.id);
+        const isActiveCampus = country.id === activeCampusId;
+        const savedTP = raw.localTrainingPoints && typeof raw.localTrainingPoints === "object" ? raw.localTrainingPoints.value : undefined;
+        const legacyTP = cleanNumber(rawSave.tp, 0);
+        const localTrainingPointValue = cleanNumber(savedTP, isActiveCampus ? legacyTP : 0);
+        const savedFacilities = extractFacilityRecordSource(raw.facilities);
+        const savedAthletes = extractAthleteRecordSource(raw.athletes);
+        const shouldBridgeLegacyProgress = isActiveCampus || country.id === USA_CAMPUS_ID;
+        const facilitySource = Object.keys(savedFacilities).length ? savedFacilities : shouldBridgeLegacyProgress ? rawSave.facilities : {};
+        const athleteSource = Object.keys(savedAthletes).length ? savedAthletes : shouldBridgeLegacyProgress ? rawSave.athletes : {};
+        const savedCompetitions = raw.competitions && raw.competitions.status === "campus-owned" ? raw.competitions : {};
+        const competitionFallback = shouldBridgeLegacyProgress ? rawSave : {};
+        const savedChapter = raw.chapterProgress && typeof raw.chapterProgress === "object" ? raw.chapterProgress : {};
+        return {
+          id: country.id,
+          countryId: country.id,
+          name: country.name,
+          status: raw.status || (opened ? "prepared" : "placeholder"),
+          opened,
+          playable: Boolean(country.playable),
+          architectureVersion: ARCHITECTURE_VERSION,
+          metadata: {
+            migrationPhase: campusMigrationPhase(country.id),
+            migrationStatus: isMigratedCampus ? "migrated" : "placeholder",
+            activeCampusOnMigration: activeCampusId,
+            legacyAdapter: !isMigratedCampus,
+            legacyBridgeApplied: Boolean(raw.metadata && raw.metadata.legacyBridgeApplied),
+            legacyBridgeSource: raw.metadata && raw.metadata.legacyBridgeSource ? String(raw.metadata.legacyBridgeSource) : "",
+            headquartersPlayable: false
+          },
+          localTrainingPoints: {
+            status: isActiveCampus || isMigratedCampus ? "campus-owned" : "prepared",
+            value: Math.max(0, localTrainingPointValue),
+            migratedFrom: "state.tp",
+            adapter: isActiveCampus ? "active-campus-legacy-mirror" : "stored-campus-value"
+          },
+          facilities: isMigratedCampus
+            ? {
+              status: "campus-owned",
+              records: normalizeFacilityRecords(facilitySource)
+            }
+            : {
+              status: "legacy-adapter",
+              valueRef: "state.facilities"
+            },
+          athletes: isMigratedCampus
+            ? {
+              status: "campus-owned",
+              records: normalizeAthleteRecords(athleteSource)
+            }
+            : {
+              status: "legacy-adapter",
+              valueRef: "state.athletes"
+            },
+          competitions: isMigratedCampus
+            ? normalizeCampusCompetitionState(savedCompetitions, competitionFallback)
+            : {
+              status: "legacy-adapter",
+              activeRef: "state.activeCompetition",
+              resultRef: "state.lastCompetitionResult",
+              nextCompetitionTimeRef: "state.nextCompetitionTime"
+            },
+          chapterProgress: isMigratedCampus
+            ? {
+              status: "campus-owned",
+              record: normalizeCampusChapterProgress(savedChapter, rawSave, country.id)
+            }
+            : {
+              status: "legacy-adapter",
+              valueRef: `state.countryProgress.${country.id}`
+            },
+          localBonuses: {
+            status: "content-registry",
+            valueRef: `CONTENT.countries.${country.id}.bonuses`
+          }
+        };
+      }
+
+      function createCampusContainer(raw = {}, rawSave = {}) {
+        const campuses = {};
+        PHASE_ONE_CAMPUS_IDS.forEach(id => {
+          const saved = raw && typeof raw === "object" ? raw[id] : null;
+          campuses[id] = createCampusRecord(id, saved && typeof saved === "object" ? saved : {}, rawSave);
+        });
+        return campuses;
+      }
+
+      function createMigrationRecord(originalSaveVersion = SAVE_VERSION) {
+        return {
+          schemaVersion: ARCHITECTURE_VERSION,
+          originalSaveVersion: Math.max(1, Math.floor(cleanNumber(originalSaveVersion, SAVE_VERSION))),
+          currentSaveVersion: SAVE_VERSION,
+          lastMigratedAt: 0,
+          logs: [],
+          validation: null
         };
       }
 
@@ -3761,7 +4101,9 @@
           trophies: 0,
           medals: 0,
           reputation: 0,
-          academy: defaultAcademyIdentity(current),
+          academy: defaultAcademyContainer(current),
+          campuses: createCampusContainer(),
+          migration: createMigrationRecord(SAVE_VERSION),
           onboarding: defaultOnboardingState(),
           currentCountryId: "usa",
           unlockedCountryIds: ["usa"],
@@ -3817,7 +4159,7 @@
       function normalizeState(raw) {
         const base = createDefaultState();
         if (!raw || typeof raw !== "object") return base;
-        raw = migrateSaveState(raw);
+        raw = migrateSave(raw);
 
         const s = { ...base };
         s.saveVersion = SAVE_VERSION;
@@ -3827,7 +4169,9 @@
         s.trophies = Math.max(0, Math.floor(cleanNumber(raw.trophies, 0)));
         s.medals = Math.max(0, Math.floor(cleanNumber(raw.medals, 0)));
         s.reputation = Math.max(0, Math.floor(cleanNumber(raw.reputation, 0)));
-        s.academy = normalizeAcademyIdentity(raw.academy, base.academy);
+        s.academy = normalizeAcademyContainer(raw.academy, base.academy);
+        s.campuses = normalizeCampusContainer(raw.campuses, raw);
+        s.migration = normalizeMigrationRecord(raw.migration, raw.saveVersion);
         s.onboarding = normalizeOnboarding(raw.onboarding, raw);
         s.lastSave = cleanNumber(raw.lastSave, base.lastSave);
         s.lastTick = now();
@@ -3923,22 +4267,27 @@
         if (s.nextCompetitionTime < now() - 1000 && !s.activeCompetition) {
           s.nextCompetitionTime = now() + randomBetween(60000, 100000);
         }
+        syncArchitectureContainers(s);
+        s.migration.validation = validateSave(s);
         return s;
       }
 
-      function migrateSaveState(raw) {
+      function migrateSave(raw) {
         const migrated = { ...raw };
         const version = Math.max(1, Math.floor(cleanNumber(migrated.saveVersion, 1)));
+        migrated.migration = normalizeMigrationRecord(migrated.migration, version);
         if (version < 2) {
           migrated.clickUpgrades = migrated.clickUpgrades || {};
           CONTENT.clickUpgrades.forEach(upgrade => {
             if (!migrated.clickUpgrades[upgrade.id]) migrated.clickUpgrades[upgrade.id] = { level: 0 };
           });
+          logMigration(migrated, "v2-click-upgrades", "Prepared click upgrade save records.");
         }
         if (version < 3) {
           migrated.currentCountryId = migrated.currentCountryId || "usa";
           migrated.unlockedCountryIds = Array.isArray(migrated.unlockedCountryIds) ? migrated.unlockedCountryIds : ["usa"];
           migrated.completedCountryIds = Array.isArray(migrated.completedCountryIds) ? migrated.completedCountryIds : [];
+          logMigration(migrated, "v3-country-foundation", "Prepared country foundation fields.");
         }
         if (version < 4) {
           migrated.settings = migrated.settings && typeof migrated.settings === "object" ? migrated.settings : {};
@@ -3949,6 +4298,7 @@
             if (migrated.ui.activeTab === "staff") migrated.ui.activeTab = "academy";
             if (migrated.ui.activeTab === "progress") migrated.ui.activeTab = "world";
           }
+          logMigration(migrated, "v4-ui-preferences", "Prepared tab and preference fields.");
         }
         if (version < 5) {
           const legacyCompletedCount = Array.isArray(migrated.completedCountryIds) ? migrated.completedCountryIds.length : 0;
@@ -3968,6 +4318,7 @@
               rewardClaimedAt: cleanNumber(saved.rewardClaimedAt, wasCompleted ? now() : 0)
             };
           });
+          logMigration(migrated, "v5-country-progress", "Prepared medals, reputation, and country progress records.");
         }
         if (version < 6) {
           migrated.countryProgress = migrated.countryProgress && typeof migrated.countryProgress === "object" ? migrated.countryProgress : {};
@@ -3979,15 +4330,607 @@
               competitionsWon: Math.max(0, Math.floor(cleanNumber(saved.competitionsWon, 0)))
             };
           });
+          logMigration(migrated, "v6-country-competition-wins", "Prepared per-country competition win counters.");
         }
         if (version < 7) {
           migrated.academy = normalizeAcademyIdentity(migrated.academy, defaultAcademyIdentity(cleanNumber(migrated.runStart, now())));
+          logMigration(migrated, "v7-academy-identity", "Prepared academy identity fields.");
         }
         if (version < 8) {
           migrated.onboarding = normalizeOnboarding(migrated.onboarding, migrated);
+          logMigration(migrated, "v8-onboarding", "Prepared onboarding flags.");
+        }
+        if (version < 9) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated);
+          logMigration(migrated, "v9-global-academy-shell", "Prepared Global Academy, Headquarters, global coach, and campus containers.");
+        }
+        if (version < 10) {
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated, { source: "legacy", forceCoachCampus: true });
+          logMigration(migrated, "v10-usa-campus-migration", "Migrated USA gameplay data into the USA campus container and assigned global coaches to the active campus.", {
+            activeCampusId: activeCampusIdForState(migrated)
+          });
+        }
+        if (version < 11) {
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated, { source: "legacy" });
+          logMigration(migrated, "v11-japan-campus-migration", "Migrated Japan gameplay data into the Japan campus container while keeping legacy fields as active-campus adapters.", {
+            activeCampusId: activeCampusIdForState(migrated),
+            temporaryTPBridge: true,
+            competitionsRemainGloballySurfaced: true
+          });
+        }
+        if (version < 12) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          syncArchitectureContainers(migrated, {
+            source: "legacy",
+            forceCoachCampus: true,
+            coachAssignmentSource: "v12-global-coach-assignment-foundation"
+          });
+          logMigration(migrated, "v12-global-coach-assignment-foundation", "Prepared global coach assignment metadata and assigned existing coaches to the active campus.", {
+            activeCampusId: activeCampusIdForState(migrated),
+            transferGameplay: false,
+            headquartersPlayable: false
+          });
         }
         migrated.saveVersion = SAVE_VERSION;
+        migrated.migration.currentSaveVersion = SAVE_VERSION;
+        migrated.migration.lastMigratedAt = version < SAVE_VERSION ? now() : cleanNumber(migrated.migration.lastMigratedAt, 0);
         return migrated;
+      }
+
+      function normalizeMigrationRecord(raw, originalSaveVersion = SAVE_VERSION) {
+        const base = createMigrationRecord(originalSaveVersion);
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const logs = Array.isArray(saved.logs) ? saved.logs.slice(-MIGRATION_LOG_LIMIT).map(entry => ({
+          at: cleanNumber(entry && entry.at, 0),
+          saveVersion: Math.max(1, Math.floor(cleanNumber(entry && entry.saveVersion, SAVE_VERSION))),
+          code: String(entry && entry.code || "migration"),
+          message: String(entry && entry.message || "Migration step recorded."),
+          details: entry && typeof entry.details === "object" ? entry.details : {}
+        })) : [];
+        return {
+          ...base,
+          originalSaveVersion: Math.max(1, Math.floor(cleanNumber(saved.originalSaveVersion, originalSaveVersion))),
+          currentSaveVersion: SAVE_VERSION,
+          lastMigratedAt: cleanNumber(saved.lastMigratedAt, 0),
+          logs,
+          validation: saved.validation && typeof saved.validation === "object" ? saved.validation : null
+        };
+      }
+
+      function logMigration(target, code, message, details = {}) {
+        if (!target || typeof target !== "object") return;
+        target.migration = normalizeMigrationRecord(target.migration, target.saveVersion || SAVE_VERSION);
+        target.migration.logs.push({
+          at: now(),
+          saveVersion: SAVE_VERSION,
+          code,
+          message,
+          details
+        });
+        target.migration.logs = target.migration.logs.slice(-MIGRATION_LOG_LIMIT);
+        target.migration.currentSaveVersion = SAVE_VERSION;
+      }
+
+      function normalizeAcademyContainer(raw, fallback = defaultAcademyContainer()) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const fallbackContainer = fallback && typeof fallback === "object" ? fallback : defaultAcademyContainer();
+        const identity = normalizeAcademyIdentity(saved, fallbackContainer);
+        return {
+          ...identity,
+          architectureVersion: ARCHITECTURE_VERSION,
+          identityRef: {
+            storage: "state.academy",
+            fields: ["name", "motto", "crestId", "themeId", "foundedAt"]
+          },
+          globalProgression: {
+            reputationRef: "state.reputation",
+            medalsRef: "state.medals",
+            trophiesRef: "state.trophies",
+            funding: Math.max(0, cleanNumber(saved.globalProgression && saved.globalProgression.funding, 0)),
+            fundingStatus: "future"
+          },
+          headquarters: {
+            status: "planned",
+            playable: false,
+            preparedAfter: "global-coach-assignment-foundation"
+          },
+          coaches: createGlobalCoachContainer(saved.coaches && typeof saved.coaches === "object" ? saved.coaches : {}),
+          campuses: {
+            storage: "state.campuses",
+            preparedCampusIds: [...PHASE_ONE_CAMPUS_IDS]
+          }
+        };
+      }
+
+      function normalizeCampusContainer(raw, rawSave = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const campuses = createCampusContainer(saved, rawSave);
+        PHASE_ONE_CAMPUS_IDS.forEach(id => {
+          campuses[id].opened = id === USA_CAMPUS_ID || normalizeIdList(rawSave.unlockedCountryIds, CONTENT.countries, [USA_CAMPUS_ID]).includes(id);
+          campuses[id].status = campuses[id].opened ? "prepared" : "placeholder";
+        });
+        return campuses;
+      }
+
+      function campusForState(targetState = state, campusId = activeCampusIdForState(targetState)) {
+        if (!targetState || !targetState.campuses) return null;
+        return targetState.campuses[campusId] || targetState.campuses[USA_CAMPUS_ID] || null;
+      }
+
+      function assignCoachRecordToCampus(assignment, campusId, source = "active-campus-coach-assignment") {
+        if (!assignment || typeof assignment !== "object") return;
+        const safeCampusId = normalizeCampusId(campusId, USA_CAMPUS_ID);
+        assignment.assignmentCampusId = safeCampusId;
+        assignment.currentCampusId = safeCampusId;
+        assignment.currentAssignment = {
+          type: "campus",
+          campusId: safeCampusId,
+          status: "assigned",
+          source
+        };
+        assignment.transferReady = true;
+        assignment.transfer = {
+          ...(assignment.transfer && typeof assignment.transfer === "object" ? assignment.transfer : {}),
+          status: "metadata-only",
+          gameplayEnabled: false,
+          ready: true,
+          pending: false,
+          currentCampusId: safeCampusId,
+          destinationCampusId: ""
+        };
+      }
+
+      function syncGlobalCoachAssignments(targetState, options = {}) {
+        const activeCampusId = activeCampusIdForState(targetState);
+        targetState.academy.coaches = createGlobalCoachContainer(targetState.academy.coaches, activeCampusId);
+        if (options.forceActiveCampus) {
+          Object.values(targetState.academy.coaches.assignments).forEach(assignment => {
+            assignCoachRecordToCampus(assignment, activeCampusId, options.coachAssignmentSource || "active-campus-coach-assignment");
+          });
+        }
+      }
+
+      function applyActiveCampusLegacyBridge(targetState, activeCampus) {
+        if (!targetState || !activeCampus || activeCampus.countryId !== JAPAN_CAMPUS_ID) return;
+        if (!activeCampus.metadata || typeof activeCampus.metadata !== "object") activeCampus.metadata = {};
+        if (activeCampus.metadata.legacyBridgeApplied) return;
+        if (campusOwnsFacilities(activeCampus) && !hasFacilityProgress(activeCampus.facilities.records) && hasFacilityProgress(targetState.facilities)) {
+          activeCampus.facilities.records = normalizeFacilityRecords(targetState.facilities);
+        }
+        if (campusOwnsAthletes(activeCampus) && !hasAthleteProgress(activeCampus.athletes.records) && hasAthleteProgress(targetState.athletes)) {
+          activeCampus.athletes.records = normalizeAthleteRecords(targetState.athletes);
+        }
+        activeCampus.metadata.legacyBridgeApplied = true;
+        activeCampus.metadata.legacyBridgeSource = "active-campus-root-fields";
+      }
+
+      function syncCampusAdapters(targetState, options = {}) {
+        if (!targetState || !targetState.campuses) return targetState;
+        const source = options.source || "legacy";
+        const activeCampusId = activeCampusIdForState(targetState);
+        const activeCampus = campusForState(targetState, activeCampusId);
+        const usaCampus = campusForState(targetState, USA_CAMPUS_ID);
+        if (!activeCampus || !usaCampus) return targetState;
+        const activeFacilityCampus = campusOwnsFacilities(activeCampus) ? activeCampus : usaCampus;
+        const activeAthleteCampus = campusOwnsAthletes(activeCampus) ? activeCampus : usaCampus;
+        const activeCompetitionCampus = campusOwnsCompetitions(activeCampus) ? activeCampus : null;
+
+        // Phase 3 compatibility: root fields remain legacy mirrors for the active migrated campus.
+        if (!activeCampus.localTrainingPoints || typeof activeCampus.localTrainingPoints !== "object") {
+          activeCampus.localTrainingPoints = {
+            status: "campus-owned",
+            value: cleanNumber(targetState.tp, 0),
+            migratedFrom: "state.tp",
+            adapter: "active-campus-legacy-mirror"
+          };
+        }
+        if (source === "campus") {
+          targetState.tp = Math.max(0, cleanNumber(activeCampus.localTrainingPoints.value, targetState.tp || 0));
+        } else {
+          activeCampus.localTrainingPoints.value = Math.max(0, cleanNumber(targetState.tp, 0));
+        }
+        activeCampus.localTrainingPoints.status = "campus-owned";
+        activeCampus.localTrainingPoints.adapter = "active-campus-legacy-mirror";
+
+        applyActiveCampusLegacyBridge(targetState, activeCampus);
+
+        if (activeFacilityCampus && activeFacilityCampus.facilities && activeFacilityCampus.facilities.records) {
+          targetState.facilities = activeFacilityCampus.facilities.records;
+        }
+        if (activeAthleteCampus && activeAthleteCampus.athletes && activeAthleteCampus.athletes.records) {
+          targetState.athletes = activeAthleteCampus.athletes.records;
+        }
+        if (!targetState.countryProgress || typeof targetState.countryProgress !== "object") {
+          targetState.countryProgress = {};
+        }
+        MIGRATED_CAMPUS_IDS.forEach(id => {
+          const campus = targetState.campuses[id];
+          if (campusOwnsChapterProgress(campus)) {
+            targetState.countryProgress[id] = campus.chapterProgress.record;
+          }
+        });
+
+        if (activeCompetitionCampus) {
+          if (source === "campus") {
+            targetState.activeCompetition = activeCompetitionCampus.competitions.active || null;
+            targetState.lastCompetitionResult = activeCompetitionCampus.competitions.lastResult || null;
+            targetState.nextCompetitionTime = cleanNumber(activeCompetitionCampus.competitions.nextCompetitionTime, targetState.nextCompetitionTime || now() + 45000);
+          } else {
+            activeCompetitionCampus.competitions.active = targetState.activeCompetition || null;
+            activeCompetitionCampus.competitions.lastResult = targetState.lastCompetitionResult || null;
+            activeCompetitionCampus.competitions.nextCompetitionTime = cleanNumber(targetState.nextCompetitionTime, now() + 45000);
+          }
+        }
+
+        return targetState;
+      }
+
+      function setTrainingPoints(value, targetState = state) {
+        const safe = Math.max(0, cleanNumber(value, 0));
+        targetState.tp = safe;
+        const campus = campusForState(targetState);
+        if (campus && campus.localTrainingPoints) {
+          campus.localTrainingPoints.value = safe;
+          campus.localTrainingPoints.status = "campus-owned";
+          campus.localTrainingPoints.adapter = "active-campus-legacy-mirror";
+        }
+        return safe;
+      }
+
+      function spendTrainingPoints(cost) {
+        const safeCost = Math.max(0, cleanNumber(cost, 0));
+        if (state.tp < safeCost) return false;
+        setTrainingPoints(state.tp - safeCost);
+        return true;
+      }
+
+      function syncCompetitionStateToCampus(targetState = state) {
+        const campus = campusForState(targetState);
+        if (!campusOwnsCompetitions(campus)) return;
+        campus.competitions.active = targetState.activeCompetition || null;
+        campus.competitions.lastResult = targetState.lastCompetitionResult || null;
+        campus.competitions.nextCompetitionTime = cleanNumber(targetState.nextCompetitionTime, now() + 45000);
+      }
+
+      function setActiveCompetition(record) {
+        state.activeCompetition = record || null;
+        syncCompetitionStateToCampus(state);
+      }
+
+      function setLastCompetitionResult(record) {
+        state.lastCompetitionResult = record || null;
+        syncCompetitionStateToCampus(state);
+      }
+
+      function setNextCompetitionTime(value) {
+        state.nextCompetitionTime = cleanNumber(value, now() + 45000);
+        syncCompetitionStateToCampus(state);
+      }
+
+      function syncArchitectureContainers(targetState, options = {}) {
+        if (!targetState || typeof targetState !== "object") return targetState;
+        targetState.academy = normalizeAcademyContainer(targetState.academy, defaultAcademyContainer(cleanNumber(targetState.runStart, now())));
+        targetState.campuses = normalizeCampusContainer(targetState.campuses, targetState);
+        targetState.academy.globalProgression.reputationRef = "state.reputation";
+        targetState.academy.globalProgression.medalsRef = "state.medals";
+        targetState.academy.globalProgression.trophiesRef = "state.trophies";
+        syncGlobalCoachAssignments(targetState, {
+          forceActiveCampus: Boolean(options.forceCoachCampus),
+          coachAssignmentSource: options.coachAssignmentSource || "architecture-sync"
+        });
+        targetState.academy.campuses.preparedCampusIds = Object.keys(targetState.campuses);
+        syncCampusAdapters(targetState, { source: options.source || "legacy" });
+        targetState.migration = normalizeMigrationRecord(targetState.migration, targetState.saveVersion || SAVE_VERSION);
+        targetState.migration.currentSaveVersion = SAVE_VERSION;
+        return targetState;
+      }
+
+      function validateCampusRecord(campus, targetState = state) {
+        const errors = [];
+        const warnings = [];
+        if (!campus || typeof campus !== "object") {
+          return { ok: false, errors: ["Missing campus record."], warnings };
+        }
+        if (!campus.localTrainingPoints || typeof campus.localTrainingPoints !== "object") errors.push("Missing local Training Points record.");
+        if (campus.localTrainingPoints && !Number.isFinite(cleanNumber(campus.localTrainingPoints.value, NaN))) errors.push("Invalid local Training Points value.");
+        if (isMigratedCampusId(campus.countryId)) {
+          const label = campus.name || campus.countryId.toUpperCase();
+          if (!campus.metadata || campus.metadata.migrationStatus !== "migrated") errors.push(`${label} migration metadata is not marked migrated.`);
+          if (!campusOwnsFacilities(campus)) errors.push(`${label} facilities are not campus-owned.`);
+          if (!campusOwnsAthletes(campus)) errors.push(`${label} athletes are not campus-owned.`);
+          if (!campusOwnsCompetitions(campus)) errors.push(`${label} competitions are not campus-owned.`);
+          if (!campusOwnsChapterProgress(campus)) errors.push(`${label} chapter progress is not campus-owned.`);
+          CONTENT.facilities.forEach(facility => {
+            if (!campus.facilities || !campus.facilities.records || !campus.facilities.records[facility.id]) errors.push(`${label} missing facility ${facility.id}.`);
+          });
+          CONTENT.athletes.forEach(athlete => {
+            if (!campus.athletes || !campus.athletes.records || !campus.athletes.records[athlete.id]) errors.push(`${label} missing athlete ${athlete.id}.`);
+          });
+          if (campusOwnsFacilities(campus) && activeCampusIdForState(targetState) === campus.countryId && targetState.facilities !== campus.facilities.records) warnings.push(`Legacy facility adapter is not attached to active ${label} campus by object reference.`);
+          if (campusOwnsAthletes(campus) && activeCampusIdForState(targetState) === campus.countryId && targetState.athletes !== campus.athletes.records) warnings.push(`Legacy athlete adapter is not attached to active ${label} campus by object reference.`);
+          if (campusOwnsChapterProgress(campus) && targetState.countryProgress && targetState.countryProgress[campus.countryId] !== campus.chapterProgress.record) warnings.push(`Legacy ${label} chapter adapter is not attached by object reference.`);
+        }
+        return {
+          ok: errors.length === 0,
+          migrationStatus: campus.metadata && campus.metadata.migrationStatus,
+          errors,
+          warnings
+        };
+      }
+
+      function legacyAdapterStatus(targetState = state) {
+        const activeCampusId = activeCampusIdForState(targetState);
+        const activeCampus = campusForState(targetState, activeCampusId);
+        const usaCampus = campusForState(targetState, USA_CAMPUS_ID);
+        const activeFacilityCampus = campusOwnsFacilities(activeCampus) ? activeCampus : usaCampus;
+        const activeAthleteCampus = campusOwnsAthletes(activeCampus) ? activeCampus : usaCampus;
+        const activeCompetitionCampus = campusOwnsCompetitions(activeCampus) ? activeCampus : null;
+        const chapterAdapters = {};
+        MIGRATED_CAMPUS_IDS.forEach(id => {
+          const campus = targetState.campuses && targetState.campuses[id];
+          chapterAdapters[id] = Boolean(campusOwnsChapterProgress(campus) && targetState.countryProgress && targetState.countryProgress[id] === campus.chapterProgress.record);
+        });
+        return {
+          activeCampusId,
+          trainingPoints: {
+            rootField: "state.tp",
+            campusField: `state.campuses.${activeCampusId}.localTrainingPoints.value`,
+            mirrored: Boolean(activeCampus && Math.abs(cleanNumber(targetState.tp, 0) - cleanNumber(activeCampus.localTrainingPoints && activeCampus.localTrainingPoints.value, 0)) < 0.0001)
+          },
+          facilities: {
+            rootField: "state.facilities",
+            campusField: `state.campuses.${activeFacilityCampus ? activeFacilityCampus.countryId : USA_CAMPUS_ID}.facilities.records`,
+            attached: Boolean(activeFacilityCampus && activeFacilityCampus.facilities && targetState.facilities === activeFacilityCampus.facilities.records)
+          },
+          athletes: {
+            rootField: "state.athletes",
+            campusField: `state.campuses.${activeAthleteCampus ? activeAthleteCampus.countryId : USA_CAMPUS_ID}.athletes.records`,
+            attached: Boolean(activeAthleteCampus && activeAthleteCampus.athletes && targetState.athletes === activeAthleteCampus.athletes.records)
+          },
+          competitions: {
+            rootFields: ["state.activeCompetition", "state.lastCompetitionResult", "state.nextCompetitionTime"],
+            campusField: activeCompetitionCampus ? `state.campuses.${activeCompetitionCampus.countryId}.competitions` : "",
+            attachedWhenActiveCampusOwned: Boolean(activeCompetitionCampus)
+          },
+          chapterProgress: {
+            rootField: "state.countryProgress",
+            campusField: "state.campuses.*.chapterProgress.record",
+            attached: Object.values(chapterAdapters).every(Boolean),
+            migratedCampusAdapters: chapterAdapters
+          }
+        };
+      }
+
+      function validateCoachAssignments(coachContainer, targetState = state) {
+        const errors = [];
+        const warnings = [];
+        const activeCampusId = activeCampusIdForState(targetState);
+        const assignmentCampusIds = {};
+        const validCampusIds = new Set(PHASE_ONE_CAMPUS_IDS);
+        if (!coachContainer || typeof coachContainer !== "object") {
+          return {
+            ok: false,
+            errors: ["Missing global coach assignment container."],
+            warnings,
+            assignmentCampusIds,
+            activeCampusId,
+            transferGameplay: ""
+          };
+        }
+        if (coachContainer.assignmentVersion !== COACH_ASSIGNMENT_VERSION) {
+          warnings.push(`Coach assignment version will normalize to ${COACH_ASSIGNMENT_VERSION}.`);
+        }
+        if (coachContainer.headquartersRef !== COACH_HEADQUARTERS_REF) {
+          errors.push("Global coach pool is missing the Headquarters reference.");
+        }
+        if (coachContainer.transferGameplay !== "not-implemented") {
+          errors.push("Coach transfer gameplay must remain disabled for this milestone.");
+        }
+        if (!coachContainer.assignments || typeof coachContainer.assignments !== "object") {
+          errors.push("Missing coach assignment records.");
+        }
+        CONTENT.coaches.forEach(coach => {
+          const assignment = coachContainer.assignments && coachContainer.assignments[coach.id];
+          if (!assignment || typeof assignment !== "object") {
+            errors.push(`Missing assignment metadata for ${coach.name}.`);
+            return;
+          }
+          const assignmentCampusId = String(assignment.assignmentCampusId || "");
+          const currentCampusId = String(assignment.currentCampusId || "");
+          const currentAssignment = assignment.currentAssignment && typeof assignment.currentAssignment === "object" ? assignment.currentAssignment : null;
+          assignmentCampusIds[coach.id] = assignmentCampusId;
+          if (assignment.coachId !== coach.id) errors.push(`${coach.name} assignment has an invalid coach id.`);
+          if (assignment.assignmentVersion !== COACH_ASSIGNMENT_VERSION) warnings.push(`${coach.name} assignment version will normalize to ${COACH_ASSIGNMENT_VERSION}.`);
+          if (!validCampusIds.has(assignmentCampusId)) errors.push(`${coach.name} assignment campus is invalid.`);
+          if (currentCampusId !== assignmentCampusId) errors.push(`${coach.name} current campus does not match assignment campus.`);
+          if (!currentAssignment || currentAssignment.type !== "campus" || currentAssignment.campusId !== assignmentCampusId) errors.push(`${coach.name} current assignment metadata is incomplete.`);
+          if (assignment.headquartersRef !== COACH_HEADQUARTERS_REF) errors.push(`${coach.name} is missing the future Headquarters reference.`);
+          if (assignment.transferReady !== true) errors.push(`${coach.name} is missing transfer-ready metadata.`);
+          if (!assignment.transfer || assignment.transfer.status !== "metadata-only" || assignment.transfer.gameplayEnabled !== false) errors.push(`${coach.name} transfer metadata must remain disabled.`);
+          if (!assignment.specialty || assignment.specialty.status !== "future-metadata") errors.push(`${coach.name} is missing future specialty metadata.`);
+          const liveLevel = Math.max(0, Math.floor(cleanNumber(targetState.coaches && targetState.coaches[coach.id] && targetState.coaches[coach.id].level, 0)));
+          if (liveLevel > 0 && assignmentCampusId !== activeCampusId) {
+            warnings.push(`${coach.name} is recruited but assigned to ${assignmentCampusId} while the active campus is ${activeCampusId}.`);
+          }
+        });
+        return {
+          ok: errors.length === 0,
+          errors,
+          warnings,
+          assignmentCampusIds,
+          activeCampusId,
+          transferGameplay: coachContainer.transferGameplay || "",
+          headquartersRef: coachContainer.headquartersRef || "",
+          assignmentsPrepared: CONTENT.coaches.every(coach => Boolean(coachContainer.assignments && coachContainer.assignments[coach.id]))
+        };
+      }
+
+      function validateSave(targetState) {
+        const errors = [];
+        const warnings = [];
+        const candidate = targetState && typeof targetState === "object" ? targetState : {};
+        if (Math.floor(cleanNumber(candidate.saveVersion, 0)) !== SAVE_VERSION) warnings.push(`Save version will normalize to ${SAVE_VERSION}.`);
+        if (!candidate.academy || typeof candidate.academy !== "object") errors.push("Missing academy container.");
+        if (!candidate.campuses || typeof candidate.campuses !== "object") errors.push("Missing campus container.");
+        PHASE_ONE_CAMPUS_IDS.forEach(id => {
+          if (!candidate.campuses || !candidate.campuses[id]) errors.push(`Missing ${id.toUpperCase()} campus placeholder.`);
+        });
+        if (!candidate.academy || !candidate.academy.coaches || candidate.academy.coaches.scope !== "global-academy") {
+          errors.push("Missing global coach pool metadata.");
+        }
+        if (!candidate.countryProgress || typeof candidate.countryProgress !== "object") errors.push("Missing country progress records.");
+        if (!candidate.facilities || typeof candidate.facilities !== "object") errors.push("Missing legacy facility records.");
+        if (!candidate.coaches || typeof candidate.coaches !== "object") errors.push("Missing legacy coach records.");
+        if (!candidate.athletes || typeof candidate.athletes !== "object") errors.push("Missing legacy athlete records.");
+        if (!candidate.settings || typeof candidate.settings !== "object") errors.push("Missing settings.");
+        const activeCampusId = activeCampusIdForState(candidate);
+        const adapterStatus = legacyAdapterStatus(candidate);
+        const coachAssignmentValidation = validateCoachAssignments(candidate.academy && candidate.academy.coaches, candidate);
+        coachAssignmentValidation.errors.forEach(error => errors.push(error));
+        coachAssignmentValidation.warnings.forEach(warning => warnings.push(warning));
+        const campusValidation = {};
+        if (candidate.campuses && typeof candidate.campuses === "object") {
+          Object.keys(candidate.campuses).forEach(id => {
+            campusValidation[id] = validateCampusRecord(candidate.campuses[id], candidate);
+          });
+        }
+        if (!candidate.campuses || !candidate.campuses[activeCampusId]) errors.push("Missing active campus record.");
+        MIGRATED_CAMPUS_IDS.forEach(id => {
+          if (campusValidation[id] && !campusValidation[id].ok) {
+            campusValidation[id].errors.forEach(error => errors.push(error));
+          }
+        });
+        Object.values(campusValidation).forEach(result => {
+          (result.warnings || []).forEach(warning => warnings.push(warning));
+        });
+        return {
+          ok: errors.length === 0,
+          checkedAt: now(),
+          saveVersion: SAVE_VERSION,
+          architectureVersion: ARCHITECTURE_VERSION,
+          errors,
+          warnings,
+          summary: {
+            campusIds: candidate.campuses && typeof candidate.campuses === "object" ? Object.keys(candidate.campuses) : [],
+            activeCampusId,
+            usaMigrationStatus: candidate.campuses && candidate.campuses.usa && candidate.campuses.usa.metadata && candidate.campuses.usa.metadata.migrationStatus,
+            japanMigrationStatus: candidate.campuses && candidate.campuses.japan && candidate.campuses.japan.metadata && candidate.campuses.japan.metadata.migrationStatus,
+            legacyAdapters: adapterStatus,
+            campusValidation,
+            globalCoachPool: Boolean(candidate.academy && candidate.academy.coaches && candidate.academy.coaches.scope === "global-academy"),
+            globalCoachAssignments: coachAssignmentValidation,
+            headquartersPrepared: Boolean(candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.playable === false)
+          }
+        };
+      }
+
+      function campusMigrationSummary(targetState, campusId) {
+        const campus = targetState.campuses && targetState.campuses[campusId];
+        return {
+          status: campus && campus.metadata && campus.metadata.migrationStatus,
+          phase: campus && campus.metadata && campus.metadata.migrationPhase,
+          ownsTrainingPoints: Boolean(campus && campus.localTrainingPoints && campus.localTrainingPoints.status === "campus-owned"),
+          ownsFacilities: campusOwnsFacilities(campus),
+          ownsAthletes: campusOwnsAthletes(campus),
+          ownsCompetitions: campusOwnsCompetitions(campus),
+          ownsChapterProgress: campusOwnsChapterProgress(campus),
+          legacyBridgeApplied: Boolean(campus && campus.metadata && campus.metadata.legacyBridgeApplied),
+          legacyBridgeSource: campus && campus.metadata && campus.metadata.legacyBridgeSource || ""
+        };
+      }
+
+      function createDeveloperMigrationInfo(targetState = state) {
+        const validation = validateSave(targetState);
+        const activeCampusId = activeCampusIdForState(targetState);
+        const coachAssignments = targetState.academy && targetState.academy.coaches && targetState.academy.coaches.assignments
+          ? Object.fromEntries(Object.entries(targetState.academy.coaches.assignments).map(([id, assignment]) => [id, {
+            coachId: assignment.coachId,
+            assignmentVersion: assignment.assignmentVersion,
+            assignmentCampusId: assignment.assignmentCampusId,
+            currentCampusId: assignment.currentCampusId,
+            currentAssignment: assignment.currentAssignment,
+            headquartersRef: assignment.headquartersRef,
+            transferReady: assignment.transferReady,
+            transfer: assignment.transfer,
+            specialty: assignment.specialty
+          }]))
+          : {};
+        return {
+          saveVersion: targetState.saveVersion,
+          architectureVersion: ARCHITECTURE_VERSION,
+          migrationStatus: {
+            originalSaveVersion: targetState.migration && targetState.migration.originalSaveVersion,
+            currentSaveVersion: targetState.migration && targetState.migration.currentSaveVersion,
+            lastMigratedAt: targetState.migration && targetState.migration.lastMigratedAt,
+            validation
+          },
+          activeCampus: {
+            id: activeCampusId,
+            currentCountryId: targetState.currentCountryId,
+            fallbackUsed: activeCampusId !== targetState.currentCountryId
+          },
+          usaMigration: campusMigrationSummary(targetState, USA_CAMPUS_ID),
+          japanMigration: campusMigrationSummary(targetState, JAPAN_CAMPUS_ID),
+          legacyAdapterStatus: legacyAdapterStatus(targetState),
+          campusValidation: validation.summary.campusValidation,
+          globalCoachAssignment: {
+            model: targetState.academy && targetState.academy.coaches && targetState.academy.coaches.assignmentModel,
+            assignmentVersion: targetState.academy && targetState.academy.coaches && targetState.academy.coaches.assignmentVersion,
+            headquartersRef: targetState.academy && targetState.academy.coaches && targetState.academy.coaches.headquartersRef,
+            transferModel: targetState.academy && targetState.academy.coaches && targetState.academy.coaches.transferModel,
+            transferGameplay: targetState.academy && targetState.academy.coaches && targetState.academy.coaches.transferGameplay,
+            assignmentCampusIds: validation.summary.globalCoachAssignments.assignmentCampusIds,
+            validation: validation.summary.globalCoachAssignments,
+            assignments: coachAssignments
+          },
+          academy: {
+            identity: {
+              name: targetState.academy && targetState.academy.name,
+              motto: targetState.academy && targetState.academy.motto,
+              crestId: targetState.academy && targetState.academy.crestId,
+              themeId: targetState.academy && targetState.academy.themeId
+            },
+            headquarters: targetState.academy && targetState.academy.headquarters,
+            globalProgression: targetState.academy && targetState.academy.globalProgression,
+            coaches: targetState.academy && targetState.academy.coaches
+          },
+          campuses: targetState.campuses,
+          legacyCompatibility: {
+            currentCountryId: targetState.currentCountryId,
+            unlockedCountryIds: Array.isArray(targetState.unlockedCountryIds) ? [...targetState.unlockedCountryIds] : [],
+            completedCountryIds: Array.isArray(targetState.completedCountryIds) ? [...targetState.completedCountryIds] : [],
+            trainingPoints: cleanNumber(targetState.tp, 0),
+            totalTPEarned: cleanNumber(targetState.totalTPEarned, 0),
+            seasonTPEarned: cleanNumber(targetState.seasonTPEarned, 0),
+            medals: Math.max(0, Math.floor(cleanNumber(targetState.medals, 0))),
+            reputation: Math.max(0, Math.floor(cleanNumber(targetState.reputation, 0))),
+            trophies: Math.max(0, Math.floor(cleanNumber(targetState.trophies, 0))),
+            facilityLevels: Object.fromEntries(CONTENT.facilities.map(facility => [
+              facility.id,
+              Math.max(0, Math.floor(cleanNumber(targetState.facilities && targetState.facilities[facility.id] && targetState.facilities[facility.id].level, 0)))
+            ])),
+            coachLevels: Object.fromEntries(CONTENT.coaches.map(coach => [
+              coach.id,
+              Math.max(0, Math.floor(cleanNumber(targetState.coaches && targetState.coaches[coach.id] && targetState.coaches[coach.id].level, 0)))
+            ])),
+            athleteSkills: Object.fromEntries(CONTENT.athletes.map(athlete => [
+              athlete.id,
+              {
+                recruited: Boolean(targetState.athletes && targetState.athletes[athlete.id] && targetState.athletes[athlete.id].recruited),
+                skill: Math.max(1, Math.floor(cleanNumber(targetState.athletes && targetState.athletes[athlete.id] && targetState.athletes[athlete.id].skill, 1)))
+              }
+            ]))
+          },
+          migrationLogs: targetState.migration && Array.isArray(targetState.migration.logs) ? targetState.migration.logs : [],
+          importExportCompatibility: {
+            exportIncludesArchitecture: Boolean(targetState.academy && targetState.campuses && targetState.migration),
+            importUsesNormalizeState: true
+          }
+        };
       }
 
       function normalizeIdList(value, collection, fallback) {
@@ -3995,6 +4938,11 @@
         const list = Array.isArray(value) ? value : fallback;
         const normalized = list.filter(id => valid.has(id));
         return normalized.length ? [...new Set(normalized)] : [...fallback];
+      }
+
+      function normalizeCampusId(value, fallback = "usa") {
+        const id = String(value || "");
+        return PHASE_ONE_CAMPUS_IDS.includes(id) ? id : fallback;
       }
 
       function createCountryProgressRecord() {
@@ -4180,19 +5128,44 @@
           const raw = localStorage.getItem(STORAGE_KEY);
           if (!raw) {
             state = createDefaultState();
+            syncArchitectureContainers(state);
+            state.migration.validation = validateSave(state);
             return;
           }
           state = normalizeState(JSON.parse(raw));
         } catch (err) {
           state = createDefaultState();
+          syncArchitectureContainers(state);
+          state.migration.validation = validateSave(state);
           queueMicrotask(() => toast("Save data was unreadable, so a fresh academy was started."));
         }
       }
 
       function saveState() {
         state.saveVersion = SAVE_VERSION;
+        syncArchitectureContainers(state);
+        state.migration.validation = validateSave(state);
         state.lastSave = now();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        exposeDeveloperMigrationTools();
+      }
+
+      function exposeDeveloperMigrationTools() {
+        const debugInfo = createDeveloperMigrationInfo(state);
+        window.EliteSportsAcademyDebug = {
+          exportMigrationInfo: () => JSON.stringify(createDeveloperMigrationInfo(state), null, 2),
+          validateSave: () => validateSave(state),
+          migrationInfo: () => createDeveloperMigrationInfo(state)
+        };
+        let debugNode = document.getElementById("migrationDebugInfo");
+        if (!debugNode) {
+          debugNode = document.createElement("script");
+          debugNode.id = "migrationDebugInfo";
+          debugNode.type = "application/json";
+          debugNode.hidden = true;
+          document.body.appendChild(debugNode);
+        }
+        debugNode.textContent = JSON.stringify(debugInfo, null, 2);
       }
 
       function applyOfflineProgress() {
@@ -4272,7 +5245,7 @@
       function grantTP(amount, source) {
         const safe = Math.max(0, cleanNumber(amount, 0));
         if (safe <= 0) return;
-        state.tp += safe;
+        setTrainingPoints(state.tp + safe);
         state.totalTPEarned += safe;
         state.seasonTPEarned += safe;
         ensureCountryProgress(state.currentCountryId).chapterTPEarned += safe;
@@ -4451,8 +5424,7 @@
         const record = state.clickUpgrades[id];
         if (record.level >= upgrade.maxLevel) return;
         const cost = clickUpgradeCost(id);
-        if (state.tp < cost) return;
-        state.tp -= cost;
+        if (!spendTrainingPoints(cost)) return;
         record.level += 1;
         state.stats.clickUpgradesBought += 1;
         toast(`${upgrade.name} upgraded to level ${record.level}.`);
@@ -4695,8 +5667,7 @@
         const qty = qtyMode === "max" ? maxAffordableFacility(id) : Number(qtyMode);
         if (!Number.isFinite(qty) || qty <= 0) return;
         const cost = facilityCost(id, qty);
-        if (state.tp < cost) return;
-        state.tp -= cost;
+        if (!spendTrainingPoints(cost)) return;
         state.facilities[id].level += qty;
         state.stats.facilitiesBought += qty;
         state.stats.highestFacilityLevel = Math.max(state.stats.highestFacilityLevel, state.facilities[id].level);
@@ -4741,8 +5712,7 @@
           return;
         }
         const cost = coachCost(id);
-        if (state.tp < cost) return;
-        state.tp -= cost;
+        if (!spendTrainingPoints(cost)) return;
         state.coaches[id].level += 1;
         if (isNew) state.stats.coachesRecruited += 1;
         toast(`${coach.name} is now level ${state.coaches[id].level}.`);
@@ -4779,8 +5749,7 @@
           toast("Upgrade facilities to create more athlete capacity.");
           return;
         }
-        if (state.tp < athlete.baseCost) return;
-        state.tp -= athlete.baseCost;
+        if (!spendTrainingPoints(athlete.baseCost)) return;
         record.recruited = true;
         record.recruitedAt = now();
         record.assigned = state.facilities[athlete.preferredFacilityId].level > 0 ? athlete.preferredFacilityId : "";
@@ -4795,8 +5764,7 @@
         const record = state.athletes[id];
         if (!athlete || !record.recruited || record.skill >= athlete.potential) return;
         const cost = athleteTrainCost(id);
-        if (state.tp < cost) return;
-        state.tp -= cost;
+        if (!spendTrainingPoints(cost)) return;
         record.skill += 1;
         record.xp = 0;
         toast(`${athlete.name} improved to skill ${record.skill}.`);
@@ -4881,11 +5849,11 @@
         if (state.activeCompetition || now() < state.nextCompetitionTime) return;
         const unlocked = CONTENT.competitions.filter(c => calculateIncome({ includeEvent: false }) >= c.unlockIncome);
         if (!unlocked.length) {
-          state.nextCompetitionTime = now() + 45000;
+          setNextCompetitionTime(now() + 45000);
           return;
         }
         const comp = unlocked[Math.floor(Math.random() * unlocked.length)];
-        state.activeCompetition = { id: comp.id, expiresAt: now() + 90000 };
+        setActiveCompetition({ id: comp.id, expiresAt: now() + 90000 });
         renderSoon();
       }
 
@@ -4906,7 +5874,7 @@
           progress.competitionsWon += 1;
           state.moraleBoostEnd = now() + 15000;
         }
-        state.lastCompetitionResult = {
+        setLastCompetitionResult({
           competitionId: comp.id,
           name: comp.name,
           type: competitionTypeLabel(comp),
@@ -4917,9 +5885,9 @@
           power,
           targetPower: comp.targetPower,
           timestamp: now()
-        };
-        state.activeCompetition = null;
-        state.nextCompetitionTime = now() + randomBetween(85000, 135000);
+        });
+        setActiveCompetition(null);
+        setNextCompetitionTime(now() + randomBetween(85000, 135000));
         toast(`${won ? "Won" : "Entered"} ${comp.name}: +${fmt(reward)} TP${won ? " and 1.5x momentum." : "."}`);
         checkAchievements();
         checkCountryProgress();
@@ -4929,8 +5897,8 @@
 
       function expireCompetition() {
         if (state.activeCompetition && state.activeCompetition.expiresAt <= now()) {
-          state.activeCompetition = null;
-          state.nextCompetitionTime = now() + randomBetween(70000, 120000);
+          setActiveCompetition(null);
+          setNextCompetitionTime(now() + randomBetween(70000, 120000));
           renderSoon();
         }
       }
@@ -4978,6 +5946,7 @@
           medals: state.medals,
           reputation: state.reputation,
           academy: { ...state.academy },
+          migration: JSON.parse(JSON.stringify(state.migration)),
           onboarding: { ...state.onboarding },
           tutorialSeen: state.tutorialSeen,
           achievements: { ...state.achievements },
@@ -4996,6 +5965,7 @@
         state.medals = keep.medals;
         state.reputation = keep.reputation;
         state.academy = keep.academy;
+        state.migration = keep.migration;
         state.onboarding = keep.onboarding;
         state.tutorialSeen = keep.tutorialSeen;
         state.achievements = keep.achievements;
@@ -5007,6 +5977,8 @@
         state.countryProgress = keep.countryProgress;
         state.seasonNumber = keep.seasonNumber;
         state.runStart = now();
+        state.campuses = createCampusContainer({}, state);
+        syncArchitectureContainers(state, { source: "legacy" });
         saveState();
         showModal(
           "Season Complete",
@@ -5062,6 +6034,7 @@
           tab === "world" ? renderWorldTab() : "",
           renderPinnedDrill()
         ].join("");
+        exposeDeveloperMigrationTools();
         lastRender = now();
       }
 
@@ -6519,7 +7492,7 @@
                 ${preferenceToggle("animations", "Animations")}
                 ${preferenceToggle("confirmPrestige", "Confirm Prestige")}
               </div>
-              <textarea id="saveBox" placeholder="Exported save data appears here. Paste save data here before importing."></textarea>
+              <textarea id="saveBox" placeholder="Exported save data appears here. Paste save data here before importing.">${escapeHTML(saveBoxDraft)}</textarea>
               <div class="button-row">
                 <button class="small-btn" data-action="export-save">Export Save</button>
                 <button class="small-btn" data-action="import-save">Import Save</button>
@@ -6709,9 +7682,10 @@
 
       function exportSave() {
         saveState();
+        saveBoxDraft = JSON.stringify(state);
         const box = document.getElementById("saveBox");
         if (box) {
-          box.value = JSON.stringify(state);
+          box.value = saveBoxDraft;
           box.select();
         }
         toast("Save exported into the text box.");
@@ -6719,11 +7693,25 @@
 
       function importSave() {
         const box = document.getElementById("saveBox");
-        if (!box || !box.value.trim()) return;
+        const draft = box ? box.value : saveBoxDraft;
+        if (!draft.trim()) return;
+        saveBoxDraft = draft;
         try {
-          state = normalizeState(JSON.parse(box.value.trim()));
+          const imported = normalizeState(JSON.parse(draft.trim()));
+          const validation = validateSave(imported);
+          if (!validation.ok) {
+            toast("That save data is missing required academy fields.");
+            return;
+          }
+          logMigration(imported, "manual-import-validation", "Imported save passed architecture validation.", {
+            warnings: validation.warnings.length
+          });
+          imported.migration.validation = validation;
+          state = imported;
           state.lastTick = now();
           saveState();
+          saveBoxDraft = JSON.stringify(state);
+          if (box) box.value = saveBoxDraft;
           toast("Save imported.");
           renderSoon();
         } catch (err) {
@@ -6736,7 +7724,7 @@
         const mottoInput = document.getElementById(ids.motto);
         const crestSelect = document.getElementById(ids.crest);
         const themeSelect = document.getElementById(ids.theme);
-        state.academy = normalizeAcademyIdentity({
+        state.academy = normalizeAcademyContainer({
           ...state.academy,
           name: nameInput ? nameInput.value : state.academy.name,
           motto: mottoInput ? mottoInput.value : state.academy.motto,
@@ -6870,7 +7858,7 @@
         if (action === "assign-athlete") assignAthlete(target.dataset.id, target.dataset.facility);
         if (action === "enter-competition") enterCompetition();
         if (action === "dismiss-competition-result") {
-          state.lastCompetitionResult = null;
+          setLastCompetitionResult(null);
           saveState();
           renderSoon();
         }
@@ -6900,6 +7888,7 @@
         if (action === "reset-save") resetSave();
         if (action === "confirm-reset") {
           localStorage.removeItem(STORAGE_KEY);
+          saveBoxDraft = "";
           state = createDefaultState();
           closeModal();
           renderSoon();
@@ -6908,6 +7897,12 @@
         if (action === "export-save") exportSave();
         if (action === "import-save") importSave();
         if (action === "save-academy-identity") saveAcademyIdentity();
+      }
+
+      function handleInput(event) {
+        if (event.target && event.target.id === "saveBox") {
+          saveBoxDraft = event.target.value;
+        }
       }
 
       function tick() {
@@ -7261,7 +8256,13 @@
         });
         refreshUnlockedCountries();
         const next = nextPlayableCountry(country);
-        if (next && state.unlockedCountryIds.includes(next.id)) state.currentCountryId = next.id;
+        if (next && state.unlockedCountryIds.includes(next.id)) {
+          state.currentCountryId = next.id;
+          syncGlobalCoachAssignments(state, {
+            forceActiveCampus: true,
+            coachAssignmentSource: "chapter-reward-active-campus-sync"
+          });
+        }
         state.ui.activeTab = "world";
         activeChapterModalCountryId = "";
         closeModal();
@@ -7482,6 +8483,7 @@
       }
 
       document.addEventListener("click", handleAction);
+      document.addEventListener("input", handleInput);
       window.addEventListener("beforeunload", saveState);
 
       loadState();

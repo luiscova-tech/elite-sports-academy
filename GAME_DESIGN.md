@@ -345,6 +345,11 @@ Current implementation direction:
 - Chapter progress should be stored per country so completed goals and claimed rewards survive later resets.
 - Use id maps and lookup helpers instead of repeated array searches.
 - Preserve single-file delivery during the prototype phase, but keep system boundaries clear enough for a later file split.
+- Save version 9 adds a future-compatible Global Academy architecture shell while preserving current gameplay fields. `state.academy` now keeps identity plus global progression, Headquarters, global coach, and campus references; `state.campuses` prepares USA and Japan records that still point at legacy TP, facilities, athletes, competitions, and chapter progress until later campus migration phases.
+- Migration helpers should stay additive, traceable, and repeatable. Future local TP, Headquarters, coach assignment, and local athlete migrations should build on the version 9 compatibility layer instead of moving gameplay values in one large rewrite.
+- Save version 10 migrates USA into the first true campus record under `state.campuses.usa`. USA owns Training Points, facilities, athletes, competition state, chapter progress, and campus metadata while legacy root fields remain compatibility adapters. Japan remains a later migration target.
+- Save version 11 migrates Japan into the second true campus record under `state.campuses.japan`. Japan owns facilities, athletes, competition state, chapter progress, local Training Point bridge data, and campus metadata while active legacy root fields remain compatibility adapters. Japan-active TP remains a temporary bridge until the Local Training Point Economy milestone.
+- Save version 12 prepares the Global Academy coach assignment foundation. Each coach now has metadata for coach id, current assignment, current campus, future Headquarters reference, transfer readiness, and future specialty data while live coach levels, costs, tiers, effects, and slot behavior remain on the legacy `state.coaches` adapter until transfer gameplay is explicitly approved.
 
 ## Version 1 Priority Order
 1. Core click loop

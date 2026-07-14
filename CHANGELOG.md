@@ -1,5 +1,108 @@
 # Elite Sports Academy Changelog
 
+## 2026-07-14 - Phase 4: Global Coach Assignment Foundation
+
+### Added
+- Save version 12 with additive global coach assignment metadata.
+- Per-coach assignment records with coach id, current assignment, current campus, future Headquarters reference, transfer-ready metadata, and future specialty metadata.
+- Hidden developer diagnostics for coach assignment version, assignment campus ids, Headquarters reference, transfer model, transfer gameplay status, and per-coach metadata.
+- Save validation checks for coach assignment records, invalid campus references, missing Headquarters references, and accidentally enabled transfer gameplay.
+
+### Changed
+- Existing coach assignment metadata now migrates to the active campus.
+- Headquarters metadata now reflects preparation through the Global Coach Assignment Foundation while remaining non-playable.
+- Chapter reward travel syncs coach metadata to the new active campus without adding transfer controls or changing coach effects.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Legacy coach assignment diagnostics now report the full metadata record instead of only a campus id.
+
+### Unchanged
+- No coach levels, costs, tiers, effects, slot behavior, economy formulas, country availability, athlete mechanics, competition rules, UI layout, Brazil gameplay, SVG art, sponsors, local TP economy, playable Headquarters systems, or coach transfer gameplay were added or changed.
+
+## 2026-07-13 - Phase 3: Japan Campus Migration
+
+### Added
+- Save version 11 with additive Japan campus migration.
+- Japan campus-owned records for facilities, athletes, competition state, chapter progress, local Training Point bridge data, and migration metadata.
+- Japan migration diagnostics in the hidden developer migration payload.
+- Active-campus adapter diagnostics that identify whether legacy root fields are backed by USA or Japan.
+
+### Changed
+- Legacy `state.facilities`, `state.athletes`, active competition fields, and active TP now mirror the active migrated campus instead of always mirroring USA.
+- Japan-active progress is preserved through a temporary compatibility bridge until the Local Training Point Economy milestone.
+- Competition state is stored on the active migrated campus while the current Competitions UI remains globally surfaced.
+- Headquarters metadata now reflects preparation through Japan migration while remaining non-playable.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Japan campus validation now checks owned facilities, athletes, competitions, and chapter progress.
+- USA migration validation remains active after Japan migration.
+
+### Unchanged
+- No gameplay values, economy formulas, country availability, coach effects, athlete mechanics, competition rules, UI layout, Brazil gameplay, SVG art, sponsors, local TP split, coach transfers, or Headquarters gameplay were added or changed.
+
+## 2026-07-13 - Phase 2: USA Campus Migration
+
+### Added
+- Save version 10 with additive USA campus migration.
+- USA campus-owned records for Training Points, facilities, athletes, competition state, chapter progress, and migration metadata.
+- Active-campus Training Point migration rule: existing TP migrates to the current active campus if it exists, otherwise USA.
+- Global coach assignment migration rule: initial coach assignments move to the current active campus if it exists, otherwise USA.
+- Legacy adapter diagnostics for active campus, USA migration status, legacy adapter status, global coach assignment, and campus validation.
+
+### Changed
+- USA facility, athlete, chapter-progress, and competition compatibility paths now mirror through `state.campuses.usa`.
+- TP earning and spending now route through active-campus adapter helpers while preserving the existing root `state.tp` compatibility field.
+- Prestige now rebuilds operational campus data from the reset state so USA facilities, athletes, and TP still reset as before.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- USA campus validation now checks owned facilities, athletes, competitions, and chapter progress.
+- Hidden migration diagnostics now show whether legacy root fields are attached to the migrated USA campus records.
+
+### Unchanged
+- No gameplay values, economy formulas, country availability, coach effects, athlete mechanics, competition rules, UI layout, Brazil gameplay, SVG art, sponsors, local TP split, coach transfers, or Headquarters gameplay were added or changed.
+
+## 2026-07-13 - Phase 1: Global Academy Save Architecture
+
+### Added
+- Save version 9 with additive migration support for the Version 2 Global Academy architecture.
+- Future-compatible `state.academy` container for academy identity, global progression references, planned Headquarters metadata, global coach pool metadata, and campus references.
+- `state.campuses` with USA and Japan placeholder records that reference the current live gameplay fields.
+- Migration helpers: `migrateSave()`, `validateSave()`, and `logMigration()`.
+- Hidden developer migration inspection through `window.EliteSportsAcademyDebug` and the non-visible `#migrationDebugInfo` JSON node, including a compact legacy compatibility summary for TP, countries, facilities, coaches, and athletes.
+
+### Changed
+- Save loading now routes through the new migration framework while preserving existing gameplay data.
+- Import save flow now normalizes and validates architecture containers before committing imported data.
+- Export/import text now persists across World tab re-renders so the save box is usable during normal play.
+- Prestige reset now preserves the new academy, campus, and migration metadata.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Exported saves now include migration validation data and the new architecture shells.
+- Existing academy identity edits now preserve the full academy container instead of temporarily collapsing to identity-only data.
+- The Preferences save textarea no longer clears immediately during periodic World tab renders.
+
+### Unchanged
+- No gameplay values, economy formulas, country availability, coach effects, athlete mechanics, competition mechanics, UI layout, Brazil gameplay, SVG art, sponsors, or Headquarters gameplay were added or changed.
+
+## 2026-07-13 - Implementation Planning: Version 2 Engineering Roadmap
+
+### Added
+- `IMPLEMENTATION_PLAN.md` as the engineering roadmap for Version 2 implementation.
+- Phase-by-phase implementation order from Global Academy save architecture through future Headquarters systems.
+- Save migration strategy for Global Academy, Headquarters, country campuses, local TP, global coaches, and local athletes.
+- Engineering validation, gameplay validation, playtest goals, and regression risks for every implementation phase.
+
+### Changed
+- Roadmap now recommends Phase 1: Global Academy Save Architecture as the next engineering milestone.
+- TODO now prioritizes save shells, compatibility helpers, and migration assertions before Brazil or other gameplay implementation.
+
+### Fixed
+- Clarified that Implementation Planning is not a gameplay, UI, save migration, SVG, sponsor, athlete generation, or Brazil milestone.
+
 ## 2026-07-12 - World Tour 3.0: Global Academy Architecture
 
 ### Added

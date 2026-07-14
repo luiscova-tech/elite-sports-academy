@@ -2,14 +2,20 @@
 
 This file records the current economy and progression values.
 
-Visual Identity 1.0 is an experience and presentation milestone. It improves screen personality, silhouettes, iconography, visual hierarchy, and the feeling of being inside an academy, but does not change economy, progression rewards, output formulas, save shape, country gameplay, athlete systems, or competition mechanics.
+Visual Identity 1.0 is an experience and presentation milestone. It improves screen personality, silhouettes, iconography, visual hierarchy, and the feeling of being inside an academy, but does not change economy, progression rewards, output formulas, country gameplay, athlete systems, or competition mechanics.
 
 World Tour 3.0 is a design and documentation milestone. It defines one global academy with future local country campuses, but does not change current balance values, save data, formulas, country gameplay, athlete systems, coach mechanics, or competition mechanics.
+
+Phase 1 - Global Academy Save Architecture updates the save shape to version 9 with additive academy, campus, and migration metadata. It does not change economy values, formulas, reward amounts, country gameplay, athlete systems, coach effects, or competition mechanics.
+
+Phase 2 - USA Campus Migration updates the save shape to version 10 with USA-owned campus records and legacy adapters. It does not change economy values, formulas, reward amounts, country gameplay, athlete systems, coach effects, or competition mechanics.
+
+Phase 3 - Japan Campus Migration updates the save shape to version 11 with Japan-owned campus records and active-campus legacy adapters. It does not change economy values, formulas, reward amounts, country gameplay, athlete systems, coach effects, or competition mechanics.
 
 Future balance work should follow `WORLD_TOUR.md`: academy identity, reputation, medals, trophies, rank, Hall of Fame, future research, and future sponsors are global; Training Points, facilities, local athletes, competitions, buildings, local progress, visual theme, chapter progress, and country bonuses should eventually be campus-local.
 
 ## Global Values
-- Save version: 8
+- Save version: 11
 - Offline progress cap: 8 hours
 - Facility cost multiplier: 1.15 per level
 - Prestige unlock: 100,000 season TP

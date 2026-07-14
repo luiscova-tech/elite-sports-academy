@@ -1,10 +1,12 @@
 # Elite Sports Academy TODO
 
 ## Priority 1
-- Design the Global Academy save architecture before implementing Brazil gameplay.
-- Define how current USA and Japan progress migrate into future per-country campus data.
-- Define return travel/backtracking UX for completed country campuses.
-- Define the first global coach assignment model without changing current coach behavior yet.
+- Begin Phase 5: Local Training Point Economy using `IMPLEMENTATION_PLAN.md`.
+- Design the TP migration so USA and Japan keep current economy values while TP becomes campus-local.
+- Keep legacy root TP as an active-campus compatibility adapter until local TP validation is stable.
+- Preserve current coach levels, costs, tiers, effects, and the Phase 4 global coach assignment metadata.
+- Validate save version 12 migration using fresh saves, existing USA saves, existing Japan-active saves, import/export, prestige reset, reset, and hidden developer migration diagnostics.
+- Keep Brazil preview-only until the remaining prerequisite phases through regional expansion are complete.
 - Playtest a fresh save through the new Welcome Coach ceremony, Session Drill, Sports, Academy, Competitions, and World screens.
 - Review Visual Identity 1.0 screenshots for mobile spacing, screen personality, icon clarity, and whether the game feels like a living academy rather than a web app.
 - Tune visual hierarchy, silhouettes, and icon language from real player feedback only.
@@ -16,8 +18,10 @@
 - Add a player-controlled country selection flow for unlocked countries if backtracking becomes part of the design.
 
 ## Priority 2
+- Prepare active campus and return travel rules before implementing regional expansion or Brazil.
+- Decide when coach assignment should become player-facing transfer gameplay.
 - Decide whether the current identity choice flow should later become a richer academy naming ceremony.
-- Polish Brazil as an unlocked preview destination after Japan without adding Brazil gameplay until the Global Academy save architecture is ready.
+- Polish Brazil as an unlocked preview destination after Japan without adding Brazil gameplay until USA/Japan campus migration, global coach hooks, and local TP architecture are ready.
 - Clarify the post-Japan state when the next destination is unlocked but not playable yet.
 - Draft Brazil's 2 core sports, 2 shared sports, 1 wildcard sport, local athletes, global coach hooks, local competitions, buildings, bonuses, and chapter goals before implementation.
 - Define future Hall of Fame rules before implementing athlete history.

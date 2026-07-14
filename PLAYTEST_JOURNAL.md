@@ -2,6 +2,199 @@
 
 This journal records real player or game-director feedback only. Do not invent ratings, play time, quotes, or bugs.
 
+## Entry - 2026-07-14 - Phase 4 Global Coach Assignment Foundation Direction
+
+### Version / Milestone
+Phase 4 - Global Coach Assignment Foundation
+
+### Date
+2026-07-14
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request.
+
+### Overall Ratings
+Not provided.
+
+### Design Insights
+- Coaches should become Global Academy resources while current coach gameplay remains unchanged.
+- Existing coach effects, bonuses, costs, and levels must remain unchanged.
+- Existing coaches should migrate to the active campus.
+- Headquarters remains metadata only.
+- Coach assignment is metadata only.
+- Coach transfer gameplay is not implemented yet.
+
+### What Felt Good
+- The milestone should be architecture-first and ideally invisible to players.
+- The current gameplay, balance, saves, and coach progression should remain stable before gameplay expansion resumes.
+
+### What Was Confusing
+- The previous Phase 4 label, Coach Transfer System, could imply player-facing transfer gameplay too early.
+- The implementation needs diagnostics proving coaches are assignment-ready without enabling transfers.
+
+### Bugs Reported
+- No explicit gameplay bugs were reported in this feedback.
+
+### UX Improvements Requested
+- No visible UI redesign was requested for this milestone.
+
+### Ideas
+- Use this phase as the final architecture checkpoint before local TP and later gameplay expansion.
+- Keep coach transfer design for a later approved milestone after the metadata foundation is stable.
+
+### Priority
+High for save safety and Version 2 architecture. Headquarters gameplay, coach transfers, Brazil, SVG art, local TP economy, regional competitions, and sponsors remain out of scope for this milestone.
+
+### Would The Player Keep Playing?
+Not provided.
+
+## Entry - 2026-07-13 - Phase 3 Japan Campus Migration Direction
+
+### Version / Milestone
+Phase 3 - Japan Campus Migration
+
+### Date
+2026-07-13
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request.
+
+### Overall Ratings
+Not provided.
+
+### Design Insights
+- Keep the current `state.campuses` container name.
+- Japan should become the second true campus.
+- Japan-active progress should be preserved only as a temporary compatibility bridge until the Local Economy milestone.
+- Competitions remain globally surfaced for now.
+- Headquarters remains non-playable.
+- Save compatibility, prestige, reset, import/export, and current gameplay behavior must be preserved.
+
+### What Felt Good
+- The milestone should be invisible or nearly invisible to players.
+- Japan should keep its Swimming/Cycling focus, bonuses, chapter goals, and Brazil preview unlock while the architecture underneath becomes safer.
+
+### What Was Confusing
+- Japan migration must not accidentally implement local TP economy, coach transfers, Headquarters gameplay, Brazil, SVG art, competition redesign, or athlete redesign.
+- Compatibility diagnostics need to prove USA migration still works while Japan becomes campus-owned.
+
+### Bugs Reported
+- No explicit gameplay bugs were reported in this feedback.
+
+### UX Improvements Requested
+- No visible UI redesign was requested for this milestone.
+
+### Ideas
+- Use Japan as the second proof that campus-owned data can coexist with legacy active-campus adapters before moving to coach transfer and local economy phases.
+
+### Priority
+High for save safety and Version 2 architecture. Coach transfers are next; Brazil, Headquarters gameplay, SVG artwork, sponsors, local TP split, and system redesigns remain out of scope.
+
+### Would The Player Keep Playing?
+Not provided.
+
+## Entry - 2026-07-13 - Phase 2 USA Campus Migration Direction
+
+### Version / Milestone
+Phase 2 - USA Campus Migration
+
+### Date
+2026-07-13
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request.
+
+### Overall Ratings
+Not provided.
+
+### Design Insights
+- Keep the current `state.campuses` container name.
+- Existing TP should migrate to the current active campus when available, otherwise USA.
+- Global coaches should initially assign to the current active campus when available, otherwise USA.
+- USA should become the first true campus owner for operational gameplay data.
+- Headquarters remains non-playable.
+- Legacy fields remain compatibility adapters until migration is complete.
+
+### What Felt Good
+- The milestone should be invisible or nearly invisible to players.
+- Current TP, facilities, coaches, athletes, competitions, prestige, and country progression should continue behaving the same.
+
+### What Was Confusing
+- USA migration must not accidentally implement Japan migration, local TP split, coach transfers, Brazil, or Headquarters gameplay.
+- Legacy adapter status needs developer diagnostics so future migrations can be validated safely.
+
+### Bugs Reported
+- No explicit gameplay bugs were reported in this feedback.
+
+### UX Improvements Requested
+- No visible UI redesign was requested for this milestone.
+- Developer diagnostics should show active campus, USA migration status, adapter status, coach assignment, and campus validation.
+
+### Ideas
+- Use USA as the first proof that campus-owned data can coexist with legacy root adapters before moving Japan.
+
+### Priority
+High for save safety and Version 2 architecture. Japan migration is next; Brazil, Headquarters gameplay, SVG artwork, sponsors, coach transfers, local TP split, and system redesigns remain out of scope.
+
+### Would The Player Keep Playing?
+Not provided.
+
+## Entry - 2026-07-13 - Phase 1 Architecture Direction
+
+### Version / Milestone
+Phase 1 - Global Academy Save Architecture
+
+### Date
+2026-07-13
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request.
+
+### Overall Ratings
+Not provided.
+
+### Design Insights
+- Phase 1 should prepare the Global Academy architecture without changing gameplay.
+- Headquarters should be prepared structurally but not become a playable location yet.
+- Migration tooling should be developer-safe, traceable, and validation-oriented.
+- Coaches should prepare for a future global pool and simple one-campus assignment model without implementing transfer gameplay.
+
+### What Felt Good
+- The current playable game should remain functionally identical while the architecture becomes safer for Version 2.
+- Existing saves, academy identity, TP, facilities, coaches, athletes, competitions, prestige, and settings should remain intact.
+
+### What Was Confusing
+- Future campus migration could corrupt saves if global and local data are moved too quickly.
+- USA and Japan need clear migration steps before Brazil, local TP, Headquarters systems, sponsors, or SVG work begins.
+
+### Bugs Reported
+- No explicit gameplay bugs were reported in this feedback.
+
+### UX Improvements Requested
+- No visible UI redesign was requested for this milestone.
+- Developer migration inspection should remain hidden from normal players.
+
+### Ideas
+- Use migration logging, validation helpers, save version tracking, and export/import compatibility checks to reduce risk in later phases.
+
+### Priority
+High for save safety and future campus migration. Brazil, Headquarters gameplay, SVG artwork, sponsors, local athlete generation, and economy redesign remain out of scope.
+
+### Would The Player Keep Playing?
+Not provided.
+
 ## Entry - 2026-07-12 - World Tour 3.0 Design Feedback
 
 ### Version / Milestone

@@ -151,15 +151,59 @@
 - Established the future country template: 2 core sports, 2 shared sports, and 1 wildcard sport.
 - Preserved current gameplay, economy values, save version, and Brazil preview-only status.
 
+### Implementation Planning - Version 2 Engineering Roadmap
+- Created `IMPLEMENTATION_PLAN.md` as the engineering implementation roadmap for Version 2.
+- Organized the next development phase into nine engineering phases from Global Academy save architecture through future Headquarters systems.
+- Documented dependencies, save migration order, suggested milestones, engineering risks, and validation gates.
+- Confirmed that Brazil, sponsors, SVG art, Headquarters systems, local athlete generation, competition redesign, and save migration wait for their planned implementation phases.
+
+### Phase 1 - Global Academy Save Architecture
+- Increased the save version to 9 with an additive migration layer.
+- Added a future-compatible Global Academy container that keeps academy identity while preparing global progression, planned Headquarters metadata, global coach pool metadata, and campus references.
+- Added USA and Japan campus placeholders through `state.campuses` while preserving existing live gameplay fields.
+- Added migration logging, save validation helpers, and hidden developer migration export tools.
+- Hardened import/export so imported saves normalize and validate before being committed.
+- Preserved current gameplay, country progression, TP, facilities, coaches, athletes, competitions, prestige, and settings behavior.
+
+### Phase 2 - USA Campus Migration
+- Increased the save version to 10 with an additive USA campus migration.
+- Moved USA Training Points, facilities, athletes, competition state, chapter progress, and migration metadata into `state.campuses.usa`.
+- Kept legacy root fields as compatibility adapters so the current UI and gameplay loop behave the same.
+- Migrated existing TP to the current active campus when available, otherwise USA.
+- Assigned global coach metadata to the current active campus during migration, otherwise USA.
+- Extended hidden developer diagnostics with active campus, USA migration status, legacy adapter status, global coach assignment, and campus validation.
+- Preserved current gameplay, economy values, country progression, prestige behavior, and Brazil preview-only status.
+
+### Phase 3 - Japan Campus Migration
+- Increased the save version to 11 with an additive Japan campus migration.
+- Moved Japan facilities, athletes, competition state, chapter progress, local TP bridge data, and migration metadata into `state.campuses.japan`.
+- Generalized legacy adapters so root gameplay fields mirror the active migrated campus instead of always mirroring USA.
+- Preserved current Japan-active progress through a temporary compatibility bridge until the Local Training Point Economy milestone.
+- Kept competitions globally surfaced in the current UI while storing active competition state on the active migrated campus.
+- Preserved Japan Swimming/Cycling focus, bonuses, chapter goals, Brazil preview unlock, prestige behavior, and current economy values.
+
+### Phase 4 - Global Coach Assignment Foundation
+- Increased the save version to 12 with additive global coach assignment metadata.
+- Prepared the Global Academy coach pool with per-coach coach id, current assignment, current campus, future Headquarters reference, transfer-ready metadata, and future specialty metadata.
+- Assigned existing coaches to the active campus during migration while keeping transfer gameplay disabled.
+- Preserved current coach levels, costs, tiers, effects, slot behavior, and balance formulas through the legacy `state.coaches` adapter.
+- Extended hidden developer diagnostics and save validation to report coach assignment readiness, Headquarters references, transfer status, and assignment campus ids.
+- Preserved USA and Japan campus migration behavior, prestige, reset, export/import, and current gameplay.
+
 ## Upcoming Milestones
 
-### Next Recommended: Global Academy Save Architecture Plan
-- Design the additive save migration path for `campusesByCountryId` without implementing Brazil gameplay yet.
-- Decide how current USA/Japan state maps into future global academy and local campus data.
-- Define travel/backtracking UX for returning to completed countries.
-- Define the first pass of global coach assignment while preserving current coach behavior.
+### Next Recommended: Phase 5 - Local Training Point Economy
+- Split Training Points into campus-local balances while preserving the current USA/Japan economy values.
+- Keep legacy root TP as an active-campus compatibility adapter until the UI and save migration are stable.
+- Add or confirm the Academy Funding shell remains global Headquarters metadata only.
+- Do not implement Brazil, sponsors, SVG art, competition redesign, athlete redesign, coach transfers, or playable Headquarters systems yet.
 
 ### Later Milestones
+- Active Campus and Return Travel Foundation.
+- Regional Route Framework.
+- Brazil Campus Content.
+- Campus Visual Art Pass.
+- Headquarters Systems Foundation.
 - Visual Identity QA + fresh save playtest.
 - Brazil preview polish and post-Japan guidance under the Global Academy Architecture.
 - Coach automation and deeper coach roles.
