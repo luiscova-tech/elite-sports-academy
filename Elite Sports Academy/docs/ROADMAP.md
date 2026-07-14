@@ -190,13 +190,28 @@
 - Extended hidden developer diagnostics and save validation to report coach assignment readiness, Headquarters references, transfer status, and assignment campus ids.
 - Preserved USA and Japan campus migration behavior, prestige, reset, export/import, and current gameplay.
 
+### Academy Illustration Pass 1
+- Added a Home current-campus arrival vista so the first screen feels like entering the academy rather than opening a dashboard.
+- Activated inline SVG illustration layers in existing campus-building and facility-department slots.
+- Added location headers for Sports Center, Academy Offices, Competitions Hall, and Passport Office.
+- Added lightweight campus atmosphere details such as walkways, flags, benches, trees, venue boards, office boards, and passport/travel art.
+- Made USA and Japan visual styles diverge through country-ready campus styling without changing country gameplay.
+- Refreshed Home, Sports, Academy, Competitions, and World screenshot checkpoints.
+- Preserved gameplay, economy values, save version, country availability, and Headquarters non-playable status.
+
 ## Upcoming Milestones
 
-### Next Recommended: Phase 5 - Local Training Point Economy
+### Next Recommended: Visual Identity QA + Fresh Save Playtest
+- Review the refreshed Home, Sports, Academy, Competitions, and World screenshots with the Game Director.
+- Play through a fresh save and confirm Home still feels playable with the arrival vista, welcome ceremony, Mission board, and Session Drill in the first viewport.
+- Tune illustration density, text spacing, and campus atmosphere from real feedback only.
+- Keep gameplay, economy, save structure, and country availability unchanged.
+
+### Next Engineering Phase: Phase 5 - Local Training Point Economy
 - Split Training Points into campus-local balances while preserving the current USA/Japan economy values.
 - Keep legacy root TP as an active-campus compatibility adapter until the UI and save migration are stable.
 - Add or confirm the Academy Funding shell remains global Headquarters metadata only.
-- Do not implement Brazil, sponsors, SVG art, competition redesign, athlete redesign, coach transfers, or playable Headquarters systems yet.
+- Do not implement Brazil, sponsors, competition redesign, athlete redesign, coach transfers, or playable Headquarters systems yet.
 
 ### Later Milestones
 - Active Campus and Return Travel Foundation.

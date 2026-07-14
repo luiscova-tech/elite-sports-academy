@@ -2,6 +2,61 @@
 
 This journal records real player or game-director feedback only. Do not invent ratings, play time, quotes, or bugs.
 
+## Entry - 2026-07-14 - Academy Illustration Pass 1 Direction
+
+### Version / Milestone
+Academy Illustration Pass 1
+
+### Date
+2026-07-14
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request, plus implementation QA screenshots.
+
+### Overall Ratings
+Not provided.
+
+### Biggest Win
+- The refreshed Home screenshot now reads as an academy entrance: the current-campus arrival vista, Welcome Coach ceremony, Mission board, and Session Drill are all visible in the first viewport at 480px width.
+- Sports, Academy, Competitions, and World now each open with a distinct location identity instead of beginning as similar management cards.
+
+### Biggest Friction
+- Fresh-save Home remains visually dense because the arrival vista, first-run orientation, Mission board, and Session Drill all appear together.
+- The first illustration pass establishes recognizable locations, but country-specific architecture still needs director review before deeper art detail is added.
+
+### Design Insights
+- Visual identity can improve the fantasy without changing gameplay, economy, saves, country availability, or Headquarters playability.
+- Inline SVG slots are a good bridge between the current single-file prototype and future richer campus art.
+- USA and Japan should continue diverging visually as future country/campus work expands.
+
+### What Felt Good
+- Home, Sports, Academy, Competitions, and World each gained a clearer screen personality.
+- The visual pass used existing state-driven cards, navigation, and activity indicators rather than creating new gameplay surfaces.
+
+### What Was Confusing
+- Full-page stitched screenshots repeated the sticky header; viewport screenshots were used instead for the refreshed screenshot set.
+
+### Bugs Reported
+- No gameplay bugs were reported.
+- Browser QA reported no console errors during the screenshot pass.
+
+### UX Improvements Requested
+- Continue reviewing whether the Home first viewport feels inspiring without becoming crowded.
+- Refine screen illustrations from real feedback before adding deeper SVG detail or country-specific art systems.
+
+### Ideas
+- A second illustration pass could focus on country-specific campus architecture, especially making Japan visually distinct when active.
+- Future World work can evolve the Passport Office into a larger route/map view after travel systems are ready.
+
+### Priority
+High for experience and visual identity. Gameplay redesign, Brazil, local TP economy, sponsors, coach transfers, Headquarters gameplay, and competition redesign remain out of scope for this milestone.
+
+### Would The Player Keep Playing?
+Not provided.
+
 ## Entry - 2026-07-14 - Phase 4 Global Coach Assignment Foundation Direction
 
 ### Version / Milestone

@@ -1,15 +1,17 @@
 # Elite Sports Academy TODO
 
 ## Priority 1
-- Begin Phase 5: Local Training Point Economy using `IMPLEMENTATION_PLAN.md`.
+- Review Academy Illustration Pass 1 screenshots for Home, Sports, Academy, Competitions, and World.
+- Playtest a fresh save through the current-campus arrival vista, Welcome Coach ceremony, Session Drill, Sports Center, Academy Offices, Competitions Hall, and Passport Office.
+- Confirm whether Home remains playable with the arrival vista, orientation, Mission board, and Session Drill all present on a fresh save.
+- Tune illustration density, mobile spacing, and screen personality from real player or Game Director feedback only.
+- Decide whether a second illustration pass should refine country-specific campus architecture before Phase 5.
+- Begin Phase 5: Local Training Point Economy using `IMPLEMENTATION_PLAN.md` after visual QA is approved.
 - Design the TP migration so USA and Japan keep current economy values while TP becomes campus-local.
 - Keep legacy root TP as an active-campus compatibility adapter until local TP validation is stable.
 - Preserve current coach levels, costs, tiers, effects, and the Phase 4 global coach assignment metadata.
 - Validate save version 12 migration using fresh saves, existing USA saves, existing Japan-active saves, import/export, prestige reset, reset, and hidden developer migration diagnostics.
 - Keep Brazil preview-only until the remaining prerequisite phases through regional expansion are complete.
-- Playtest a fresh save through the new Welcome Coach ceremony, Session Drill, Sports, Academy, Competitions, and World screens.
-- Review Visual Identity 1.0 screenshots for mobile spacing, screen personality, icon clarity, and whether the game feels like a living academy rather than a web app.
-- Tune visual hierarchy, silhouettes, and icon language from real player feedback only.
 - Confirm whether the merged welcome/mission card feels ceremonial instead of checklist-like.
 - Confirm whether compact first-run identity editing keeps Session Drill visible enough for new players.
 - Validate whether competition result cards make wins and participation rewards understandable.

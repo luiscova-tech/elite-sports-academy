@@ -37,6 +37,20 @@
 - Prefer CSS and simple inline SVG that can be replaced by richer art later.
 - Visual polish must not imply new mechanics.
 
+## Academy Illustration Pass 1 Rules
+- Visual changes should create atmosphere without redesigning functionality.
+- Use inline SVG for lightweight academy art; do not introduce external assets.
+- Home should show a current-campus arrival vista before the welcome ceremony.
+- Campus buildings should use unique silhouettes for Sports Center, Academy Offices, Competitions Hall, and World Tour Gate.
+- Sports departments must be visually distinct: Track, Swimming, Cycling, and Soccer should not share the same silhouette.
+- Academy staff cards should feel portrait-ready and professional without implying implemented coach portraits.
+- Competitions should use venue, ticket, scoreboard, and event-board language.
+- World should use passport, route, destination, and travel-desk language instead of spreadsheet styling.
+- USA visual language should be modern, clean, athletic, and professional.
+- Japan visual language should feel distinct through tighter forms, different rooflines, and garden-inspired atmosphere when Japan is active.
+- Motion may include subtle flags, water, lights, scoreboards, or banners, and must respect the Animations preference.
+- Visual art must not change gameplay values, save structure, economy, country progression, or Headquarters playability.
+
 ## Country Flag Guidelines
 - Flags are core country identity markers.
 - Always pair flags with readable country names or short codes when space allows.

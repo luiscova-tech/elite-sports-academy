@@ -1,5 +1,30 @@
 # Elite Sports Academy Changelog
 
+## 2026-07-14 - Academy Illustration Pass 1
+
+### Added
+- Current-campus arrival vista on Home with USA/Japan-ready illustrated campus language.
+- Inline SVG illustration helpers for campus buildings, sport departments, place headers, coach portrait placeholders, competition venues, and World passport presentation.
+- Screen-specific location headers for Sports Center, Academy Offices, Competitions Hall, and Passport Office.
+- Campus atmosphere details including walkways, flags, benches, trees, a future Headquarters landmark silhouette, and subtle country styling.
+- Refreshed screenshot checkpoints for Home, Sports, Academy, Competitions, and World.
+
+### Changed
+- Home now feels more like entering the academy before the Welcome Coach ceremony and Mission board.
+- Academy Campus building cards now show active illustrated layers while preserving their existing navigation, state badges, and visual stages.
+- Sports facility cards now use stronger sport-specific department art for Track, Swimming, Cycling, and Soccer.
+- Academy coach cards now use portrait-ready staff presentation and an office-board scene.
+- Competitions now open with stronger venue/event-board language.
+- World now opens with a Passport Office and journey scene before the campaign route.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Reduced the remaining generic-card feel by giving every major screen a clearer place identity.
+- Replaced inactive SVG placeholder slots with active, lightweight inline SVG illustration layers.
+
+### Unchanged
+- No gameplay values, economy formulas, save version, save structure, country availability, coach effects, athlete mechanics, competition rules, Brazil gameplay, Headquarters gameplay, sponsors, local TP economy, or coach transfer gameplay were added or changed.
+
 ## 2026-07-14 - Phase 4: Global Coach Assignment Foundation
 
 ### Added

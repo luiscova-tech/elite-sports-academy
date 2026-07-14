@@ -17,6 +17,8 @@ Quality of Life 1.0 strengthens that guidance layer by making recommendations na
 
 Visual Identity 1.0 strengthens the feeling of place. The goal is not more cards; it is a more believable academy with distinct department identities, handcrafted silhouettes, consistent SVG/CSS iconography, and subtle depth.
 
+Academy Illustration Pass 1 establishes the first recognizable illustrated identity for Elite Sports Academy. The game should now read more like walking through an Olympic training academy: Home has an arrival vista, Sports has distinct department frontage, Academy has staff-office presentation, Competitions has a venue/event-board identity, and World has a passport/travel desk identity. This pass is presentation-only and must not change gameplay, economy, saves, or country availability.
+
 World Tour 3.0 defines the future map as one global academy with permanent country campuses. The UI should stop implying that countries are disposable stages. World screens should present campuses as branches the player can revisit, compare, and continue developing.
 
 ## Navigation Philosophy
@@ -65,6 +67,8 @@ Guided highlights should be temporary, readable, and restrained. They exist to a
 
 Visual evolution is driven by existing progress data. Higher facility levels, staff count, competition wins, and country progress can make buildings feel larger or more developed through windows, banners, flags, and lighting. These visuals are placeholders for future SVG art and should not create or imply new mechanics.
 
+Academy Illustration Pass 1 turns the existing SVG-ready building slots into active visual layers. Home campus panels should keep their existing navigation and activity states, while the illustrated layer adds place, scale, and architectural identity. Country styling can lightly influence campus atmosphere: USA should read as a clean, modern Olympic training center, while Japan should use a more compact, precision-oriented architectural language.
+
 ## Resource Bar Philosophy
 The Resource Bar should stay compact and persistent. It exists so the player never loses sight of:
 - Current country.
@@ -109,6 +113,13 @@ Visual Identity 1.0 updates the hierarchy:
 - Competitions read as event boards and tickets.
 - World reads as a passport and travel route.
 
+Academy Illustration Pass 1 updates the screen hierarchy:
+- Home begins with a current-campus arrival vista before the welcome/mission board.
+- Sports opens with a Sports Center location banner before facility cards.
+- Academy opens with an Academy Offices location banner and staff-board scene before coaches and athletes.
+- Competitions opens with a Competitions Hall location banner and venue language before meet cards.
+- World opens with a Passport Office location banner and journey scene before route details.
+
 Country flags, destination names, progress bars, and clear rewards should carry the campaign identity.
 
 The World tab should share the same visual language as Home: flags, route order, completion state, destination cards, and locked previews should make it feel like a journey rather than a plain list. The campaign route should appear before profile and dashboard details so World opens as travel first.
@@ -152,6 +163,8 @@ Long-term World Tour route direction is USA, Japan, Brazil, Pan American Games, 
 - Avoid adding new gameplay systems to Home unless they strengthen the play-first loop.
 
 Visual Identity 1.0 keeps CSS/SVG structures intentionally replaceable. Future art can swap the placeholder silhouettes without changing tab ownership or gameplay logic.
+
+Academy Illustration Pass 1 keeps illustration inline and lightweight. Future passes should refine SVG detail, country-specific campus architecture, and world-map presentation without moving gameplay logic into art components.
 
 ## Future World Map Direction
 - The World tab should become the campaign map.

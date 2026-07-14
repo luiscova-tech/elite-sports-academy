@@ -925,7 +925,19 @@
     }
 
     .department-svg-slot {
-      display: none;
+      position: absolute;
+      inset: -6px -9px -4px;
+      z-index: 0;
+      display: block;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .department-svg-slot svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
     }
 
     .department-roof,
@@ -933,7 +945,42 @@
     .department-wing,
     .department-door {
       position: absolute;
+      z-index: 1;
       display: block;
+    }
+
+    .art-line {
+      fill: none;
+      stroke: color-mix(in srgb, var(--accent, var(--teal)) 72%, white);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .art-line.soft {
+      stroke: rgba(255, 255, 255, 0.42);
+      stroke-width: 1.4;
+    }
+
+    .art-fill {
+      fill: color-mix(in srgb, var(--accent, var(--teal)) 18%, rgba(255, 255, 255, 0.08));
+      stroke: color-mix(in srgb, var(--accent, var(--teal)) 42%, rgba(255, 255, 255, 0.24));
+      stroke-width: 1.2;
+    }
+
+    .art-glow {
+      fill: color-mix(in srgb, var(--accent, var(--teal)) 26%, transparent);
+      opacity: 0.42;
+    }
+
+    .department-illustration .water-line {
+      animation: waterDrift 3600ms ease-in-out infinite;
+    }
+
+    .department-illustration .track-light,
+    .department-illustration .score-light,
+    .campus-illustration .window-light {
+      animation: windowPulse 4800ms ease-in-out infinite;
     }
 
     .department-roof {
@@ -2065,12 +2112,25 @@
     }
 
     .building-svg-slot {
-      display: none;
+      position: absolute;
+      inset: -9px -10px -5px;
+      z-index: 0;
+      display: block;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .building-svg-slot svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
     }
 
     .building-glow {
       position: absolute;
       inset: 8px 8px 0;
+      z-index: 0;
       border-radius: 999px;
       background: color-mix(in srgb, var(--accent, var(--teal)) 14%, transparent);
       filter: blur(16px);
@@ -2080,6 +2140,7 @@
     .building-roof {
       position: absolute;
       inset: 0 18px auto;
+      z-index: 1;
       display: block;
       height: 26px;
       clip-path: polygon(50% 0, 100% 100%, 0 100%);
@@ -2090,6 +2151,7 @@
     .building-body {
       position: absolute;
       inset: 24px 17px 9px;
+      z-index: 1;
       display: block;
       border: 1px solid color-mix(in srgb, var(--accent, var(--teal)) 42%, transparent);
       border-radius: 8px 8px 3px 3px;
@@ -2124,6 +2186,7 @@
     .building-wing {
       position: absolute;
       bottom: 9px;
+      z-index: 1;
       width: 22px;
       height: var(--wing-height);
       border: 1px solid color-mix(in srgb, var(--accent, var(--teal)) 34%, transparent);
@@ -2145,6 +2208,7 @@
       position: absolute;
       left: 50%;
       bottom: 0;
+      z-index: 2;
       width: 13px;
       height: 18px;
       border-radius: 7px 7px 2px 2px;
@@ -2155,6 +2219,7 @@
     .building-light {
       position: absolute;
       inset: 32px 21px auto;
+      z-index: 3;
       height: 2px;
       border-radius: 999px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.82), transparent);
@@ -2167,6 +2232,7 @@
       left: 20px;
       right: 20px;
       top: 27px;
+      z-index: 4;
       display: none;
       min-height: 11px;
       border-radius: 2px;
@@ -2179,6 +2245,7 @@
       position: absolute;
       right: 13px;
       top: 8px;
+      z-index: 4;
       width: 16px;
       height: 12px;
       border-radius: 2px 7px 7px 2px;
@@ -2192,6 +2259,7 @@
       position: absolute;
       left: 14px;
       bottom: 12px;
+      z-index: 4;
       width: 7px;
       height: 7px;
       border-radius: 999px;
@@ -2406,6 +2474,498 @@
     .status-good .building-activity-dot {
       background: var(--green);
       box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.12);
+    }
+
+    .academy-arrival-scene {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 128px;
+      gap: 10px;
+      align-items: center;
+      min-height: 104px;
+      margin: 12px 12px 0;
+      overflow: hidden;
+      padding: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--academy-accent)) 22%, rgba(255, 255, 255, 0.1));
+      border-radius: 5px 14px 5px 5px;
+      background:
+        radial-gradient(circle at 74% 18%, color-mix(in srgb, var(--accent, var(--academy-accent)) 18%, transparent), transparent 84px),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+        rgba(255, 255, 255, 0.025);
+    }
+
+    .academy-arrival-scene::before,
+    .academy-arrival-scene::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .academy-arrival-scene::before {
+      inset: auto -18px -18px 24%;
+      height: 64px;
+      border-radius: 50% 50% 0 0;
+      background:
+        linear-gradient(90deg, transparent 0 31%, rgba(255, 255, 255, 0.11) 31% 34%, transparent 34% 66%, rgba(255, 255, 255, 0.1) 66% 69%, transparent 69%),
+        color-mix(in srgb, var(--accent, var(--academy-accent)) 10%, rgba(255, 255, 255, 0.025));
+      transform: skewX(-9deg);
+    }
+
+    .academy-arrival-scene::after {
+      inset: 10px 12px auto auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--gold) 20%, transparent);
+      filter: blur(10px);
+      opacity: 0.82;
+      animation: campusGlow 5200ms ease-in-out infinite;
+    }
+
+    .arrival-copy {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .arrival-copy span {
+      color: color-mix(in srgb, var(--accent, var(--academy-accent)) 70%, white);
+      font-size: 0.62rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .arrival-copy strong {
+      color: var(--text);
+      font-size: 1.08rem;
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .arrival-copy small {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 740;
+      line-height: 1.28;
+    }
+
+    .arrival-art {
+      position: relative;
+      z-index: 2;
+      width: 128px;
+      height: 82px;
+      color: color-mix(in srgb, var(--accent, var(--academy-accent)) 72%, white);
+    }
+
+    .arrival-art svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .country-usa .arrival-art .flag-panel,
+    .country-usa .campus-flagline span {
+      background: linear-gradient(180deg, #e8eefc 0 32%, #365fcf 32% 66%, #d74c5c 66%);
+    }
+
+    .country-japan .academy-arrival-scene,
+    .academy-arrival-scene.country-japan {
+      background:
+        radial-gradient(circle at 78% 16%, rgba(255, 188, 205, 0.14), transparent 86px),
+        linear-gradient(135deg, color-mix(in srgb, var(--accent, #f59e0b) 12%, rgba(255, 255, 255, 0.05)), rgba(255, 255, 255, 0.018)),
+        rgba(255, 255, 255, 0.025);
+    }
+
+    .campus-map.country-usa {
+      background:
+        radial-gradient(circle at 50% 16%, rgba(96, 165, 250, 0.12), transparent 116px),
+        linear-gradient(180deg, color-mix(in srgb, var(--campus-accent, var(--teal)) 9%, transparent), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    }
+
+    .campus-map.country-japan {
+      background:
+        radial-gradient(circle at 78% 9%, rgba(255, 188, 205, 0.12), transparent 104px),
+        radial-gradient(circle at 20% 78%, rgba(74, 222, 128, 0.08), transparent 92px),
+        linear-gradient(180deg, color-mix(in srgb, var(--campus-accent, var(--teal)) 8%, transparent), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
+    }
+
+    .campus-atmosphere {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .campus-walkway {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      width: 42%;
+      height: 72%;
+      border-radius: 50% 50% 12px 12px;
+      border-inline: 1px solid rgba(255, 255, 255, 0.09);
+      background:
+        linear-gradient(90deg, transparent 0 46%, rgba(255, 255, 255, 0.1) 46% 54%, transparent 54%),
+        color-mix(in srgb, var(--campus-accent, var(--teal)) 7%, transparent);
+      transform: translateX(-50%) perspective(180px) rotateX(18deg);
+      opacity: 0.58;
+    }
+
+    .campus-tree {
+      position: absolute;
+      width: 20px;
+      height: 34px;
+    }
+
+    .campus-tree::before,
+    .campus-tree::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .campus-tree::before {
+      bottom: 0;
+      width: 4px;
+      height: 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .campus-tree::after {
+      top: 1px;
+      width: 20px;
+      height: 21px;
+      border-radius: 50% 50% 46% 46%;
+      background: color-mix(in srgb, var(--campus-accent, var(--teal)) 22%, rgba(74, 222, 128, 0.36));
+      box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.06);
+    }
+
+    .campus-tree.one { left: 11px; top: 88px; }
+    .campus-tree.two { right: 18px; top: 122px; transform: scale(0.86); }
+    .campus-tree.three { left: 26px; bottom: 44px; transform: scale(0.74); }
+
+    .campus-bench {
+      position: absolute;
+      right: 34px;
+      bottom: 42px;
+      width: 38px;
+      height: 12px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 6px 0 -4px rgba(255, 255, 255, 0.18);
+      transform: rotate(-6deg);
+    }
+
+    .campus-flagline {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .campus-flagline span {
+      width: 13px;
+      height: 18px;
+      border-radius: 2px 8px 8px 2px;
+      background: color-mix(in srgb, var(--campus-accent, var(--teal)) 64%, white);
+      transform-origin: left center;
+      animation: flagWave 4200ms ease-in-out infinite;
+    }
+
+    .campus-flagline span:nth-child(2) { animation-delay: 240ms; opacity: 0.78; }
+    .campus-flagline span:nth-child(3) { animation-delay: 480ms; opacity: 0.62; }
+
+    .campus-landmark {
+      position: absolute;
+      left: 50%;
+      top: 28px;
+      width: 58px;
+      height: 58px;
+      opacity: 0.2;
+      transform: translateX(-50%);
+    }
+
+    .campus-landmark::before,
+    .campus-landmark::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .campus-landmark::before {
+      top: 0;
+      width: 26px;
+      height: 48px;
+      border-radius: 5px 5px 2px 2px;
+      border: 1px solid color-mix(in srgb, var(--campus-accent, var(--teal)) 34%, rgba(255, 255, 255, 0.24));
+      background:
+        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0 3px, transparent 3px 7px),
+        color-mix(in srgb, var(--campus-accent, var(--teal)) 12%, transparent);
+    }
+
+    .campus-landmark::after {
+      bottom: 0;
+      width: 54px;
+      height: 16px;
+      border-radius: 12px 12px 3px 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .place-hero {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 112px;
+      gap: 12px;
+      align-items: center;
+      min-height: 112px;
+      overflow: hidden;
+      margin: 2px 0 14px;
+      padding: 14px;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--academy-accent)) 25%, var(--line));
+      border-radius: 6px 16px 6px 6px;
+      background:
+        radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--accent, var(--academy-accent)) 18%, transparent), transparent 94px),
+        linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--academy-accent)) 12%, rgba(255, 255, 255, 0.045)), rgba(255, 255, 255, 0.02)),
+        rgba(255, 255, 255, 0.028);
+    }
+
+    .place-hero::before {
+      content: "";
+      position: absolute;
+      inset: auto 14px 12px;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent, var(--academy-accent)) 58%, white), transparent);
+      opacity: 0.52;
+    }
+
+    .place-copy {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .place-kicker {
+      color: color-mix(in srgb, var(--accent, var(--academy-accent)) 72%, white);
+      font-size: 0.62rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .place-title {
+      color: var(--text);
+      font-size: 1.18rem;
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .place-note {
+      color: var(--soft);
+      font-size: 0.76rem;
+      font-weight: 740;
+      line-height: 1.3;
+    }
+
+    .place-visual {
+      position: relative;
+      z-index: 1;
+      width: 112px;
+      height: 78px;
+      color: color-mix(in srgb, var(--accent, var(--academy-accent)) 72%, white);
+    }
+
+    .place-visual svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .place-sports .place-visual .track-light,
+    .place-events .place-visual .score-light,
+    .place-world .travel-line {
+      animation: lightSweep 4200ms ease-in-out infinite;
+    }
+
+    .office-scene {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 10px;
+      padding: 11px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--green)) 22%, var(--line));
+      border-radius: 6px 14px 6px 6px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--green)) 13%, transparent), rgba(255, 255, 255, 0.025)),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .office-scene::after {
+      content: "";
+      position: absolute;
+      inset: auto 10px 9px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent, var(--green)) 48%, white), transparent);
+      opacity: 0.42;
+    }
+
+    .office-copy {
+      position: relative;
+      z-index: 1;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 760;
+      line-height: 1.3;
+    }
+
+    .office-board {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 28px);
+      gap: 6px;
+    }
+
+    .office-board span {
+      display: block;
+      width: 28px;
+      height: 38px;
+      border-radius: 12px 12px 4px 4px;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--green)) 34%, rgba(255, 255, 255, 0.18));
+      background:
+        radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.34), transparent 8px),
+        color-mix(in srgb, var(--accent, var(--green)) 16%, rgba(255, 255, 255, 0.045));
+    }
+
+    .coach-portrait .coach-portrait-svg {
+      position: relative;
+      z-index: 2;
+      width: 27px;
+      height: 27px;
+    }
+
+    .venue-scene {
+      position: relative;
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0 0;
+      padding: 9px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--gold)) 24%, var(--line));
+      border-radius: 5px 12px 5px 5px;
+      background:
+        radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--accent, var(--gold)) 18%, transparent), transparent 46px),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .venue-scene svg {
+      display: block;
+      width: 82px;
+      height: 54px;
+      color: color-mix(in srgb, var(--accent, var(--gold)) 72%, white);
+    }
+
+    .venue-copy {
+      color: var(--soft);
+      font-size: 0.74rem;
+      font-weight: 780;
+      line-height: 1.3;
+    }
+
+    .venue-score {
+      display: inline-flex;
+      margin-top: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: #fff4bd;
+      background: rgba(247, 201, 72, 0.12);
+      border: 1px solid rgba(247, 201, 72, 0.2);
+      font-size: 0.66rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .passport-scene {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 102px;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--teal)) 24%, var(--line));
+      border-radius: 5px 14px 5px 5px;
+      background:
+        radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), transparent 76px),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .passport-scene::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 116px;
+      top: 50%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent, var(--teal)) 50%, white), transparent);
+      opacity: 0.36;
+    }
+
+    .passport-copy {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 3px;
+    }
+
+    .passport-copy strong {
+      color: var(--text);
+      font-size: 0.92rem;
+      line-height: 1.12;
+    }
+
+    .passport-copy span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 760;
+      line-height: 1.28;
+    }
+
+    .passport-art {
+      position: relative;
+      z-index: 1;
+      width: 102px;
+      height: 68px;
+    }
+
+    .passport-art svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
     }
 
     .boost-strip {
@@ -3083,6 +3643,16 @@
       50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--teal)) 12%, transparent); }
     }
 
+    @keyframes waterDrift {
+      0%, 100% { transform: translateX(-2px); opacity: 0.52; }
+      50% { transform: translateX(3px); opacity: 0.92; }
+    }
+
+    @keyframes windowPulse {
+      0%, 100% { opacity: 0.42; }
+      50% { opacity: 0.88; }
+    }
+
     .float-tp {
       position: fixed;
       z-index: 90;
@@ -3147,6 +3717,20 @@
         justify-self: start;
         min-width: 58px;
         min-height: 58px;
+      }
+
+      .academy-arrival-scene,
+      .place-hero,
+      .passport-scene,
+      .venue-scene {
+        grid-template-columns: 1fr;
+      }
+
+      .arrival-art,
+      .place-visual,
+      .passport-art {
+        justify-self: end;
+        max-width: 116px;
       }
 
       .ceremony-steps {
@@ -5123,6 +5707,277 @@
         return `<svg class="academy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${body}</svg>`;
       }
 
+      function renderCampusArrivalScene(country = currentCountry()) {
+        const next = nextCountry(country);
+        const accent = country.accent || sportAccent(country.sportIds[0]);
+        const note = country.id === "japan"
+          ? "Precision paths, compact gardens, and technique-focused training shape this campus."
+          : "Modern training halls, flags, and open courtyards mark the academy's home base.";
+        return `
+          <div class="academy-arrival-scene country-${country.id}" style="--accent:${accent}">
+            <div class="arrival-copy">
+              <span>Current Campus</span>
+              <strong>${countryFlag(country)} ${escapeHTML(country.name)} Academy</strong>
+              <small>${escapeHTML(note)} ${next ? `Next destination: ${countryFlag(next)} ${escapeHTML(next.name)}.` : "World Tour route pending."}</small>
+            </div>
+            <div class="arrival-art" aria-hidden="true">${campusArrivalIllustration(country)}</div>
+          </div>
+        `;
+      }
+
+      function campusArrivalIllustration(country) {
+        if (country.id === "japan") {
+          return `
+            <svg viewBox="0 0 140 92" aria-hidden="true" focusable="false">
+              <ellipse class="art-glow" cx="78" cy="80" rx="58" ry="10"/>
+              <path class="art-fill" d="M19 72h96l8 10H11l8-10Z"/>
+              <path class="art-fill" d="M26 52h76v22H26z"/>
+              <path class="art-fill" d="M19 52l45-24 45 24H19Z"/>
+              <path class="art-line" d="M30 51h68M36 60h56M46 72V56M64 72V52M82 72V56"/>
+              <path class="art-line soft" d="M19 38c18-11 34-12 48-3M95 38c9-10 19-12 30-6"/>
+              <path class="art-line soft" d="M17 81c20-9 42-11 66-4 14 4 27 4 39-1"/>
+              <circle class="score-light" cx="108" cy="31" r="5" fill="rgba(255,188,205,.45)"/>
+            </svg>
+          `;
+        }
+        return `
+          <svg viewBox="0 0 140 92" aria-hidden="true" focusable="false">
+            <ellipse class="art-glow" cx="72" cy="80" rx="58" ry="11"/>
+            <path class="art-fill" d="M18 70h104l7 11H11l7-11Z"/>
+            <path class="art-fill" d="M25 44h82v29H25z"/>
+            <path class="art-fill" d="M36 28h58v19H36z"/>
+            <path class="art-line" d="M33 51h66M33 61h66M44 72V45M62 72V32M80 72V32M99 72V45"/>
+            <path class="art-line soft" d="M11 82c21-10 42-12 64-4 18 6 35 4 54-5"/>
+            <path class="art-line soft" d="M19 30h12M104 28h14"/>
+            <rect class="flag-panel" x="112" y="32" width="15" height="11" rx="2"/>
+          </svg>
+        `;
+      }
+
+      function renderCampusAtmosphere(country = currentCountry()) {
+        return `
+          <div class="campus-atmosphere country-${country.id}" aria-hidden="true">
+            <span class="campus-walkway"></span>
+            <span class="campus-landmark"></span>
+            <span class="campus-flagline"><span></span><span></span><span></span></span>
+            <span class="campus-tree one"></span>
+            <span class="campus-tree two"></span>
+            <span class="campus-tree three"></span>
+            <span class="campus-bench"></span>
+          </div>
+        `;
+      }
+
+      function campusBuildingIllustration(type) {
+        const art = {
+          sports: `
+            <path class="art-glow" d="M15 66c20-13 48-18 76-7 12 5 21 5 31 0v14H15V66Z"/>
+            <path class="art-fill" d="M21 55h82v19H21z"/>
+            <path class="art-fill" d="M31 39h62v18H31z"/>
+            <path class="art-line track-light" d="M17 76c26-17 50-20 84-8"/>
+            <path class="art-line soft" d="M28 51h68M39 63h47M45 75V40M64 75V40M83 75V40"/>
+          `,
+          offices: `
+            <path class="art-glow" d="M20 70h94v11H20z"/>
+            <path class="art-fill" d="M28 36h72v40H28z"/>
+            <path class="art-fill" d="M38 24h52l10 13H28l10-13Z"/>
+            <path class="art-line soft" d="M40 47h12M58 47h12M76 47h12M40 59h12M58 59h12M76 59h12"/>
+            <circle class="window-light" cx="54" cy="69" r="4" fill="rgba(255,255,255,.42)"/>
+            <circle class="window-light" cx="75" cy="69" r="4" fill="rgba(255,255,255,.3)"/>
+          `,
+          events: `
+            <path class="art-glow" d="M16 70c23 10 72 10 98 0v12H16V70Z"/>
+            <path class="art-fill" d="M24 42h82v29H24z"/>
+            <path class="art-fill" d="M37 23h57v18H37z"/>
+            <path class="art-line score-light" d="M45 33h41M34 54h62M25 68c27-8 54-8 81 0"/>
+            <path class="art-line soft" d="M39 71V43M91 71V43"/>
+          `,
+          world: `
+            <path class="art-glow" d="M24 72h86l12 9H12l12-9Z"/>
+            <path class="art-fill" d="M35 44c6-18 21-29 35-29s29 11 35 29v30H35V44Z"/>
+            <path class="art-line" d="M49 73V48c4-11 12-17 21-17s17 6 21 17v25"/>
+            <path class="art-line soft" d="M38 53h64M51 62h38M24 80c14-9 30-10 47-4 15 5 29 3 44-6"/>
+          `
+        };
+        return `<svg class="campus-illustration campus-illustration-${type}" viewBox="0 0 130 92" aria-hidden="true" focusable="false">${art[type] || art.sports}</svg>`;
+      }
+
+      function departmentIllustration(facility) {
+        const sportId = facility.sportId;
+        const art = {
+          track: `
+            <path class="art-glow" d="M8 50c22-17 52-20 76-7v10H8V50Z"/>
+            <path class="art-line track-light" d="M8 52c23-18 53-21 78-7"/>
+            <path class="art-line soft" d="M13 57c20-13 44-16 67-6M18 62c17-9 36-11 55-5"/>
+            <path class="art-fill" d="M22 31h50v18H22z"/>
+          `,
+          aquatics: `
+            <path class="art-glow" d="M9 55h78v12H9z"/>
+            <path class="art-fill" d="M17 29h58v22H17z"/>
+            <path class="art-line water-line" d="M12 56c8 0 8-4 16-4s8 4 16 4 8-4 16-4 8 4 16 4"/>
+            <path class="art-line water-line" d="M12 64c8 0 8-4 16-4s8 4 16 4 8-4 16-4 8 4 16 4"/>
+            <path class="art-line soft" d="M28 30v20M46 30v20M64 30v20"/>
+          `,
+          cycling: `
+            <ellipse class="art-glow" cx="47" cy="58" rx="39" ry="11"/>
+            <path class="art-fill" d="M18 31h58v19H18z"/>
+            <circle class="art-line" cx="27" cy="62" r="12"/>
+            <circle class="art-line" cx="67" cy="62" r="12"/>
+            <path class="art-line soft" d="M27 62l18-25 22 25H27ZM45 37h13"/>
+          `,
+          soccer: `
+            <path class="art-glow" d="M10 55h76v16H10z"/>
+            <path class="art-fill" d="M15 35h66v28H15z"/>
+            <path class="art-line soft" d="M48 35v28M15 46h12v8H15M81 46H69v8h12"/>
+            <circle class="art-line" cx="48" cy="49" r="8"/>
+            <path class="art-line score-light" d="M24 30h48"/>
+          `
+        };
+        return `<svg class="department-illustration department-illustration-${sportId}" viewBox="0 0 92 72" aria-hidden="true" focusable="false">${art[sportId] || art.track}</svg>`;
+      }
+
+      function renderPlaceHero(type) {
+        const country = currentCountry();
+        const configs = {
+          sports: {
+            kicker: `${countryFlag(country)} ${country.name} Campus`,
+            title: "Sports Center",
+            note: "Sport departments anchor the daily training program.",
+            badge: facilityRank(),
+            accent: "#60a5fa"
+          },
+          academy: {
+            kicker: `${countryFlag(country)} ${country.name} Campus`,
+            title: "Academy Offices",
+            note: "Coaches and athletes prepare the next training block.",
+            badge: `${coachSlotsUsed()} staff / ${athletesUsed()} athletes`,
+            accent: "#4ade80"
+          },
+          events: {
+            kicker: "Competition Wing",
+            title: "Competitions Hall",
+            note: "Meet boards, tickets, and preparation notes live by the arena doors.",
+            badge: `Power ${fmt(competitionPower())}`,
+            accent: "#f7c948"
+          },
+          world: {
+            kicker: "World Tour Gate",
+            title: "Passport Office",
+            note: "The route tracks completed campuses, current travel, and future destinations.",
+            badge: `${state.completedCountryIds.length} complete`,
+            accent: country.accent || "var(--teal)"
+          }
+        };
+        const config = configs[type] || configs.sports;
+        return `
+          <section class="place-hero place-${type}" style="--accent:${config.accent}">
+            <div class="place-copy">
+              <span class="place-kicker">${config.kicker}</span>
+              <strong class="place-title">${config.title}</strong>
+              <span class="place-note">${config.note}</span>
+              <span class="badge">${config.badge}</span>
+            </div>
+            <div class="place-visual" aria-hidden="true">${placeHeroIllustration(type)}</div>
+          </section>
+        `;
+      }
+
+      function placeHeroIllustration(type) {
+        const art = {
+          sports: `
+            <path class="art-glow" d="M12 68c24-15 58-18 90-4v13H12V68Z"/>
+            <path class="art-fill" d="M20 44h72v26H20z"/>
+            <path class="art-line track-light" d="M16 76c24-18 55-21 88-7"/>
+            <path class="art-line soft" d="M29 54h54M38 66h36M47 44V70M65 44V70"/>
+          `,
+          academy: `
+            <path class="art-glow" d="M15 72h88v10H15z"/>
+            <path class="art-fill" d="M26 34h64v39H26z"/>
+            <path class="art-fill" d="M36 23h44l10 12H26l10-12Z"/>
+            <circle class="window-light" cx="45" cy="54" r="6" fill="rgba(255,255,255,.35)"/>
+            <circle class="window-light" cx="70" cy="54" r="6" fill="rgba(255,255,255,.27)"/>
+            <path class="art-line soft" d="M39 68h39M42 42h32"/>
+          `,
+          events: `
+            <path class="art-glow" d="M14 70c26 10 62 10 88 0v12H14V70Z"/>
+            <path class="art-fill" d="M24 38h69v32H24z"/>
+            <path class="art-fill" d="M35 22h47v17H35z"/>
+            <path class="art-line score-light" d="M42 32h33M31 52h55M26 67c22-6 42-6 64 0"/>
+          `,
+          world: `
+            <path class="art-glow" d="M15 72h90v10H15z"/>
+            <path class="art-fill" d="M29 40c7-17 20-26 32-26s25 9 32 26v34H29V40Z"/>
+            <path class="art-line travel-line" d="M18 76c18-13 34-14 50-6 13 6 25 4 37-6"/>
+            <path class="art-line soft" d="M44 73V44c3-9 9-13 17-13s14 4 17 13v29"/>
+          `
+        };
+        return `<svg viewBox="0 0 118 88" aria-hidden="true" focusable="false">${art[type] || art.sports}</svg>`;
+      }
+
+      function renderOfficeScene() {
+        return `
+          <section>
+            <div class="office-scene" style="--accent:#4ade80">
+              <div class="office-copy">Staff boards, coach offices, and athlete desks give the academy a professional working floor.</div>
+              <div class="office-board" aria-hidden="true"><span></span><span></span><span></span></div>
+            </div>
+          </section>
+        `;
+      }
+
+      function coachPortraitIllustration() {
+        return `
+          <svg class="coach-portrait-svg" viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+            <circle class="art-glow" cx="18" cy="18" r="17"/>
+            <circle class="art-fill" cx="18" cy="12" r="6"/>
+            <path class="art-fill" d="M8 31c2-8 7-12 10-12s8 4 10 12H8Z"/>
+            <path class="art-line soft" d="M11 27h14"/>
+          </svg>
+        `;
+      }
+
+      function renderCompetitionVenueScene(comp, chance) {
+        if (!comp) return "";
+        return `
+          <div class="venue-scene" aria-label="${escapeHTML(comp.name)} event venue">
+            <svg viewBox="0 0 92 60" aria-hidden="true" focusable="false">
+              <path class="art-glow" d="M8 47c21 8 57 8 76 0v9H8v-9Z"/>
+              <path class="art-fill" d="M15 28h62v22H15z"/>
+              <path class="art-fill" d="M25 13h42v16H25z"/>
+              <path class="art-line score-light" d="M31 21h30M22 39h48M16 49c21-6 41-6 62 0"/>
+              <path class="art-line soft" d="M26 50V29M66 50V29"/>
+            </svg>
+            <div class="venue-copy">
+              <strong>${escapeHTML(competitionTypeLabel(comp))}</strong>
+              <div>${comp.sportIds.map(id => sportLabel(id, "short")).join(" / ")} preparation board.</div>
+              <span class="venue-score">${Math.round(chance * 100)}% chance</span>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderPassportScene() {
+        const country = currentCountry();
+        const next = nextCountry(country);
+        return `
+          <div class="passport-scene" style="--accent:${country.accent || "var(--teal)"}">
+            <div class="passport-copy">
+              <strong>${countryFlag(country)} ${escapeHTML(country.name)} is the active campus.</strong>
+              <span>${next ? `Next stamped destination: ${countryFlag(next)} ${escapeHTML(next.name)}.` : "Future route extension pending."}</span>
+            </div>
+            <div class="passport-art" aria-hidden="true">
+              <svg viewBox="0 0 112 76" aria-hidden="true" focusable="false">
+                <path class="art-glow" d="M14 61h83l7 8H8l6-8Z"/>
+                <rect class="art-fill" x="17" y="13" width="58" height="50" rx="5"/>
+                <path class="art-line soft" d="M28 28h35M28 39h24M28 50h31"/>
+                <circle class="art-line travel-line" cx="78" cy="35" r="17"/>
+                <path class="art-line travel-line" d="M61 35h34M78 18c6 5 9 11 9 17s-3 12-9 17M78 18c-6 5-9 11-9 17s3 12 9 17"/>
+              </svg>
+            </div>
+          </div>
+        `;
+      }
+
       function loadState() {
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
@@ -6152,6 +7007,7 @@
         return `
           <section>
             <div class="card welcome-mission-card ${showOrientation ? "orientation-active" : ""}" style="--accent:var(--academy-accent)">
+              ${renderCampusArrivalScene(country)}
               <div class="ceremony-banner">
                 <div>
                   <div class="ceremony-kicker">${countryFlag(country)} ${country.name} Academy Headquarters</div>
@@ -6572,7 +7428,8 @@
               <h2>Academy Campus</h2>
               <span class="badge">${countryFlag(country)} ${country.short} HQ</span>
             </div>
-            <div class="campus-map" style="--campus-accent:var(--academy-accent)">
+            <div class="campus-map country-${country.id}" style="--campus-accent:var(--academy-accent)">
+              ${renderCampusAtmosphere(country)}
               <div class="campus-courtyard" aria-hidden="true"></div>
               <div class="hub-grid">
                 ${cards.map(renderCampusBuilding).join("")}
@@ -6591,7 +7448,7 @@
               <span class="campus-level">${card.level}</span>
             </span>
             <span class="campus-building" aria-hidden="true">
-              <span class="building-svg-slot" data-building="${card.type}"></span>
+              <span class="building-svg-slot" data-building="${card.type}">${campusBuildingIllustration(card.type)}</span>
               <span class="building-glow"></span>
               <span class="building-wing left"></span>
               <span class="building-wing right"></span>
@@ -6831,6 +7688,7 @@
                     </div>
                     <div class="level-token"><span>Chance</span><strong>${Math.round(chance * 100)}%</strong></div>
                   </div>
+                  ${renderCompetitionVenueScene(comp, chance)}
                   <div class="metric-row">
                     <div class="metric"><b>${fmt(comp.baseReward * competitionRewardMultiplier())} TP</b><span>Base prize</span></div>
                     <div class="metric"><b>${Math.ceil((state.activeCompetition.expiresAt - now()) / 1000)}s</b><span>Offer expires</span></div>
@@ -6857,7 +7715,10 @@
       }
 
       function renderAcademyTab() {
-        return renderStaffTab();
+        return `
+          ${renderPlaceHero("academy")}
+          ${renderStaffTab()}
+        `;
       }
 
       function renderPrestigeCard() {
@@ -6890,6 +7751,7 @@
 
       function renderSportsTab() {
         return `
+          ${renderPlaceHero("sports")}
           <section>
             <div class="section-title">
               <h2>Sports Facilities</h2>
@@ -6903,6 +7765,7 @@
 
       function renderWorldTab() {
         return `
+          ${renderPlaceHero("world")}
           ${renderCampaignMap()}
           ${renderCountryProgressCard("full")}
           ${renderAcademyProfile()}
@@ -6975,6 +7838,7 @@
               <span class="badge">${completed} complete / ${unlocked} unlocked</span>
             </div>
             <div class="card passport-card" style="--accent:${currentCountry().accent || "var(--teal)"}">
+              ${renderPassportScene()}
               <div class="metric-row">
                 <div class="metric"><b>${countryFlag(currentCountry())} ${currentCountry().name}</b><span>Current country</span></div>
                 <div class="metric"><b>${unlocked}</b><span>Unlocked countries</span></div>
@@ -7243,7 +8107,7 @@
         return `
           <div class="facility-department department-${facility.sportId}" aria-label="${facility.short} department visual stage ${stage}">
             <div class="department-building" aria-hidden="true">
-              <span class="department-svg-slot" data-facility="${facility.id}"></span>
+              <span class="department-svg-slot" data-facility="${facility.id}">${departmentIllustration(facility)}</span>
               <span class="department-wing left"></span>
               <span class="department-wing right"></span>
               <span class="department-roof"></span>
@@ -7264,6 +8128,7 @@
 
       function renderStaffTab() {
         return `
+          ${renderOfficeScene()}
           <section>
             <div class="section-title">
               <h2>Coaches</h2>
@@ -7301,7 +8166,7 @@
           <article class="card staff-card coach-card ${guideClass("coach", coach.id)}" style="--accent: ${accent}">
             <div class="card-head">
               <div class="staff-heading">
-                <div class="profile-orb" aria-hidden="true">${academyIcon("coach")}</div>
+                <div class="profile-orb coach-portrait" aria-hidden="true">${coachPortraitIllustration()}</div>
                 <div>
                   <h3>${coach.name}</h3>
                   <div class="role">${coach.specialty} - ${coach.path}</div>
@@ -7400,6 +8265,7 @@
         const nextSponsor = Math.max(0, state.nextEventTime - now());
         const chance = comp ? clamp(0.35 + (competitionPower() - comp.targetPower) / comp.targetPower * 0.28, 0.18, 0.95) : 0;
         return `
+          ${renderPlaceHero("events")}
           ${renderFirstCompetitionGuide()}
           ${state.lastCompetitionResult ? `<section>
             <div class="section-title">
@@ -7423,6 +8289,7 @@
                     </div>
                     <div class="level-token"><span>Chance</span><strong>${Math.round(chance * 100)}%</strong></div>
                   </div>
+                  ${renderCompetitionVenueScene(comp, chance)}
                   <div class="metric-row">
                     <div class="metric"><b>${fmt(comp.baseReward * competitionRewardMultiplier())} TP</b><span>Base prize</span></div>
                     <div class="metric"><b>${Math.ceil((state.activeCompetition.expiresAt - now()) / 1000)}s</b><span>Offer expires</span></div>
