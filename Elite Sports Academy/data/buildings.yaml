@@ -1,0 +1,127 @@
+# Elite Sports Academy
+# Building Database
+
+buildings:
+
+  - id: training_center
+    name: Training Center
+
+    category: training
+
+    currency: training_points
+
+    unlock_requirement:
+      type: starting_building
+
+    base_cost: 100
+
+    max_level: 10
+
+    bonuses:
+      - training_speed
+      - athlete_capacity
+
+  - id: coach_office
+    name: Coach Office
+
+    category: coaching
+
+    currency: training_points
+
+    unlock_requirement:
+      type: starting_building
+
+    base_cost: 100
+
+    max_level: 10
+
+    bonuses:
+      - coach_capacity
+      - coach_experience
+      - coach_effectiveness
+
+  - id: recovery_center
+    name: Recovery Center
+
+    category: recovery
+
+    currency: training_points
+
+    unlock_requirement:
+      type: building_level
+      building: training_center
+      level: 3
+
+    base_cost: 250
+
+    max_level: 10
+
+    bonuses:
+      - recovery_speed
+      - injury_prevention
+      - stamina
+
+  - id: scouting_office
+    name: Scouting Office
+
+    category: scouting
+
+    currency: training_points
+
+    unlock_requirement:
+      type: building_level
+      building: coach_office
+      level: 3
+
+    base_cost: 300
+
+    max_level: 10
+
+    bonuses:
+      - athlete_quality
+      - recruitment_rate
+      - scout_efficiency
+
+  - id: competition_arena
+    name: Competition Arena
+
+    category: competition
+
+    currency: training_points
+
+    unlock_requirement:
+      type: building_level
+      building: training_center
+      level: 5
+
+    base_cost: 500
+
+    max_level: 10
+
+    bonuses:
+      - competition_rewards
+      - reputation_gain
+      - spectator_attendance
+
+  - id: administration
+    name: Administration
+
+    category: administration
+
+    currency: training_points
+
+    unlock_requirement:
+      type: building_level
+      building: coach_office
+      level: 5
+
+    base_cost: 600
+
+    max_level: 10
+
+    bonuses:
+      - campus_efficiency
+      - queue_capacity
+      - operating_efficiency
+
+  

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Elite Sports Academy</title>
+  <link rel="icon" href="data:,">
   <style>
     :root {
       --bg: #070a12;
@@ -1080,8 +1081,20 @@
       clip-path: polygon(0 100%, 16% 0, 84% 0, 100% 100%);
     }
 
+    .department-football .department-roof,
+    .department-futsal .department-roof {
+      inset: 4px 8px auto;
+      height: 13px;
+      border-radius: 2px;
+      clip-path: polygon(0 100%, 16% 0, 84% 0, 100% 100%);
+    }
+
     .department-soccer .department-building::before,
-    .department-soccer .department-building::after {
+    .department-soccer .department-building::after,
+    .department-football .department-building::before,
+    .department-football .department-building::after,
+    .department-futsal .department-building::before,
+    .department-futsal .department-building::after {
       top: 6px;
       width: 4px;
       height: 31px;
@@ -1089,12 +1102,29 @@
       background: rgba(255, 255, 255, 0.24);
     }
 
-    .department-soccer .department-building::before {
+    .department-soccer .department-building::before,
+    .department-football .department-building::before,
+    .department-futsal .department-building::before {
       left: 5px;
     }
 
-    .department-soccer .department-building::after {
+    .department-soccer .department-building::after,
+    .department-football .department-building::after,
+    .department-futsal .department-building::after {
       right: 5px;
+    }
+
+    .department-volleyball .department-roof {
+      inset: 7px 10px auto;
+      height: 10px;
+      border-radius: 999px;
+      clip-path: none;
+    }
+
+    .department-volleyball .department-body {
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 9px),
+        linear-gradient(180deg, color-mix(in srgb, var(--accent, var(--teal)) 20%, transparent), rgba(255, 255, 255, 0.04));
     }
 
     .department-status {
@@ -2573,6 +2603,11 @@
       background: linear-gradient(180deg, #e8eefc 0 32%, #365fcf 32% 66%, #d74c5c 66%);
     }
 
+    .country-brazil .arrival-art .flag-panel,
+    .country-brazil .campus-flagline span {
+      background: linear-gradient(180deg, #249f58 0 42%, #f7c948 42% 70%, #2563eb 70%);
+    }
+
     .country-japan .academy-arrival-scene,
     .academy-arrival-scene.country-japan {
       background:
@@ -2594,6 +2629,14 @@
         radial-gradient(circle at 20% 78%, rgba(74, 222, 128, 0.08), transparent 92px),
         linear-gradient(180deg, color-mix(in srgb, var(--campus-accent, var(--teal)) 8%, transparent), transparent 42%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
+    }
+
+    .campus-map.country-brazil {
+      background:
+        radial-gradient(circle at 74% 12%, rgba(247, 201, 72, 0.16), transparent 116px),
+        radial-gradient(circle at 20% 80%, rgba(74, 222, 128, 0.11), transparent 108px),
+        linear-gradient(180deg, color-mix(in srgb, var(--campus-accent, var(--teal)) 10%, transparent), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
     }
 
     .campus-atmosphere {
@@ -3220,6 +3263,93 @@
       gap: 9px;
     }
 
+    .local-economy-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .campus-overview-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .campus-overview-card {
+      display: grid;
+      gap: 10px;
+      border-radius: 6px 14px 6px 6px;
+      background:
+        radial-gradient(circle at 92% 0, color-mix(in srgb, var(--accent, var(--teal)) 18%, transparent), transparent 90px),
+        linear-gradient(180deg, rgba(21, 29, 47, 0.98), rgba(13, 18, 31, 0.98));
+    }
+
+    .campus-overview-card.locked {
+      opacity: 0.72;
+    }
+
+    .campus-overview-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .campus-overview-copy {
+      min-width: 0;
+    }
+
+    .campus-overview-title {
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1.12;
+    }
+
+    .campus-overview-note {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      line-height: 1.28;
+    }
+
+    .campus-overview-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+    }
+
+    .campus-sports-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .strategy-option {
+      min-height: 74px;
+      align-content: start;
+      justify-items: start;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .strategy-option strong,
+    .strategy-option span {
+      display: block;
+      line-height: 1.2;
+    }
+
+    .strategy-option span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
     .preference-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -3781,20 +3911,25 @@
   <div id="eventRoot" class="event-root" aria-live="assertive"></div>
   <div id="toastRoot" class="toast-root" aria-live="polite"></div>
 
+  <script src="./src/data/yaml-content-loader.js"></script>
   <script>
-    (() => {
+    (async () => {
       "use strict";
 
-      const SAVE_VERSION = 12;
+      const SAVE_VERSION = 16;
       const STORAGE_KEY = "elite_sports_academy_save_v1";
       const ARCHITECTURE_VERSION = 1;
+      const LOCAL_ECONOMY_VERSION = 1;
       const COACH_ASSIGNMENT_VERSION = 2;
       const COACH_HEADQUARTERS_REF = "state.academy.headquarters.coaches";
+      const ACADEMY_FUNDING_REF = "state.academy.headquarters.academyFunding.value";
+      const DEFAULT_CAMPUS_STRATEGY_ID = "balanced";
       const MIGRATION_LOG_LIMIT = 40;
       const USA_CAMPUS_ID = "usa";
       const JAPAN_CAMPUS_ID = "japan";
-      const PHASE_ONE_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID];
-      const MIGRATED_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID];
+      const BRAZIL_CAMPUS_ID = "brazil";
+      const PHASE_ONE_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID];
+      const MIGRATED_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID];
       const SAVE_INTERVAL_MS = 10000;
       const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
       const PRESTIGE_UNLOCK = 100000;
@@ -3803,6 +3938,13 @@
       const EVENT_EXPIRY_MS = 15000;
       const EVENT_MIN_MS = 120000;
       const EVENT_MAX_MS = 180000;
+      const YAML_SPORT_ID_ALIASES = {
+        aquatics: "swimming",
+        track: "athletics"
+      };
+      const YAML_COUNTRY_NAME_OVERRIDES = {
+        usa: "USA"
+      };
 
       const COUNTRIES = [
         {
@@ -3814,7 +3956,9 @@
           theme: "Powerhouse academy launchpad",
           specialization: "Balanced Foundation",
           description: "Build a balanced academy foundation across track, swimming, competitions, and chapter earnings.",
+          regionId: "northAmericaCaribbean",
           preferredSportIds: ["track", "aquatics", "cycling", "soccer"],
+          competitionCircuitIds: ["campusCircuit", "regionalChampionships", "worldChampionships", "olympicGames", "footballWorldChampionship", "worldBaseballClassic", "basketballWorldCup"],
           bonuses: [],
           sportIds: ["track", "aquatics", "cycling", "soccer"],
           status: "active",
@@ -3838,7 +3982,9 @@
           theme: "Precision & Technique",
           specialization: "High-performance technique",
           description: "A modern, clean, high-performance chapter focused on swimming, cycling, athlete skill, and competition precision.",
+          regionId: "asia",
           preferredSportIds: ["aquatics", "cycling"],
+          competitionCircuitIds: ["campusCircuit", "regionalChampionships", "worldChampionships", "olympicGames", "worldBaseballClassic", "footballWorldChampionship"],
           bonuses: [
             { type: "athleteXpMultiplier", value: 0.15, label: "+15% Athlete Experience" },
             { type: "competitionRewardMultiplier", value: 0.10, label: "+10% Competition Rewards" }
@@ -3867,7 +4013,9 @@
           theme: "Endurance development tour",
           specialization: "Endurance development",
           description: "Planned chapter for distance-focused academy progression.",
+          regionId: "africa",
           preferredSportIds: ["track", "cycling"],
+          competitionCircuitIds: ["regionalChampionships", "worldChampionships", "olympicGames"],
           bonuses: [],
           sportIds: ["track", "cycling"],
           status: "locked",
@@ -3883,18 +4031,30 @@
           short: "Brazil",
           flag: "🇧🇷",
           accent: "#f7c948",
-          theme: "Stadium showcase tour",
-          specialization: "Stadium showcase",
-          description: "Planned chapter for soccer, track, and future volleyball expansion.",
-          preferredSportIds: ["soccer", "track"],
-          bonuses: [],
-          sportIds: ["soccer", "track"],
+          theme: "Tropical performance campus",
+          specialization: "Football, Volleyball & Futsal",
+          description: "A Rio de Janeiro campus built around creativity, flair, technical excellence, football, volleyball, and futsal.",
+          regionId: "southAmerica",
+          preferredSportIds: ["football", "volleyball", "futsal"],
+          competitionCircuitIds: ["campusCircuit", "regionalChampionships", "worldChampionships", "olympicGames", "footballWorldChampionship", "futsalWorldChampionship"],
+          bonuses: [
+            { type: "creativeAthleteDevelopment", value: 0, label: "Creative Athlete Development" }
+          ],
+          sportIds: ["football", "volleyball", "futsal"],
           status: "locked",
-          playable: false,
-          chapterGoals: [],
-          chapterReward: { medals: 1, reputation: 160, unlockCountryIds: ["kenya"], label: "Future Brazil chapter reward" },
+          playable: true,
+          chapterGoals: [
+            { id: "footballLevel15", type: "facilityLevel", facilityId: "football", target: 15, label: "Football Performance Center reaches Level 15" },
+            { id: "volleyballLevel12", type: "facilityLevel", facilityId: "volleyball", target: 12, label: "Volleyball Training Center reaches Level 12" },
+            { id: "futsalLevel8", type: "facilityLevel", facilityId: "futsal", target: 8, label: "Futsal Skills Court reaches Level 8" },
+            { id: "win5BrazilCompetitions", type: "countryCompetitionsWon", target: 5, label: "Win 5 Brazilian Competitions" },
+            { id: "brazilAthleteSkill12", type: "highestAthleteSkill", target: 12, label: "Train any Brazil Athlete to Skill Level 12" }
+          ],
+          chapterReward: { medals: 3, reputation: 300, academyFunding: 500, unlockCountryIds: [], label: "+3 Medals, +300 Reputation, +500 Academy Funding" },
           unlockRequirements: [{ type: "countryCompleted", countryId: "japan" }],
-          futureCountryIds: ["kenya"]
+          futureCountryIds: [],
+          completionTitle: "Joyful Excellence",
+          completionMessage: "Brazil chapter complete. Your academy now has a true South American performance campus."
         }
       ];
 
@@ -3907,6 +4067,7 @@
           short: "AUS",
           flag: "🇦🇺",
           accent: "#fb923c",
+          regionId: "oceania",
           description: "Locked future destination for surf, stadium, and endurance programs.",
           preview: "Future sports and facilities pending."
         },
@@ -3916,6 +4077,7 @@
           short: "NOR",
           flag: "🇳🇴",
           accent: "#93c5fd",
+          regionId: "europe",
           description: "Locked future destination for winter training and endurance systems.",
           preview: "Future coaches and facilities pending."
         }
@@ -3925,7 +4087,10 @@
         { id: "track", name: "Track & Field", short: "Track", mark: "TRK", accent: "#60a5fa" },
         { id: "aquatics", name: "Swimming", short: "Swim", mark: "SWM", accent: "#2dd4bf" },
         { id: "cycling", name: "Cycling", short: "Bike", mark: "BIK", accent: "#a78bfa" },
-        { id: "soccer", name: "Soccer", short: "Pitch", mark: "SOC", accent: "#f7c948" }
+        { id: "soccer", name: "Soccer", short: "Pitch", mark: "SOC", accent: "#f7c948" },
+        { id: "football", name: "Football", short: "Football", mark: "FTB", accent: "#f7c948" },
+        { id: "volleyball", name: "Volleyball", short: "Volley", mark: "VOL", accent: "#38bdf8" },
+        { id: "futsal", name: "Futsal", short: "Futsal", mark: "FTS", accent: "#4ade80" }
       ];
 
       const CLICK_UPGRADES = [
@@ -4058,6 +4223,51 @@
             { type: "academyOutputMultiplier", perMilestone: 0.05, every: 10 }
           ],
           identity: "Full-stadium programs lift academy-wide passive output."
+        },
+        {
+          id: "football",
+          sportId: "football",
+          name: "Football Performance Center",
+          short: "Football",
+          accent: "#f7c948",
+          baseCost: 1200,
+          baseIncome: 16,
+          coachEvery: 9,
+          athleteRate: 1.8,
+          milestoneEffects: [
+            { type: "academyOutputMultiplier", perMilestone: 0.04, every: 10 }
+          ],
+          identity: "Elite pitch complexes turn technical football sessions into steady campus output."
+        },
+        {
+          id: "volleyball",
+          sportId: "volleyball",
+          name: "Volleyball Training Center",
+          short: "Volley",
+          accent: "#38bdf8",
+          baseCost: 850,
+          baseIncome: 11,
+          coachEvery: 8,
+          athleteRate: 1.7,
+          milestoneEffects: [
+            { type: "athleteXpMultiplier", perMilestone: 0.04, every: 10 }
+          ],
+          identity: "Court systems and recovery stations improve athlete growth for Brazil."
+        },
+        {
+          id: "futsal",
+          sportId: "futsal",
+          name: "Futsal Skills Court",
+          short: "Futsal",
+          accent: "#4ade80",
+          baseCost: 2200,
+          baseIncome: 28,
+          coachEvery: 10,
+          athleteRate: 1.6,
+          milestoneEffects: [
+            { type: "clickMultiplier", perMilestone: 0.04, every: 10 }
+          ],
+          identity: "Compact technical courts sharpen Session Drill rhythm and creative training."
         }
       ];
 
@@ -4107,6 +4317,52 @@
             { type: "clickMultiplier", perLevel: 0.03 }
           ],
           summary: level => `Cycling +${Math.round(level * 18)}%, Soccer +${Math.round(level * 14)}%, Drill +${Math.round(level * 3)}%`
+        },
+        {
+          id: "footballManager",
+          name: "Football Manager",
+          specialty: "Tactical creativity",
+          path: "Brazil Football Path",
+          baseCost: 2600,
+          growth: 2.32,
+          maxLevel: 12,
+          sportIds: ["football", "futsal"],
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "football", perLevel: 0.20 },
+            { type: "sportOutputMultiplier", sportId: "futsal", perLevel: 0.14 },
+            { type: "clickMultiplier", perLevel: 0.025 }
+          ],
+          summary: level => `Football +${Math.round(level * 20)}%, Futsal +${Math.round(level * 14)}%, Drill +${Math.round(level * 2.5)}%`
+        },
+        {
+          id: "goalkeeperCoach",
+          name: "Goalkeeper Coach",
+          specialty: "Pressure and reaction work",
+          path: "Brazil Goalkeeper Path",
+          baseCost: 3800,
+          growth: 2.38,
+          maxLevel: 12,
+          sportIds: ["football"],
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "football", perLevel: 0.18 },
+            { type: "clickMultiplier", perLevel: 0.02 }
+          ],
+          summary: level => `Football +${Math.round(level * 18)}%, Drill +${Math.round(level * 2)}%`
+        },
+        {
+          id: "volleyballSpecialist",
+          name: "Volleyball Specialist",
+          specialty: "Court systems",
+          path: "Brazil Volleyball Path",
+          baseCost: 3200,
+          growth: 2.34,
+          maxLevel: 12,
+          sportIds: ["volleyball"],
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "volleyball", perLevel: 0.22 },
+            { type: "clickMultiplier", perLevel: 0.02 }
+          ],
+          summary: level => `Volleyball +${Math.round(level * 22)}%, Drill +${Math.round(level * 2)}%`
         }
       ];
 
@@ -4178,6 +4434,57 @@
           ],
           preferred: "soccer",
           bonus: skill => `Soccer +${Math.round(skill * 3.5)}%, prizes +${Math.round(skill * 4)}%`
+        },
+        {
+          id: "footballer",
+          name: "Football Prospect",
+          sportId: "football",
+          sport: "Football",
+          rarity: "Elite",
+          potential: 38,
+          baseCost: 5200,
+          trainCost: 2100,
+          preferredFacilityId: "football",
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "football", perSkill: 0.035, requiresAssignedSport: true },
+            { type: "competitionRewardMultiplier", perSkill: 0.025, requiresAssignedSport: true }
+          ],
+          preferred: "football",
+          bonus: skill => `Football +${Math.round(skill * 3.5)}%, competitions +${Math.round(skill * 2.5)}%`
+        },
+        {
+          id: "volleyballer",
+          name: "Volleyball Prospect",
+          sportId: "volleyball",
+          sport: "Volleyball",
+          rarity: "Rare",
+          potential: 34,
+          baseCost: 3600,
+          trainCost: 1500,
+          preferredFacilityId: "volleyball",
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "volleyball", perSkill: 0.04, requiresAssignedSport: true },
+            { type: "athleteXpMultiplier", perSkill: 0.018, requiresAssignedSport: true }
+          ],
+          preferred: "volleyball",
+          bonus: skill => `Volleyball +${Math.round(skill * 4)}%, athlete XP +${Math.round(skill * 1.8)}%`
+        },
+        {
+          id: "futsalPlayer",
+          name: "Futsal Creator",
+          sportId: "futsal",
+          sport: "Futsal",
+          rarity: "Uncommon",
+          potential: 32,
+          baseCost: 2400,
+          trainCost: 980,
+          preferredFacilityId: "futsal",
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "futsal", perSkill: 0.045, requiresAssignedSport: true },
+            { type: "clickMultiplier", perSkill: 0.018, requiresAssignedSport: true }
+          ],
+          preferred: "futsal",
+          bonus: skill => `Futsal +${Math.round(skill * 4.5)}%, Drill +${Math.round(skill * 1.8)}%`
         }
       ];
 
@@ -4186,6 +4493,8 @@
           id: "timeTrial",
           name: "Regional Time Trial",
           sportIds: ["track", "cycling"],
+          countryIds: ["usa", "japan"],
+          circuitIds: ["campusCircuit"],
           unlockIncome: 1,
           baseReward: 300,
           targetPower: 18,
@@ -4195,6 +4504,8 @@
           id: "swimInvite",
           name: "Invitational Swim Fest",
           sportIds: ["aquatics"],
+          countryIds: ["usa", "japan"],
+          circuitIds: ["campusCircuit"],
           unlockIncome: 8,
           baseReward: 1200,
           targetPower: 60,
@@ -4204,10 +4515,67 @@
           id: "academyCup",
           name: "Academy Cup Derby",
           sportIds: ["track", "aquatics", "cycling", "soccer"],
+          countryIds: ["usa"],
+          circuitIds: ["campusCircuit"],
           unlockIncome: 35,
           baseReward: 6000,
           targetPower: 180,
           description: "A showcase where your whole academy contributes."
+        },
+        {
+          id: "brazilNationals",
+          name: "Brazil Nationals",
+          sportIds: ["football", "volleyball"],
+          countryIds: ["brazil"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 10,
+          baseReward: 2200,
+          targetPower: 90,
+          description: "Brazil's national academy test rewards balanced football and volleyball growth."
+        },
+        {
+          id: "rioInvitational",
+          name: "Rio Invitational",
+          sportIds: ["football", "futsal"],
+          countryIds: ["brazil"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 22,
+          baseReward: 5200,
+          targetPower: 170,
+          description: "A Rio showcase built around technical football and quick futsal decisions."
+        },
+        {
+          id: "saoPauloCup",
+          name: "São Paulo Cup",
+          sportIds: ["football"],
+          countryIds: ["brazil"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 42,
+          baseReward: 9600,
+          targetPower: 280,
+          description: "A serious football event for a mature Brazil performance center."
+        },
+        {
+          id: "copaAcademia",
+          name: "Copa da Academia",
+          sportIds: ["football", "volleyball", "futsal"],
+          countryIds: ["brazil"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 70,
+          baseReward: 18000,
+          targetPower: 430,
+          description: "A campus-wide Brazil championship for the full technical program."
+        },
+        {
+          id: "futsalMasters",
+          name: "Futsal Masters",
+          sportIds: ["futsal"],
+          countryIds: ["brazil"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 34,
+          baseReward: 7400,
+          targetPower: 220,
+          description: "A fast technical event where the Futsal Skills Court can swing the result."
         }
       ];
 
@@ -4261,25 +4629,155 @@
         { min: 800, label: "Olympic Academy" }
       ];
 
+      const CAMPUS_STRATEGIES = [
+        {
+          id: "localDevelopment",
+          name: "Local Development",
+          short: "Local",
+          focus: "Grow this campus.",
+          contributionRate: 0.001,
+          localGrowth: "future-faster-campus-growth",
+          headquartersContribution: "low",
+          athleteFocus: "standard",
+          competitionFocus: "standard",
+          recommendedFor: "New campuses"
+        },
+        {
+          id: "balanced",
+          name: "Balanced",
+          short: "Balanced",
+          focus: "Balanced growth.",
+          contributionRate: 0.002,
+          localGrowth: "standard",
+          headquartersContribution: "average",
+          athleteFocus: "standard",
+          competitionFocus: "standard",
+          recommendedFor: "Default campus operation"
+        },
+        {
+          id: "globalContribution",
+          name: "Global Contribution",
+          short: "Global",
+          focus: "Support the academy.",
+          contributionRate: 0.004,
+          localGrowth: "future-slower-campus-growth",
+          headquartersContribution: "high",
+          athleteFocus: "standard",
+          competitionFocus: "standard",
+          recommendedFor: "Mature campuses"
+        },
+        {
+          id: "highPerformance",
+          name: "High Performance",
+          short: "Performance",
+          focus: "Develop elite athletes.",
+          contributionRate: 0.0015,
+          localGrowth: "standard",
+          headquartersContribution: "reduced",
+          athleteFocus: "future-athlete-development",
+          competitionFocus: "future-championship-potential",
+          recommendedFor: "Major championship preparation"
+        }
+      ];
+
+      const COMPETITION_CIRCUITS = [
+        {
+          id: "campusCircuit",
+          name: "Campus Circuit",
+          scope: "campus",
+          status: "active-framework",
+          description: "Current local academy competitions surface through this circuit while country competitions remain unchanged."
+        },
+        {
+          id: "regionalChampionships",
+          name: "Regional Championships",
+          scope: "region",
+          status: "future-framework",
+          description: "Future regional competition layer for countries inside the same geographic region."
+        },
+        {
+          id: "worldChampionships",
+          name: "World Championships",
+          scope: "global",
+          status: "future-framework",
+          description: "Future global competition layer for mature campuses."
+        },
+        {
+          id: "olympicGames",
+          name: "Olympic Games",
+          scope: "global",
+          status: "future-framework",
+          description: "Future long-term culmination layer for elite academy programs."
+        },
+        {
+          id: "winterChampionships",
+          name: "Winter Championships",
+          scope: "sport-family",
+          status: "future-framework",
+          description: "Future winter-sport competition circuit."
+        },
+        {
+          id: "footballWorldChampionship",
+          name: "Football World Championship",
+          scope: "sport-specific",
+          status: "future-framework",
+          description: "Future sport-specific world competition circuit."
+        },
+        {
+          id: "futsalWorldChampionship",
+          name: "Futsal World Championship",
+          scope: "sport-specific",
+          status: "future-framework",
+          description: "Future futsal-specific world competition circuit placeholder."
+        },
+        {
+          id: "worldBaseballClassic",
+          name: "World Baseball Classic",
+          scope: "sport-specific",
+          status: "future-framework",
+          description: "Future baseball competition circuit placeholder."
+        },
+        {
+          id: "basketballWorldCup",
+          name: "Basketball World Cup",
+          scope: "sport-specific",
+          status: "future-framework",
+          description: "Future basketball competition circuit placeholder."
+        },
+        {
+          id: "rugbyWorldChampionship",
+          name: "Rugby World Championship",
+          scope: "sport-specific",
+          status: "future-framework",
+          description: "Future rugby competition circuit placeholder."
+        }
+      ];
+
       const CONTENT = {
         countries: COUNTRIES,
         sports: SPORTS,
+        buildings: [],
         facilities: FACILITIES,
         clickUpgrades: CLICK_UPGRADES,
         coaches: COACHES,
         athletes: ATHLETES,
         competitions: COMPETITIONS,
+        campusStrategies: CAMPUS_STRATEGIES,
+        competitionCircuits: COMPETITION_CIRCUITS,
         achievements: ACHIEVEMENTS
       };
 
       const BY_ID = {
         country: mapById(CONTENT.countries),
         sport: mapById(CONTENT.sports),
+        building: mapById(CONTENT.buildings),
         facility: mapById(CONTENT.facilities),
         clickUpgrade: mapById(CONTENT.clickUpgrades),
         coach: mapById(CONTENT.coaches),
         athlete: mapById(CONTENT.athletes),
         competition: mapById(CONTENT.competitions),
+        campusStrategy: mapById(CONTENT.campusStrategies),
+        competitionCircuit: mapById(CONTENT.competitionCircuits),
         achievement: mapById(CONTENT.achievements)
       };
 
@@ -4291,7 +4789,8 @@
         { id: "world", label: "World", icon: "world" }
       ];
 
-      let state = createDefaultState();
+      let contentDataRegistry = createContentDataRegistry("not-started");
+      let state = null;
       let offlineReport = null;
       let lastRender = 0;
       let worldHeaderExpanded = false;
@@ -4304,6 +4803,122 @@
         return Date.now();
       }
 
+      function createContentDataRegistry(status = "not-started") {
+        return {
+          status,
+          loadedAt: 0,
+          data: {
+            countries: [],
+            sports: [],
+            buildings: []
+          },
+          sources: {},
+          errors: [],
+          warnings: []
+        };
+      }
+
+      async function initializeContentDataRegistry() {
+        const loader = window.EliteSportsAcademyDataLoader;
+        if (!loader || typeof loader.loadContentDatabases !== "function") {
+          contentDataRegistry = createContentDataRegistry("fallback");
+          contentDataRegistry.errors.push("YAML content loader was not available.");
+          return;
+        }
+        try {
+          const result = await loader.loadContentDatabases({ baseUrl: ".", timeoutMs: 3000 });
+          applyContentDataRegistry(result);
+        } catch (error) {
+          contentDataRegistry = createContentDataRegistry("fallback");
+          contentDataRegistry.errors.push(error && error.message ? error.message : String(error));
+        }
+      }
+
+      function applyContentDataRegistry(result) {
+        contentDataRegistry = {
+          ...createContentDataRegistry("fallback"),
+          ...(result && typeof result === "object" ? result : {})
+        };
+        mergeYamlCountries(contentDataRegistry.data.countries || []);
+        mergeYamlSports(contentDataRegistry.data.sports || []);
+        CONTENT.buildings = (contentDataRegistry.data.buildings || []).map(normalizeYamlBuildingForGame);
+        BY_ID.building = mapById(CONTENT.buildings);
+      }
+
+      function mergeYamlCountries(countries) {
+        const byId = mapById(countries);
+        CONTENT.countries.forEach(country => {
+          const source = byId[country.id];
+          if (!source) return;
+          country.dataSource = "data/countries.yaml";
+          country.dataProfile = source;
+          country.sourceName = source.name;
+          country.dataTagline = source.tagline || "";
+          country.dataRegion = source.region || "";
+          country.dataCampusBonus = source.campus_bonus || null;
+          country.dataSignatureSports = Array.isArray(source.signature_sports) ? [...source.signature_sports] : [];
+          country.dataSharedSports = Array.isArray(source.shared_sports) ? [...source.shared_sports] : [];
+          country.dataCompetitionCircuits = Array.isArray(source.competition_circuits) ? [...source.competition_circuits] : [];
+          if (source.name && !YAML_COUNTRY_NAME_OVERRIDES[country.id]) country.name = source.name;
+        });
+      }
+
+      function mergeYamlSports(sports) {
+        const byId = mapById(sports);
+        CONTENT.sports.forEach(sport => {
+          const source = byId[sport.id] || byId[YAML_SPORT_ID_ALIASES[sport.id]];
+          if (!source) return;
+          sport.dataSource = "data/sports.yaml";
+          sport.dataProfile = source;
+          sport.category = source.category || sport.category || "";
+          sport.trainingFocus = Array.isArray(source.training_focus) ? [...source.training_focus] : [];
+          sport.seasons = Array.isArray(source.seasons) ? [...source.seasons] : [];
+          sport.athleteType = source.athlete_type || "";
+          sport.roster = {
+            min: Math.max(1, Math.floor(cleanNumber(source.min_roster, 1))),
+            max: Math.max(1, Math.floor(cleanNumber(source.max_roster, source.min_roster || 1))),
+            competition: Math.max(1, Math.floor(cleanNumber(source.competition_roster, source.min_roster || 1)))
+          };
+          sport.indoor = Boolean(source.indoor);
+        });
+      }
+
+      function normalizeYamlBuildingForGame(building) {
+        return {
+          id: String(building.id || ""),
+          name: String(building.name || "Unnamed Building"),
+          category: String(building.category || "general"),
+          currency: String(building.currency || "training_points"),
+          unlockRequirement: building.unlock_requirement || null,
+          baseCost: Math.max(0, cleanNumber(building.base_cost, 0)),
+          startingLevel: Math.max(0, Math.floor(cleanNumber(building.starting_level, 0))),
+          maxLevel: Math.max(1, Math.floor(cleanNumber(building.max_level, 1))),
+          bonuses: Array.isArray(building.bonuses) ? [...building.bonuses] : [],
+          dataSource: "data/buildings.yaml",
+          dataProfile: building
+        };
+      }
+
+      function contentDataSummary() {
+        return {
+          status: contentDataRegistry.status,
+          loadedAt: contentDataRegistry.loadedAt,
+          counts: {
+            countries: (contentDataRegistry.data.countries || []).length,
+            sports: (contentDataRegistry.data.sports || []).length,
+            buildings: CONTENT.buildings.length
+          },
+          sources: Object.fromEntries(Object.entries(contentDataRegistry.sources || {}).map(([key, source]) => [key, {
+            path: source.path,
+            count: source.count || 0,
+            errors: (source.errors || []).length + (source.parseErrors || []).length,
+            warnings: (source.warnings || []).length
+          }])),
+          errors: contentDataRegistry.errors || [],
+          warnings: contentDataRegistry.warnings || []
+        };
+      }
+
       function defaultAcademyIdentity(foundedAt = now()) {
         return {
           name: "Summit Elite Academy",
@@ -4314,8 +4929,59 @@
         };
       }
 
+      function createAcademyFundingRecord(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const value = Math.max(0, cleanNumber(saved.value ?? saved.amount ?? saved.funding, 0));
+        const lifetimeEarned = Math.max(value, cleanNumber(saved.lifetimeEarned, value));
+        return {
+          version: LOCAL_ECONOMY_VERSION,
+          status: "headquarters-owned",
+          value,
+          lifetimeEarned,
+          sourceModel: "campus-contributions",
+          spendEnabled: false,
+          lastContributionAt: cleanNumber(saved.lastContributionAt, 0)
+        };
+      }
+
+      function createHeadquartersSupportRecord(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const operations = saved.operationsCapacity && typeof saved.operationsCapacity === "object" ? saved.operationsCapacity : {};
+        return {
+          operationsCapacity: {
+            status: "future-headquarters-upgrade",
+            enabled: false,
+            limitsOfflineProduction: false,
+            efficientHours: Math.max(0, cleanNumber(operations.efficientHours, 0)),
+            upgradeable: true
+          },
+          supportModel: "prepared",
+          gameplayEnabled: false
+        };
+      }
+
+      function createGlobalCompetitionCircuitContainer(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        return {
+          status: "framework",
+          activeCircuitId: getCompetitionCircuit(saved.activeCircuitId) ? saved.activeCircuitId : "campusCircuit",
+          availableCircuitIds: CONTENT.competitionCircuits.map(circuit => circuit.id),
+          playableCircuitIds: ["campusCircuit"],
+          futureCircuitIds: CONTENT.competitionCircuits.filter(circuit => circuit.status !== "active-framework").map(circuit => circuit.id)
+        };
+      }
+
+      function preserveGlobalSystemContainer(raw = {}, fallbackStatus = "future-global-system") {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        return {
+          status: String(saved.status || fallbackStatus),
+          ...saved
+        };
+      }
+
       function defaultAcademyContainer(foundedAt = now()) {
         const identity = defaultAcademyIdentity(foundedAt);
+        const academyFunding = createAcademyFundingRecord();
         return {
           ...identity,
           architectureVersion: ARCHITECTURE_VERSION,
@@ -4327,13 +4993,19 @@
             reputationRef: "state.reputation",
             medalsRef: "state.medals",
             trophiesRef: "state.trophies",
-            funding: 0,
-            fundingStatus: "future"
+            funding: academyFunding.value,
+            fundingRef: ACADEMY_FUNDING_REF,
+            fundingStatus: "headquarters-owned"
           },
           headquarters: {
             status: "planned",
             playable: false,
-            preparedAfter: "global-coach-assignment-foundation"
+            preparedAfter: "campus-travel-brazil-expansion",
+            academyFunding,
+            support: createHeadquartersSupportRecord(),
+            competitionCircuits: createGlobalCompetitionCircuitContainer(),
+            research: preserveGlobalSystemContainer({}, "future-global-research"),
+            sponsors: preserveGlobalSystemContainer({}, "future-global-sponsors")
           },
           coaches: createGlobalCoachContainer(),
           campuses: {
@@ -4456,6 +5128,54 @@
         return records;
       }
 
+      function normalizeClickUpgradeRecords(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const records = {};
+        CONTENT.clickUpgrades.forEach(upgrade => {
+          const item = saved[upgrade.id] && typeof saved[upgrade.id] === "object" ? saved[upgrade.id] : {};
+          records[upgrade.id] = {
+            level: clamp(Math.floor(cleanNumber(item.level, 0)), 0, upgrade.maxLevel)
+          };
+        });
+        return records;
+      }
+
+      function sessionDrillLevelFromUpgrades(upgrades = {}) {
+        return 1 + CONTENT.clickUpgrades.reduce((sum, upgrade) => {
+          return sum + Math.max(0, Math.floor(cleanNumber(upgrades[upgrade.id] && upgrades[upgrade.id].level, 0)));
+        }, 0);
+      }
+
+      function normalizeSessionDrillRecord(raw = {}, countryId = USA_CAMPUS_ID, fallbackUpgrades = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const upgradeSource = saved.upgrades && typeof saved.upgrades === "object" ? saved.upgrades : fallbackUpgrades;
+        const upgrades = normalizeClickUpgradeRecords(upgradeSource);
+        return {
+          status: "campus-owned",
+          scope: "local-campus",
+          ownership: "campus",
+          level: sessionDrillLevelFromUpgrades(upgrades),
+          defaultLevel: 1,
+          baseClickPower: 1,
+          baseIncomeSource: "global-championship-trial-multiplier-applies-after-local-base",
+          upgrades,
+          upgradeRef: `state.campuses.${countryId}.sessionDrill.upgrades`,
+          adapter: "active-campus-legacy-mirror"
+        };
+      }
+
+      function normalizeBuildingRecords(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw.records || raw : {};
+        const records = {};
+        CONTENT.buildings.forEach(building => {
+          const item = saved[building.id] && typeof saved[building.id] === "object" ? saved[building.id] : {};
+          records[building.id] = {
+            level: Math.max(0, Math.floor(cleanNumber(item.level, building.startingLevel || 0)))
+          };
+        });
+        return records;
+      }
+
       function isMigratedCampusId(countryId) {
         return MIGRATED_CAMPUS_IDS.includes(countryId);
       }
@@ -4463,6 +5183,7 @@
       function campusMigrationPhase(countryId) {
         if (countryId === USA_CAMPUS_ID) return "phase-2-usa-campus-migration";
         if (countryId === JAPAN_CAMPUS_ID) return "phase-3-japan-campus-migration";
+        if (countryId === BRAZIL_CAMPUS_ID) return "phase-6-campus-travel-brazil-expansion";
         return "phase-1-placeholder";
       }
 
@@ -4503,6 +5224,10 @@
         return Boolean(campus && campus.chapterProgress && campus.chapterProgress.status === "campus-owned" && campus.chapterProgress.record);
       }
 
+      function campusOwnsSessionDrill(campus) {
+        return Boolean(campus && campus.sessionDrill && campus.sessionDrill.status === "campus-owned" && campus.sessionDrill.upgrades);
+      }
+
       function normalizeCampusCompetitionState(raw = {}, rawSave = {}) {
         const saved = raw && typeof raw === "object" ? raw : {};
         const rawActive = saved.active && typeof saved.active === "object" ? saved.active : rawSave.activeCompetition;
@@ -4539,6 +5264,70 @@
         };
       }
 
+      function campusRegionId(countryId) {
+        const country = getCountry(countryId);
+        if (country && country.regionId) return country.regionId;
+        const future = FUTURE_DESTINATIONS.find(destination => destination.id === countryId);
+        return future && future.regionId ? future.regionId : "unassigned";
+      }
+
+      function campusCompetitionCircuitIds(countryId) {
+        const country = getCountry(countryId);
+        const configured = country && Array.isArray(country.competitionCircuitIds) ? country.competitionCircuitIds : ["campusCircuit"];
+        const valid = configured.filter(id => getCompetitionCircuit(id));
+        return valid.length ? [...new Set(valid)] : ["campusCircuit"];
+      }
+
+      function normalizeCampusEconomy(raw = {}, countryId = USA_CAMPUS_ID) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const contribution = saved.contribution && typeof saved.contribution === "object" ? saved.contribution : {};
+        const strategyId = getCampusStrategy(saved.strategyId) ? saved.strategyId : DEFAULT_CAMPUS_STRATEGY_ID;
+        return {
+          version: LOCAL_ECONOMY_VERSION,
+          status: "campus-owned",
+          strategyId,
+          strategyChangedAt: cleanNumber(saved.strategyChangedAt, 0),
+          localTrainingPointsRef: `state.campuses.${countryId}.localTrainingPoints.value`,
+          academyFundingRef: ACADEMY_FUNDING_REF,
+          contribution: {
+            status: "framework-active",
+            model: "sidecar-accrual-no-local-tp-reduction",
+            lifetimeFundingGenerated: Math.max(0, cleanNumber(contribution.lifetimeFundingGenerated, 0)),
+            pendingFunding: Math.max(0, cleanNumber(contribution.pendingFunding, 0)),
+            lastFundingGenerated: Math.max(0, cleanNumber(contribution.lastFundingGenerated, 0)),
+            lastSource: String(contribution.lastSource || ""),
+            lastContributionAt: cleanNumber(contribution.lastContributionAt, 0)
+          },
+          headquartersSupport: {
+            status: "prepared",
+            headquartersRef: "state.academy.headquarters",
+            operationsCapacityLimited: false,
+            operationsCapacityRef: "state.academy.headquarters.support.operationsCapacity"
+          },
+          modifiers: {
+            localGrowth: getCampusStrategy(strategyId).localGrowth,
+            headquartersContribution: getCampusStrategy(strategyId).headquartersContribution,
+            athleteFocus: getCampusStrategy(strategyId).athleteFocus,
+            competitionFocus: getCampusStrategy(strategyId).competitionFocus
+          }
+        };
+      }
+
+      function normalizeCampusCompetitionCircuits(raw = {}, countryId = USA_CAMPUS_ID) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const eligibleCircuitIds = campusCompetitionCircuitIds(countryId);
+        const currentCircuitId = getCompetitionCircuit(saved.currentCircuitId) && eligibleCircuitIds.includes(saved.currentCircuitId)
+          ? saved.currentCircuitId
+          : eligibleCircuitIds[0] || "campusCircuit";
+        return {
+          status: "framework",
+          currentCircuitId,
+          eligibleCircuitIds,
+          activeCompetitionRef: `state.campuses.${countryId}.competitions.active`,
+          futureExpansionReady: true
+        };
+      }
+
       function activeCampusIdForState(targetState = state) {
         return normalizeCampusId(targetState && targetState.currentCountryId, USA_CAMPUS_ID);
       }
@@ -4560,6 +5349,8 @@
         const savedCompetitions = raw.competitions && raw.competitions.status === "campus-owned" ? raw.competitions : {};
         const competitionFallback = shouldBridgeLegacyProgress ? rawSave : {};
         const savedChapter = raw.chapterProgress && typeof raw.chapterProgress === "object" ? raw.chapterProgress : {};
+        const savedSessionDrill = raw.sessionDrill && typeof raw.sessionDrill === "object" ? raw.sessionDrill : {};
+        const sessionDrillFallback = isActiveCampus ? rawSave.clickUpgrades : {};
         return {
           id: country.id,
           countryId: country.id,
@@ -4571,6 +5362,9 @@
           metadata: {
             migrationPhase: campusMigrationPhase(country.id),
             migrationStatus: isMigratedCampus ? "migrated" : "placeholder",
+            localEconomyVersion: LOCAL_ECONOMY_VERSION,
+            regionId: campusRegionId(country.id),
+            competitionCircuitIds: campusCompetitionCircuitIds(country.id),
             activeCampusOnMigration: activeCampusId,
             legacyAdapter: !isMigratedCampus,
             legacyBridgeApplied: Boolean(raw.metadata && raw.metadata.legacyBridgeApplied),
@@ -4581,7 +5375,15 @@
             status: isActiveCampus || isMigratedCampus ? "campus-owned" : "prepared",
             value: Math.max(0, localTrainingPointValue),
             migratedFrom: "state.tp",
-            adapter: isActiveCampus ? "active-campus-legacy-mirror" : "stored-campus-value"
+            adapter: isActiveCampus ? "active-campus-legacy-mirror" : "stored-campus-value",
+            scope: "local-campus",
+            ownership: "campus"
+          },
+          economy: normalizeCampusEconomy(raw.economy, country.id),
+          sessionDrill: normalizeSessionDrillRecord(savedSessionDrill, country.id, sessionDrillFallback),
+          buildings: {
+            status: "campus-owned",
+            records: normalizeBuildingRecords(raw.buildings)
           },
           facilities: isMigratedCampus
             ? {
@@ -4621,7 +5423,8 @@
           localBonuses: {
             status: "content-registry",
             valueRef: `CONTENT.countries.${country.id}.bonuses`
-          }
+          },
+          competitionCircuits: normalizeCampusCompetitionCircuits(raw.competitionCircuits, country.id)
         };
       }
 
@@ -4632,6 +5435,98 @@
           campuses[id] = createCampusRecord(id, saved && typeof saved === "object" ? saved : {}, rawSave);
         });
         return campuses;
+      }
+
+      function createFreshCampusRecord(countryId) {
+        const campus = createCampusRecord(countryId, {
+          opened: true,
+          status: "prepared"
+        }, {
+          currentCountryId: USA_CAMPUS_ID,
+          unlockedCountryIds: [USA_CAMPUS_ID],
+          completedCountryIds: []
+        });
+        campus.opened = true;
+        campus.status = "prepared";
+        campus.localTrainingPoints.value = 0;
+        campus.localTrainingPoints.adapter = "stored-campus-value";
+        campus.localTrainingPoints.migratedFrom = "fresh-country-unlock";
+        campus.sessionDrill = normalizeSessionDrillRecord({}, countryId, {});
+        campus.buildings.records = normalizeBuildingRecords({});
+        if (campusOwnsFacilities(campus)) campus.facilities.records = normalizeFacilityRecords({});
+        if (campusOwnsAthletes(campus)) campus.athletes.records = normalizeAthleteRecords({});
+        if (campusOwnsCompetitions(campus)) campus.competitions = normalizeCampusCompetitionState({}, {});
+        if (campusOwnsChapterProgress(campus)) campus.chapterProgress.record = createCountryProgressRecord();
+        campus.economy = normalizeCampusEconomy({}, countryId);
+        campus.competitionCircuits = normalizeCampusCompetitionCircuits({}, countryId);
+        campus.metadata.freshCampusInitialized = true;
+        campus.metadata.freshCampusInitializedAt = now();
+        campus.metadata.freshCampusSaveVersion = SAVE_VERSION;
+        campus.metadata.legacyBridgeApplied = false;
+        campus.metadata.legacyBridgeSource = "";
+        return campus;
+      }
+
+      function attachFreshCampusToActiveMirrors(targetState, campus) {
+        if (!targetState || !campus || targetState.currentCountryId !== campus.countryId) return;
+        targetState.tp = cleanNumber(campus.localTrainingPoints && campus.localTrainingPoints.value, 0);
+        if (campusOwnsFacilities(campus)) targetState.facilities = campus.facilities.records;
+        if (campusOwnsAthletes(campus)) targetState.athletes = campus.athletes.records;
+        if (campusOwnsCompetitions(campus)) {
+          targetState.activeCompetition = campus.competitions.active || null;
+          targetState.lastCompetitionResult = campus.competitions.lastResult || null;
+          targetState.nextCompetitionTime = cleanNumber(campus.competitions.nextCompetitionTime, now() + 45000);
+        }
+        if (!targetState.countryProgress || typeof targetState.countryProgress !== "object") targetState.countryProgress = {};
+        if (campusOwnsChapterProgress(campus)) targetState.countryProgress[campus.countryId] = campus.chapterProgress.record;
+      }
+
+      function initializeFreshCampusForUnlock(countryId, targetState = state) {
+        const country = getCountry(countryId);
+        if (!country || country.id === USA_CAMPUS_ID || !isMigratedCampusId(country.id)) return false;
+        if (!targetState.campuses || typeof targetState.campuses !== "object") targetState.campuses = {};
+        const freshCampus = createFreshCampusRecord(country.id);
+        targetState.campuses[country.id] = freshCampus;
+        if (!targetState.countryProgress || typeof targetState.countryProgress !== "object") targetState.countryProgress = {};
+        targetState.countryProgress[country.id] = freshCampus.chapterProgress.record;
+        attachFreshCampusToActiveMirrors(targetState, freshCampus);
+        return true;
+      }
+
+      function shouldResetUnlockedCampusProgress(targetState, countryId) {
+        if (!targetState || countryId === USA_CAMPUS_ID || !isMigratedCampusId(countryId)) return false;
+        const unlocked = Array.isArray(targetState.unlockedCountryIds) && targetState.unlockedCountryIds.includes(countryId);
+        if (!unlocked) return false;
+        const record = targetState.countryProgress && targetState.countryProgress[countryId];
+        const completed = Array.isArray(targetState.completedCountryIds) && targetState.completedCountryIds.includes(countryId);
+        return !completed && !(record && record.rewardClaimed);
+      }
+
+      function campusHasLocalPlayActivity(campus) {
+        if (!campus || typeof campus !== "object") return false;
+        const localTP = cleanNumber(campus.localTrainingPoints && campus.localTrainingPoints.value, 0);
+        const progress = campus.chapterProgress && campus.chapterProgress.record ? campus.chapterProgress.record : {};
+        return localTP > 0
+          || cleanNumber(progress.chapterTPEarned, 0) > 0
+          || cleanNumber(progress.competitionsWon, 0) > 0
+          || (campusOwnsFacilities(campus) && hasFacilityProgress(campus.facilities.records))
+          || (campusOwnsAthletes(campus) && hasAthleteProgress(campus.athletes.records));
+      }
+
+      function shouldResetUnlockedCampusSessionDrill(targetState, countryId) {
+        if (!shouldResetUnlockedCampusProgress(targetState, countryId)) return false;
+        const campus = targetState.campuses && targetState.campuses[countryId];
+        return !campusHasLocalPlayActivity(campus);
+      }
+
+      function resetCampusSessionDrill(countryId, targetState = state) {
+        const campus = targetState && targetState.campuses && targetState.campuses[countryId];
+        if (!campus) return false;
+        campus.sessionDrill = normalizeSessionDrillRecord({}, countryId, {});
+        if (activeCampusIdForState(targetState) === countryId) {
+          targetState.clickUpgrades = campus.sessionDrill.upgrades;
+        }
+        return true;
       }
 
       function createMigrationRecord(originalSaveVersion = SAVE_VERSION) {
@@ -4959,6 +5854,57 @@
             headquartersPlayable: false
           });
         }
+        if (version < 13) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated, { source: "legacy" });
+          logMigration(migrated, "v13-local-economy-foundation", "Prepared campus-local Training Points, global Academy Funding, campus strategies, contributions, Headquarters support metadata, and competition circuits.", {
+            activeCampusId: activeCampusIdForState(migrated),
+            academyFunding: true,
+            defaultCampusStrategyId: DEFAULT_CAMPUS_STRATEGY_ID,
+            localTrainingPointsRemainLegacyMirroredForActiveCampus: true,
+            headquartersPlayable: false
+          });
+        }
+        if (version < 14) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated, { source: "legacy" });
+          logMigration(migrated, "v14-campus-travel-brazil-expansion", "Prepared Brazil as a migrated campus, preserved local campus Training Points, and enabled manual travel between unlocked campuses.", {
+            activeCampusId: activeCampusIdForState(migrated),
+            brazilCampusPrepared: true,
+            manualTravelEnabled: true,
+            headquartersPlayable: false
+          });
+        }
+        if (version < 15) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.countryProgress = normalizeCountryProgress(migrated.countryProgress, migrated);
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          const resetCampusIds = [JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID].filter(id => shouldResetUnlockedCampusProgress(migrated, id));
+          resetCampusIds.forEach(id => initializeFreshCampusForUnlock(id, migrated));
+          syncArchitectureContainers(migrated, {
+            source: resetCampusIds.includes(activeCampusIdForState(migrated)) ? "campus" : "legacy"
+          });
+          logMigration(migrated, "v15-country-progression-reset", "Reset unclaimed unlocked expansion campuses so local Training Points, buildings, facilities, athletes, competitions, and chapter progress start fresh.", {
+            resetCampusIds,
+            globalProgressPreserved: ["academy", "academyFunding", "reputation", "medals", "trophies", "sponsors", "research"]
+          });
+        }
+        if (version < 16) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          syncArchitectureContainers(migrated, { source: "legacy" });
+          const resetSessionDrillIds = [JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID].filter(id => shouldResetUnlockedCampusSessionDrill(migrated, id));
+          resetSessionDrillIds.forEach(id => resetCampusSessionDrill(id, migrated));
+          if (resetSessionDrillIds.includes(activeCampusIdForState(migrated))) syncCampusAdapters(migrated, { source: "campus" });
+          logMigration(migrated, "v16-local-session-drill-progression", "Moved manual Session Drill upgrade progression into the active campus while preserving Championship Trial trophy scaling as global progression.", {
+            activeCampusId: activeCampusIdForState(migrated),
+            resetSessionDrillIds,
+            rootClickUpgradesRemainActiveCampusAdapter: true,
+            freshCampusSessionDrillLevel: 1
+          });
+        }
         migrated.saveVersion = SAVE_VERSION;
         migrated.migration.currentSaveVersion = SAVE_VERSION;
         migrated.migration.lastMigratedAt = version < SAVE_VERSION ? now() : cleanNumber(migrated.migration.lastMigratedAt, 0);
@@ -5003,6 +5949,13 @@
         const saved = raw && typeof raw === "object" ? raw : {};
         const fallbackContainer = fallback && typeof fallback === "object" ? fallback : defaultAcademyContainer();
         const identity = normalizeAcademyIdentity(saved, fallbackContainer);
+        const savedProgression = saved.globalProgression && typeof saved.globalProgression === "object" ? saved.globalProgression : {};
+        const savedHeadquarters = saved.headquarters && typeof saved.headquarters === "object" ? saved.headquarters : {};
+        const academyFunding = createAcademyFundingRecord(
+          savedHeadquarters.academyFunding && typeof savedHeadquarters.academyFunding === "object"
+            ? savedHeadquarters.academyFunding
+            : { value: savedProgression.funding, lifetimeEarned: savedProgression.funding }
+        );
         return {
           ...identity,
           architectureVersion: ARCHITECTURE_VERSION,
@@ -5014,13 +5967,19 @@
             reputationRef: "state.reputation",
             medalsRef: "state.medals",
             trophiesRef: "state.trophies",
-            funding: Math.max(0, cleanNumber(saved.globalProgression && saved.globalProgression.funding, 0)),
-            fundingStatus: "future"
+            funding: academyFunding.value,
+            fundingRef: ACADEMY_FUNDING_REF,
+            fundingStatus: "headquarters-owned"
           },
           headquarters: {
             status: "planned",
             playable: false,
-            preparedAfter: "global-coach-assignment-foundation"
+            preparedAfter: "campus-travel-brazil-expansion",
+            academyFunding,
+            support: createHeadquartersSupportRecord(savedHeadquarters.support),
+            competitionCircuits: createGlobalCompetitionCircuitContainer(savedHeadquarters.competitionCircuits),
+            research: preserveGlobalSystemContainer(savedHeadquarters.research, "future-global-research"),
+            sponsors: preserveGlobalSystemContainer(savedHeadquarters.sponsors, "future-global-sponsors")
           },
           coaches: createGlobalCoachContainer(saved.coaches && typeof saved.coaches === "object" ? saved.coaches : {}),
           campuses: {
@@ -5043,6 +6002,50 @@
       function campusForState(targetState = state, campusId = activeCampusIdForState(targetState)) {
         if (!targetState || !targetState.campuses) return null;
         return targetState.campuses[campusId] || targetState.campuses[USA_CAMPUS_ID] || null;
+      }
+
+      function campusForCountry(countryId, targetState = state) {
+        if (!targetState || !targetState.campuses) return null;
+        return targetState.campuses[countryId] || null;
+      }
+
+      function facilityRecordsForCountry(countryId, targetState = state) {
+        const campus = campusForCountry(countryId, targetState);
+        if (campusOwnsFacilities(campus)) return campus.facilities.records;
+        if (activeCampusIdForState(targetState) === countryId) return targetState.facilities || {};
+        return {};
+      }
+
+      function athleteRecordsForCountry(countryId, targetState = state) {
+        const campus = campusForCountry(countryId, targetState);
+        if (campusOwnsAthletes(campus)) return campus.athletes.records;
+        if (activeCampusIdForState(targetState) === countryId) return targetState.athletes || {};
+        return {};
+      }
+
+      function facilityLevelForCountry(facilityId, countryId, targetState = state) {
+        const records = facilityRecordsForCountry(countryId, targetState);
+        return Math.max(0, Math.floor(cleanNumber(records[facilityId] && records[facilityId].level, 0)));
+      }
+
+      function highestFacilityLevelForCountry(countryId, targetState = state) {
+        const country = getCountry(countryId);
+        const sportIds = new Set(country && Array.isArray(country.sportIds) ? country.sportIds : []);
+        return CONTENT.facilities.reduce((highest, facility) => {
+          if (sportIds.size && !sportIds.has(facility.sportId)) return highest;
+          return Math.max(highest, facilityLevelForCountry(facility.id, countryId, targetState));
+        }, 0);
+      }
+
+      function highestAthleteSkillForCountry(countryId, targetState = state) {
+        const country = getCountry(countryId);
+        const sportIds = new Set(country && Array.isArray(country.sportIds) ? country.sportIds : []);
+        const records = athleteRecordsForCountry(countryId, targetState);
+        return CONTENT.athletes.reduce((highest, athlete) => {
+          if (sportIds.size && !sportIds.has(athlete.sportId)) return highest;
+          const record = records[athlete.id];
+          return record && record.recruited ? Math.max(highest, cleanNumber(record.skill, 1)) : highest;
+        }, 0);
       }
 
       function assignCoachRecordToCampus(assignment, campusId, source = "active-campus-coach-assignment") {
@@ -5081,6 +6084,8 @@
       function applyActiveCampusLegacyBridge(targetState, activeCampus) {
         if (!targetState || !activeCampus || activeCampus.countryId !== JAPAN_CAMPUS_ID) return;
         if (!activeCampus.metadata || typeof activeCampus.metadata !== "object") activeCampus.metadata = {};
+        if (SAVE_VERSION >= 15) return;
+        if (activeCampus.metadata.freshCampusInitialized) return;
         if (activeCampus.metadata.legacyBridgeApplied) return;
         if (campusOwnsFacilities(activeCampus) && !hasFacilityProgress(activeCampus.facilities.records) && hasFacilityProgress(targetState.facilities)) {
           activeCampus.facilities.records = normalizeFacilityRecords(targetState.facilities);
@@ -5120,6 +6125,20 @@
         activeCampus.localTrainingPoints.status = "campus-owned";
         activeCampus.localTrainingPoints.adapter = "active-campus-legacy-mirror";
 
+        if (!activeCampus.sessionDrill || typeof activeCampus.sessionDrill !== "object") {
+          activeCampus.sessionDrill = normalizeSessionDrillRecord({}, activeCampusId, targetState.clickUpgrades || {});
+        }
+        if (source === "campus") {
+          activeCampus.sessionDrill = normalizeSessionDrillRecord(activeCampus.sessionDrill, activeCampusId);
+          targetState.clickUpgrades = activeCampus.sessionDrill.upgrades;
+        } else {
+          activeCampus.sessionDrill = normalizeSessionDrillRecord(activeCampus.sessionDrill, activeCampusId, targetState.clickUpgrades || {});
+          activeCampus.sessionDrill.upgrades = normalizeClickUpgradeRecords(targetState.clickUpgrades || {});
+          activeCampus.sessionDrill.level = sessionDrillLevelFromUpgrades(activeCampus.sessionDrill.upgrades);
+          targetState.clickUpgrades = activeCampus.sessionDrill.upgrades;
+        }
+        activeCampus.sessionDrill.adapter = "active-campus-legacy-mirror";
+
         applyActiveCampusLegacyBridge(targetState, activeCampus);
 
         if (activeFacilityCampus && activeFacilityCampus.facilities && activeFacilityCampus.facilities.records) {
@@ -5153,6 +6172,140 @@
         return targetState;
       }
 
+      function syncLocalEconomyState(targetState = state) {
+        if (!targetState || !targetState.academy || !targetState.campuses) return targetState;
+        const funding = academyFundingRecord(targetState);
+        targetState.academy.globalProgression.funding = funding.value;
+        targetState.academy.globalProgression.fundingRef = ACADEMY_FUNDING_REF;
+        targetState.academy.globalProgression.fundingStatus = "headquarters-owned";
+        targetState.academy.headquarters.support = createHeadquartersSupportRecord(targetState.academy.headquarters.support);
+        targetState.academy.headquarters.competitionCircuits = createGlobalCompetitionCircuitContainer(targetState.academy.headquarters.competitionCircuits);
+        Object.values(targetState.campuses).forEach(campus => {
+          if (!campus || typeof campus !== "object") return;
+          const isActiveCampus = activeCampusIdForState(targetState) === (campus.countryId || campus.id);
+          const sessionDrillWasAttached = isActiveCampus && campus.sessionDrill && targetState.clickUpgrades === campus.sessionDrill.upgrades;
+          campus.sessionDrill = normalizeSessionDrillRecord(campus.sessionDrill, campus.countryId || campus.id || USA_CAMPUS_ID);
+          if (sessionDrillWasAttached) targetState.clickUpgrades = campus.sessionDrill.upgrades;
+          campus.economy = normalizeCampusEconomy(campus.economy, campus.countryId || campus.id || USA_CAMPUS_ID);
+          campus.competitionCircuits = normalizeCampusCompetitionCircuits(campus.competitionCircuits, campus.countryId || campus.id || USA_CAMPUS_ID);
+          if (campus.metadata && typeof campus.metadata === "object") {
+            campus.metadata.localEconomyVersion = LOCAL_ECONOMY_VERSION;
+            campus.metadata.regionId = campusRegionId(campus.countryId || campus.id);
+            campus.metadata.competitionCircuitIds = campusCompetitionCircuitIds(campus.countryId || campus.id);
+          }
+        });
+        return targetState;
+      }
+
+      function academyFundingRecord(targetState = state) {
+        if (!targetState.academy || typeof targetState.academy !== "object") targetState.academy = defaultAcademyContainer();
+        if (!targetState.academy.headquarters || typeof targetState.academy.headquarters !== "object") {
+          targetState.academy.headquarters = defaultAcademyContainer().headquarters;
+        }
+        targetState.academy.headquarters.academyFunding = createAcademyFundingRecord(targetState.academy.headquarters.academyFunding);
+        return targetState.academy.headquarters.academyFunding;
+      }
+
+      function academyFundingValue(targetState = state) {
+        return academyFundingRecord(targetState).value;
+      }
+
+      function grantAcademyFunding(amount, source = "reward", targetState = state) {
+        const safe = Math.max(0, cleanNumber(amount, 0));
+        if (safe <= 0) return 0;
+        const funding = academyFundingRecord(targetState);
+        funding.value += safe;
+        funding.lifetimeEarned += safe;
+        funding.lastContributionAt = now();
+        targetState.academy.globalProgression.funding = funding.value;
+        const campus = campusForState(targetState);
+        if (campus && campus.economy && campus.economy.contribution) {
+          campus.economy.contribution.lastFundingGenerated = safe;
+          campus.economy.contribution.lastSource = source;
+          campus.economy.contribution.lastContributionAt = now();
+        }
+        return safe;
+      }
+
+      function campusStrategy(campus = campusForState(state)) {
+        const strategyId = campus && campus.economy ? campus.economy.strategyId : DEFAULT_CAMPUS_STRATEGY_ID;
+        return getCampusStrategy(strategyId) || getCampusStrategy(DEFAULT_CAMPUS_STRATEGY_ID);
+      }
+
+      function campusContributionRate(campus = campusForState(state)) {
+        return Math.max(0, cleanNumber(campusStrategy(campus).contributionRate, 0));
+      }
+
+      function recordCampusContribution(tpEarned, source = "training", targetState = state) {
+        const safe = Math.max(0, cleanNumber(tpEarned, 0));
+        if (safe <= 0) return 0;
+        const campus = campusForState(targetState);
+        if (!campus) return 0;
+        campus.economy = normalizeCampusEconomy(campus.economy, campus.countryId || campus.id || USA_CAMPUS_ID);
+        const fundingEarned = safe * campusContributionRate(campus);
+        if (fundingEarned <= 0) return 0;
+        const contribution = campus.economy.contribution;
+        contribution.lifetimeFundingGenerated += fundingEarned;
+        contribution.pendingFunding = 0;
+        contribution.lastFundingGenerated = fundingEarned;
+        contribution.lastSource = source;
+        contribution.lastContributionAt = now();
+        const funding = academyFundingRecord(targetState);
+        funding.value += fundingEarned;
+        funding.lifetimeEarned += fundingEarned;
+        funding.lastContributionAt = now();
+        targetState.academy.globalProgression.funding = funding.value;
+        return fundingEarned;
+      }
+
+      function setCampusStrategy(strategyId) {
+        const strategy = getCampusStrategy(strategyId);
+        const campus = campusForState(state);
+        if (!strategy || !campus) return;
+        campus.economy = normalizeCampusEconomy({
+          ...campus.economy,
+          strategyId: strategy.id,
+          strategyChangedAt: now()
+        }, campus.countryId || campus.id || USA_CAMPUS_ID);
+        saveState();
+        toast(`${campus.name} strategy set to ${strategy.name}.`);
+        renderSoon();
+      }
+
+      function switchActiveCampus(countryId) {
+        const destinationId = normalizeCampusId(countryId, state.currentCountryId);
+        const previousCampusId = activeCampusIdForState(state);
+        if (destinationId === previousCampusId) return;
+        syncCampusAdapters(state, { source: "legacy" });
+        state.currentCountryId = destinationId;
+        syncCampusAdapters(state, { source: "campus" });
+        syncGlobalCoachAssignments(state, {
+          forceActiveCampus: true,
+          coachAssignmentSource: "active-campus-local-economy-switch"
+        });
+        syncLocalEconomyState(state);
+      }
+
+      function canTravelToCampus(countryId) {
+        const country = getCountry(countryId);
+        return Boolean(country && country.playable !== false && state.unlockedCountryIds.includes(country.id));
+      }
+
+      function travelToCampus(countryId) {
+        const country = getCountry(countryId);
+        if (!country) return;
+        if (!canTravelToCampus(country.id)) {
+          toast(`${country.name} is still locked.`);
+          return;
+        }
+        const previous = currentCountry();
+        switchActiveCampus(country.id);
+        state.ui.activeTab = "world";
+        saveState();
+        toast(previous.id === country.id ? `${country.name} is already active.` : `Traveled to ${country.name} Campus.`);
+        renderSoon();
+      }
+
       function setTrainingPoints(value, targetState = state) {
         const safe = Math.max(0, cleanNumber(value, 0));
         targetState.tp = safe;
@@ -5163,6 +6316,15 @@
           campus.localTrainingPoints.adapter = "active-campus-legacy-mirror";
         }
         return safe;
+      }
+
+      function syncActiveSessionDrillRecord(targetState = state) {
+        const campus = campusForState(targetState);
+        if (!campusOwnsSessionDrill(campus)) return;
+        campus.sessionDrill.upgrades = normalizeClickUpgradeRecords(targetState.clickUpgrades || {});
+        campus.sessionDrill.level = sessionDrillLevelFromUpgrades(campus.sessionDrill.upgrades);
+        campus.sessionDrill.adapter = "active-campus-legacy-mirror";
+        targetState.clickUpgrades = campus.sessionDrill.upgrades;
       }
 
       function spendTrainingPoints(cost) {
@@ -5208,6 +6370,7 @@
         });
         targetState.academy.campuses.preparedCampusIds = Object.keys(targetState.campuses);
         syncCampusAdapters(targetState, { source: options.source || "legacy" });
+        syncLocalEconomyState(targetState);
         targetState.migration = normalizeMigrationRecord(targetState.migration, targetState.saveVersion || SAVE_VERSION);
         targetState.migration.currentSaveVersion = SAVE_VERSION;
         return targetState;
@@ -5221,6 +6384,17 @@
         }
         if (!campus.localTrainingPoints || typeof campus.localTrainingPoints !== "object") errors.push("Missing local Training Points record.");
         if (campus.localTrainingPoints && !Number.isFinite(cleanNumber(campus.localTrainingPoints.value, NaN))) errors.push("Invalid local Training Points value.");
+        if (!campus.sessionDrill || typeof campus.sessionDrill !== "object") errors.push("Missing local Session Drill record.");
+        if (campus.sessionDrill && cleanNumber(campus.sessionDrill.level, 0) < 1) errors.push("Local Session Drill must start at level 1 or higher.");
+        if (campus.sessionDrill && !campus.sessionDrill.upgrades) errors.push("Missing local Session Drill upgrade records.");
+        if (!campus.economy || typeof campus.economy !== "object" || campus.economy.status !== "campus-owned") errors.push("Missing campus local economy record.");
+        if (campus.economy && !getCampusStrategy(campus.economy.strategyId)) errors.push("Campus strategy is invalid.");
+        if (!campus.competitionCircuits || typeof campus.competitionCircuits !== "object" || !Array.isArray(campus.competitionCircuits.eligibleCircuitIds)) errors.push("Missing campus competition circuit framework.");
+        if (campus.competitionCircuits && Array.isArray(campus.competitionCircuits.eligibleCircuitIds)) {
+          campus.competitionCircuits.eligibleCircuitIds.forEach(id => {
+            if (!getCompetitionCircuit(id)) errors.push(`Invalid campus competition circuit ${id}.`);
+          });
+        }
         if (isMigratedCampusId(campus.countryId)) {
           const label = campus.name || campus.countryId.toUpperCase();
           if (!campus.metadata || campus.metadata.migrationStatus !== "migrated") errors.push(`${label} migration metadata is not marked migrated.`);
@@ -5228,14 +6402,19 @@
           if (!campusOwnsAthletes(campus)) errors.push(`${label} athletes are not campus-owned.`);
           if (!campusOwnsCompetitions(campus)) errors.push(`${label} competitions are not campus-owned.`);
           if (!campusOwnsChapterProgress(campus)) errors.push(`${label} chapter progress is not campus-owned.`);
+          if (!campusOwnsSessionDrill(campus)) errors.push(`${label} Session Drill progression is not campus-owned.`);
           CONTENT.facilities.forEach(facility => {
             if (!campus.facilities || !campus.facilities.records || !campus.facilities.records[facility.id]) errors.push(`${label} missing facility ${facility.id}.`);
+          });
+          CONTENT.clickUpgrades.forEach(upgrade => {
+            if (!campus.sessionDrill || !campus.sessionDrill.upgrades || !campus.sessionDrill.upgrades[upgrade.id]) errors.push(`${label} missing Session Drill upgrade ${upgrade.id}.`);
           });
           CONTENT.athletes.forEach(athlete => {
             if (!campus.athletes || !campus.athletes.records || !campus.athletes.records[athlete.id]) errors.push(`${label} missing athlete ${athlete.id}.`);
           });
           if (campusOwnsFacilities(campus) && activeCampusIdForState(targetState) === campus.countryId && targetState.facilities !== campus.facilities.records) warnings.push(`Legacy facility adapter is not attached to active ${label} campus by object reference.`);
           if (campusOwnsAthletes(campus) && activeCampusIdForState(targetState) === campus.countryId && targetState.athletes !== campus.athletes.records) warnings.push(`Legacy athlete adapter is not attached to active ${label} campus by object reference.`);
+          if (campusOwnsSessionDrill(campus) && activeCampusIdForState(targetState) === campus.countryId && targetState.clickUpgrades !== campus.sessionDrill.upgrades) warnings.push(`Legacy Session Drill adapter is not attached to active ${label} campus by object reference.`);
           if (campusOwnsChapterProgress(campus) && targetState.countryProgress && targetState.countryProgress[campus.countryId] !== campus.chapterProgress.record) warnings.push(`Legacy ${label} chapter adapter is not attached by object reference.`);
         }
         return {
@@ -5253,6 +6432,7 @@
         const activeFacilityCampus = campusOwnsFacilities(activeCampus) ? activeCampus : usaCampus;
         const activeAthleteCampus = campusOwnsAthletes(activeCampus) ? activeCampus : usaCampus;
         const activeCompetitionCampus = campusOwnsCompetitions(activeCampus) ? activeCampus : null;
+        const activeSessionDrillCampus = campusOwnsSessionDrill(activeCampus) ? activeCampus : null;
         const chapterAdapters = {};
         MIGRATED_CAMPUS_IDS.forEach(id => {
           const campus = targetState.campuses && targetState.campuses[id];
@@ -5264,6 +6444,12 @@
             rootField: "state.tp",
             campusField: `state.campuses.${activeCampusId}.localTrainingPoints.value`,
             mirrored: Boolean(activeCampus && Math.abs(cleanNumber(targetState.tp, 0) - cleanNumber(activeCampus.localTrainingPoints && activeCampus.localTrainingPoints.value, 0)) < 0.0001)
+          },
+          sessionDrill: {
+            rootField: "state.clickUpgrades",
+            campusField: activeSessionDrillCampus ? `state.campuses.${activeSessionDrillCampus.countryId}.sessionDrill.upgrades` : "",
+            attached: Boolean(activeSessionDrillCampus && targetState.clickUpgrades === activeSessionDrillCampus.sessionDrill.upgrades),
+            level: activeSessionDrillCampus && activeSessionDrillCampus.sessionDrill ? activeSessionDrillCampus.sessionDrill.level : 0
           },
           facilities: {
             rootField: "state.facilities",
@@ -5360,6 +6546,19 @@
         if (Math.floor(cleanNumber(candidate.saveVersion, 0)) !== SAVE_VERSION) warnings.push(`Save version will normalize to ${SAVE_VERSION}.`);
         if (!candidate.academy || typeof candidate.academy !== "object") errors.push("Missing academy container.");
         if (!candidate.campuses || typeof candidate.campuses !== "object") errors.push("Missing campus container.");
+        if (!candidate.academy || !candidate.academy.headquarters || !candidate.academy.headquarters.academyFunding) {
+          errors.push("Missing Headquarters-owned Academy Funding record.");
+        } else {
+          const funding = candidate.academy.headquarters.academyFunding;
+          if (funding.status !== "headquarters-owned") errors.push("Academy Funding is not marked Headquarters-owned.");
+          if (!Number.isFinite(cleanNumber(funding.value, NaN))) errors.push("Academy Funding value is invalid.");
+        }
+        if (!candidate.academy || !candidate.academy.headquarters || !candidate.academy.headquarters.support || candidate.academy.headquarters.support.gameplayEnabled !== false) {
+          errors.push("Headquarters support must remain metadata-only.");
+        }
+        if (!candidate.academy || !candidate.academy.headquarters || !candidate.academy.headquarters.competitionCircuits) {
+          errors.push("Missing global competition circuit framework.");
+        }
         PHASE_ONE_CAMPUS_IDS.forEach(id => {
           if (!candidate.campuses || !candidate.campuses[id]) errors.push(`Missing ${id.toUpperCase()} campus placeholder.`);
         });
@@ -5369,6 +6568,7 @@
         if (!candidate.countryProgress || typeof candidate.countryProgress !== "object") errors.push("Missing country progress records.");
         if (!candidate.facilities || typeof candidate.facilities !== "object") errors.push("Missing legacy facility records.");
         if (!candidate.coaches || typeof candidate.coaches !== "object") errors.push("Missing legacy coach records.");
+        if (!candidate.clickUpgrades || typeof candidate.clickUpgrades !== "object") errors.push("Missing legacy Session Drill upgrade records.");
         if (!candidate.athletes || typeof candidate.athletes !== "object") errors.push("Missing legacy athlete records.");
         if (!candidate.settings || typeof candidate.settings !== "object") errors.push("Missing settings.");
         const activeCampusId = activeCampusIdForState(candidate);
@@ -5407,7 +6607,9 @@
             campusValidation,
             globalCoachPool: Boolean(candidate.academy && candidate.academy.coaches && candidate.academy.coaches.scope === "global-academy"),
             globalCoachAssignments: coachAssignmentValidation,
-            headquartersPrepared: Boolean(candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.playable === false)
+            headquartersPrepared: Boolean(candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.playable === false),
+            academyFunding: candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.academyFunding,
+            competitionCircuits: candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.competitionCircuits
           }
         };
       }
@@ -5418,10 +6620,19 @@
           status: campus && campus.metadata && campus.metadata.migrationStatus,
           phase: campus && campus.metadata && campus.metadata.migrationPhase,
           ownsTrainingPoints: Boolean(campus && campus.localTrainingPoints && campus.localTrainingPoints.status === "campus-owned"),
+          ownsSessionDrill: campusOwnsSessionDrill(campus),
+          sessionDrillLevel: campus && campus.sessionDrill && campus.sessionDrill.level,
+          sessionDrillUpgradeLevels: campus && campus.sessionDrill && campus.sessionDrill.upgrades
+            ? Object.fromEntries(CONTENT.clickUpgrades.map(upgrade => [upgrade.id, cleanNumber(campus.sessionDrill.upgrades[upgrade.id] && campus.sessionDrill.upgrades[upgrade.id].level, 0)]))
+            : {},
           ownsFacilities: campusOwnsFacilities(campus),
           ownsAthletes: campusOwnsAthletes(campus),
           ownsCompetitions: campusOwnsCompetitions(campus),
           ownsChapterProgress: campusOwnsChapterProgress(campus),
+          economyStatus: campus && campus.economy && campus.economy.status,
+          strategyId: campus && campus.economy && campus.economy.strategyId,
+          contributionGenerated: campus && campus.economy && campus.economy.contribution && campus.economy.contribution.lifetimeFundingGenerated,
+          competitionCircuits: campus && campus.competitionCircuits && campus.competitionCircuits.eligibleCircuitIds,
           legacyBridgeApplied: Boolean(campus && campus.metadata && campus.metadata.legacyBridgeApplied),
           legacyBridgeSource: campus && campus.metadata && campus.metadata.legacyBridgeSource || ""
         };
@@ -5459,6 +6670,7 @@
           },
           usaMigration: campusMigrationSummary(targetState, USA_CAMPUS_ID),
           japanMigration: campusMigrationSummary(targetState, JAPAN_CAMPUS_ID),
+          brazilMigration: campusMigrationSummary(targetState, BRAZIL_CAMPUS_ID),
           legacyAdapterStatus: legacyAdapterStatus(targetState),
           campusValidation: validation.summary.campusValidation,
           globalCoachAssignment: {
@@ -5482,6 +6694,18 @@
             globalProgression: targetState.academy && targetState.academy.globalProgression,
             coaches: targetState.academy && targetState.academy.coaches
           },
+          localEconomy: {
+            version: LOCAL_ECONOMY_VERSION,
+            activeCampusStrategy: activeCampusId && targetState.campuses && targetState.campuses[activeCampusId] && targetState.campuses[activeCampusId].economy && targetState.campuses[activeCampusId].economy.strategyId,
+            academyFunding: validation.summary.academyFunding,
+            competitionCircuits: validation.summary.competitionCircuits,
+            campusSummaries: Object.fromEntries(Object.keys(targetState.campuses || {}).map(id => [id, {
+              localTrainingPoints: targetState.campuses[id].localTrainingPoints,
+              sessionDrill: targetState.campuses[id].sessionDrill,
+              economy: targetState.campuses[id].economy,
+              competitionCircuits: targetState.campuses[id].competitionCircuits
+            }]))
+          },
           campuses: targetState.campuses,
           legacyCompatibility: {
             currentCountryId: targetState.currentCountryId,
@@ -5501,6 +6725,10 @@
               coach.id,
               Math.max(0, Math.floor(cleanNumber(targetState.coaches && targetState.coaches[coach.id] && targetState.coaches[coach.id].level, 0)))
             ])),
+            clickUpgradeLevels: Object.fromEntries(CONTENT.clickUpgrades.map(upgrade => [
+              upgrade.id,
+              Math.max(0, Math.floor(cleanNumber(targetState.clickUpgrades && targetState.clickUpgrades[upgrade.id] && targetState.clickUpgrades[upgrade.id].level, 0)))
+            ])),
             athleteSkills: Object.fromEntries(CONTENT.athletes.map(athlete => [
               athlete.id,
               {
@@ -5509,6 +6737,7 @@
               }
             ]))
           },
+          contentData: contentDataSummary(),
           migrationLogs: targetState.migration && Array.isArray(targetState.migration.logs) ? targetState.migration.logs : [],
           importExportCompatibility: {
             exportIncludesArchitecture: Boolean(targetState.academy && targetState.campuses && targetState.migration),
@@ -5557,7 +6786,7 @@
             ...createCountryProgressRecord(),
             completedGoalIds: rewardClaimed ? goals.map(goal => goal.id) : [...new Set(completedGoalIds)],
             chapterTPEarned: Math.max(0, cleanNumber(saved.chapterTPEarned, country.id === "usa" ? cleanNumber(rawSave.seasonTPEarned, 0) : 0)),
-            competitionsWon: Math.max(0, Math.floor(cleanNumber(saved.competitionsWon, 0))),
+            competitionsWon: Math.max(0, Math.floor(cleanNumber(saved.competitionsWon, country.id === USA_CAMPUS_ID ? rawSave.stats && rawSave.stats.competitionsWon : 0))),
             completedAt: cleanNumber(saved.completedAt, rewardClaimed ? now() : 0),
             rewardClaimed,
             rewardClaimedAt: cleanNumber(saved.rewardClaimedAt, rewardClaimed ? now() : 0)
@@ -5570,6 +6799,7 @@
         if (!targetState.unlockedCountryIds.includes("usa")) targetState.unlockedCountryIds.push("usa");
         CONTENT.countries.forEach(country => {
           if (countryUnlockRequirementsMetForState(country, targetState) && !targetState.unlockedCountryIds.includes(country.id)) {
+            initializeFreshCampusForUnlock(country.id, targetState);
             targetState.unlockedCountryIds.push(country.id);
           }
         });
@@ -5698,6 +6928,9 @@
           aquatics: `<path d="M4 10c2 0 2-1.4 4-1.4s2 1.4 4 1.4 2-1.4 4-1.4 2 1.4 4 1.4"/><path d="M4 15c2 0 2-1.4 4-1.4s2 1.4 4 1.4 2-1.4 4-1.4 2 1.4 4 1.4"/><path d="M6 19h12"/>`,
           cycling: `<circle cx="7" cy="16" r="3"/><circle cx="17" cy="16" r="3"/><path d="M7 16l4-7 3 7H7Z"/><path d="M11 9h3"/><path d="M13 7h3"/>`,
           soccer: `<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 6v12"/><circle cx="12" cy="12" r="2.5"/><path d="M4 10h3v4H4"/><path d="M20 10h-3v4h3"/>`,
+          football: `<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 6v12"/><circle cx="12" cy="12" r="2.5"/><path d="M4 10h3v4H4"/><path d="M20 10h-3v4h3"/>`,
+          volleyball: `<circle cx="12" cy="8" r="3"/><path d="M4 13h16"/><path d="M7 13v7"/><path d="M17 13v7"/><path d="M9 20h6"/><path d="M9 8c1.5 1 3.5 1 6 0"/>`,
+          futsal: `<rect x="5" y="7" width="14" height="10" rx="2"/><path d="M12 7v10"/><circle cx="12" cy="12" r="2"/><path d="M7 10h3v4H7"/><path d="M17 10h-3v4h3"/>`,
           coach: `<path d="M7 8h10"/><path d="M7 12h7"/><path d="M7 16h5"/><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 4.5V3h6v1.5"/>`,
           athlete: `<circle cx="12" cy="6.5" r="2.5"/><path d="M8 21v-5l4-3 4 3v5"/><path d="M7 12l5-3 5 3"/>`,
           ticket: `<path d="M5 7h14v10H5z"/><path d="M8 7v10"/><path d="M11 10h5"/><path d="M11 14h4"/>`,
@@ -5712,6 +6945,8 @@
         const accent = country.accent || sportAccent(country.sportIds[0]);
         const note = country.id === "japan"
           ? "Precision paths, compact gardens, and technique-focused training shape this campus."
+          : country.id === "brazil"
+            ? "Open-air training centers, palm-lined courts, and a football plaza give Brazil its own rhythm."
           : "Modern training halls, flags, and open courtyards mark the academy's home base.";
         return `
           <div class="academy-arrival-scene country-${country.id}" style="--accent:${accent}">
@@ -5737,6 +6972,21 @@
               <path class="art-line soft" d="M19 38c18-11 34-12 48-3M95 38c9-10 19-12 30-6"/>
               <path class="art-line soft" d="M17 81c20-9 42-11 66-4 14 4 27 4 39-1"/>
               <circle class="score-light" cx="108" cy="31" r="5" fill="rgba(255,188,205,.45)"/>
+            </svg>
+          `;
+        }
+        if (country.id === "brazil") {
+          return `
+            <svg viewBox="0 0 140 92" aria-hidden="true" focusable="false">
+              <ellipse class="art-glow" cx="74" cy="80" rx="58" ry="11"/>
+              <path class="art-fill" d="M16 70h108l7 11H9l7-11Z"/>
+              <path class="art-fill" d="M24 47h84v26H24z"/>
+              <path class="art-fill" d="M34 32h64l12 16H22l12-16Z"/>
+              <path class="art-line" d="M31 58h70M42 72V48M62 72V36M82 72V48"/>
+              <circle class="art-line" cx="112" cy="38" r="8"/>
+              <path class="art-line soft" d="M15 81c22-9 44-11 66-4 16 5 31 4 45-4"/>
+              <path class="art-line soft" d="M17 43c8-15 17-16 26-3M111 52c6-13 13-15 22-4"/>
+              <rect class="flag-panel" x="105" y="22" width="16" height="11" rx="2"/>
             </svg>
           `;
         }
@@ -5831,6 +7081,27 @@
             <path class="art-line soft" d="M48 35v28M15 46h12v8H15M81 46H69v8h12"/>
             <circle class="art-line" cx="48" cy="49" r="8"/>
             <path class="art-line score-light" d="M24 30h48"/>
+          `,
+          football: `
+            <path class="art-glow" d="M10 55h76v16H10z"/>
+            <path class="art-fill" d="M15 35h66v28H15z"/>
+            <path class="art-line soft" d="M48 35v28M15 46h12v8H15M81 46H69v8h12"/>
+            <circle class="art-line" cx="48" cy="49" r="8"/>
+            <path class="art-line score-light" d="M24 30h48"/>
+          `,
+          volleyball: `
+            <path class="art-glow" d="M9 55h78v12H9z"/>
+            <path class="art-fill" d="M16 33h60v25H16z"/>
+            <path class="art-line soft" d="M18 47h56M24 47v18M68 47v18"/>
+            <path class="art-line water-line" d="M29 56h34"/>
+            <circle class="art-line" cx="48" cy="29" r="8"/>
+          `,
+          futsal: `
+            <path class="art-glow" d="M12 55h72v15H12z"/>
+            <path class="art-fill" d="M19 37h58v25H19z"/>
+            <path class="art-line soft" d="M48 37v25M19 46h10v8H19M77 46H67v8h10"/>
+            <circle class="art-line" cx="48" cy="49" r="6"/>
+            <path class="art-line score-light" d="M30 32h36"/>
           `
         };
         return `<svg class="department-illustration department-illustration-${sportId}" viewBox="0 0 92 72" aria-hidden="true" focusable="false">${art[sportId] || art.track}</svg>`;
@@ -6010,7 +7281,9 @@
         window.EliteSportsAcademyDebug = {
           exportMigrationInfo: () => JSON.stringify(createDeveloperMigrationInfo(state), null, 2),
           validateSave: () => validateSave(state),
-          migrationInfo: () => createDeveloperMigrationInfo(state)
+          migrationInfo: () => createDeveloperMigrationInfo(state),
+          contentData: () => contentDataSummary(),
+          rawContentData: () => contentDataRegistry
         };
         let debugNode = document.getElementById("migrationDebugInfo");
         if (!debugNode) {
@@ -6107,6 +7380,7 @@
         if (source === "click") state.stats.totalClickIncome += safe;
         if (source === "passive") state.stats.totalPassiveIncome += safe;
         if (source === "competition") state.stats.totalCompetitionIncome += safe;
+        recordCampusContribution(safe, source || "training");
       }
 
       function permanentMultiplier() {
@@ -6281,6 +7555,7 @@
         const cost = clickUpgradeCost(id);
         if (!spendTrainingPoints(cost)) return;
         record.level += 1;
+        syncActiveSessionDrillRecord();
         state.stats.clickUpgradesBought += 1;
         toast(`${upgrade.name} upgraded to level ${record.level}.`);
         checkAchievements();
@@ -6485,7 +7760,7 @@
       }
 
       function nextAthleteAction() {
-        for (const athlete of CONTENT.athletes) {
+        for (const athlete of activeAthletes()) {
           const record = state.athletes[athlete.id];
           if (!record.recruited || record.skill >= athlete.potential) continue;
           const cost = athleteTrainCost(athlete.id);
@@ -6500,7 +7775,7 @@
             accent: sportAccent(athlete.sportId)
           };
         }
-        for (const athlete of CONTENT.athletes) {
+        for (const athlete of activeAthletes()) {
           const record = state.athletes[athlete.id];
           if (record.recruited || athletesUsed() >= athleteCap() || state.tp < athlete.baseCost) continue;
           return {
@@ -6600,6 +7875,7 @@
         const athlete = getAthlete(id);
         const record = state.athletes[id];
         if (!athlete || record.recruited) return;
+        if (!activeAthletes().some(item => item.id === athlete.id)) return;
         if (athletesUsed() >= athleteCap()) {
           toast("Upgrade facilities to create more athlete capacity.");
           return;
@@ -6633,15 +7909,18 @@
       }
 
       function assignAthlete(id, facilityId) {
+        const athlete = getAthlete(id);
         const record = state.athletes[id];
         if (!record || !record.recruited) return;
+        if (!athlete || !activeAthletes().some(item => item.id === athlete.id)) return;
         if (!getFacility(facilityId)) return;
+        if (!activeFacilities().some(facility => facility.id === facilityId)) return;
         if (state.facilities[facilityId].level <= 0) {
           toast("Buy that facility before assigning athletes there.");
           return;
         }
         record.assigned = facilityId;
-        toast(`${getAthlete(id).name} assigned to ${sportLabel(assignedSportId(facilityId), "short")}.`);
+        toast(`${athlete.name} assigned to ${sportLabel(assignedSportId(facilityId), "short")}.`);
         renderSoon();
       }
 
@@ -6702,7 +7981,7 @@
 
       function maybeSpawnCompetition() {
         if (state.activeCompetition || now() < state.nextCompetitionTime) return;
-        const unlocked = CONTENT.competitions.filter(c => calculateIncome({ includeEvent: false }) >= c.unlockIncome);
+        const unlocked = activeCompetitions().filter(c => calculateIncome({ includeEvent: false }) >= c.unlockIncome);
         if (!unlocked.length) {
           setNextCompetitionTime(now() + 45000);
           return;
@@ -6716,6 +7995,12 @@
         if (!state.activeCompetition) return;
         const comp = getCompetition(state.activeCompetition.id);
         if (!comp) return;
+        if (!competitionAvailableForCountry(comp)) {
+          setActiveCompetition(null);
+          setNextCompetitionTime(now() + 45000);
+          renderSoon();
+          return;
+        }
         const power = competitionPower();
         const chance = clamp(0.35 + (power - comp.targetPower) / comp.targetPower * 0.28, 0.18, 0.95);
         const won = Math.random() < chance;
@@ -7076,10 +8361,10 @@
                       ${countryBonusLabels(country).map(label => `<span class="pill good">${label}</span>`).join("")}
                     </div>
                     <div class="mission-goals">${goals}</div>
-                    <div class="result-box">Chapter rewards: ${rewardLabel}. ${next ? `Next unlock: ${countryFlag(next)} ${next.name}.` : "Next destination pending."}</div>
+                    <div class="result-box">Chapter rewards: ${rewardLabel}. ${next ? nextDestinationCopy(next) : "Next destination pending."}</div>
                   </div>
                 ` : ""}
-                ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${playableNext ? `Continue to ${playableNext.name}` : next ? `Unlock ${next.name}` : "Claim Chapter Reward"}</button></div>` : ""}
+                ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${chapterRewardActionLabel(country)}</button></div>` : ""}
               </div>
             </div>
           </section>
@@ -7127,10 +8412,10 @@
                     ${countryBonusLabels(country).map(label => `<span class="pill good">${label}</span>`).join("")}
                   </div>
                   <div class="mission-goals">${goals}</div>
-                  <div class="result-box">Chapter rewards: ${rewardLabel}. ${next ? `Next unlock: ${countryFlag(next)} ${next.name}.` : "Next destination pending."}</div>
+                  <div class="result-box">Chapter rewards: ${rewardLabel}. ${next ? nextDestinationCopy(next) : "Next destination pending."}</div>
                 </div>
               ` : ""}
-              ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${playableNext ? `Continue to ${playableNext.name}` : next ? `Unlock ${next.name}` : "Claim Chapter Reward"}</button></div>` : ""}
+              ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${chapterRewardActionLabel(country)}</button></div>` : ""}
             </div>
           </section>
         `;
@@ -7767,12 +9052,175 @@
         return `
           ${renderPlaceHero("world")}
           ${renderCampaignMap()}
+          ${renderCampusOverview()}
           ${renderCountryProgressCard("full")}
+          ${renderLocalEconomyCard()}
           ${renderAcademyProfile()}
           ${renderHallOfFame()}
           ${renderWorldDashboard()}
           ${renderPrestigeCard()}
           ${renderProgressTab()}
+        `;
+      }
+
+      function renderCampusOverview() {
+        const campuses = worldCampusCountries();
+        return `
+          <section>
+            <div class="section-title">
+              <h2>Global Academy Campuses</h2>
+              <span class="badge">${state.currentCountryId.toUpperCase()} active</span>
+            </div>
+            <p class="section-subtitle">Travel manually between unlocked campuses. Each campus keeps its own Training Points, strategy, facilities, athletes, competitions, and chapter progress.</p>
+            <div class="campus-overview-grid">
+              ${campuses.map(renderCampusOverviewCard).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      function worldCampusCountries() {
+        return WORLD_ROUTE_IDS.map(getCountry).filter(country => country && country.playable !== false);
+      }
+
+      function campusFacilities(country) {
+        const sportIds = new Set((country.sportIds || []).filter(Boolean));
+        return CONTENT.facilities.filter(facility => sportIds.has(facility.sportId));
+      }
+
+      function campusAthletes(country) {
+        const sportIds = new Set((country.sportIds || []).filter(Boolean));
+        return CONTENT.athletes.filter(athlete => sportIds.has(athlete.sportId));
+      }
+
+      function campusFacilityRecords(campus) {
+        return campusOwnsFacilities(campus) ? campus.facilities.records : state.facilities;
+      }
+
+      function campusAthleteRecords(campus) {
+        return campusOwnsAthletes(campus) ? campus.athletes.records : state.athletes;
+      }
+
+      function campusFacilityProgress(country, campus) {
+        const records = campusFacilityRecords(campus);
+        const facilities = campusFacilities(country);
+        const levels = facilities.map(facility => Math.max(0, Math.floor(cleanNumber(records && records[facility.id] && records[facility.id].level, 0))));
+        const total = levels.reduce((sum, level) => sum + level, 0);
+        const highest = levels.length ? Math.max(...levels) : 0;
+        const built = levels.filter(level => level > 0).length;
+        return {
+          label: `${built}/${facilities.length} built`,
+          detail: `${total} total levels, highest L${highest}`
+        };
+      }
+
+      function campusAthleteCount(country, campus) {
+        const records = campusAthleteRecords(campus);
+        return campusAthletes(country).reduce((sum, athlete) => {
+          const record = records && records[athlete.id];
+          return sum + (record && record.recruited ? 1 : 0);
+        }, 0);
+      }
+
+      function campusAssignedCoaches(country) {
+        const assignments = state.academy && state.academy.coaches && state.academy.coaches.assignments
+          ? state.academy.coaches.assignments
+          : {};
+        return CONTENT.coaches.filter(coach => {
+          const level = state.coaches[coach.id] && state.coaches[coach.id].level;
+          const assignment = assignments[coach.id];
+          return level > 0 && assignment && assignment.assignmentCampusId === country.id;
+        });
+      }
+
+      function renderCampusOverviewCard(country) {
+        const campus = state.campuses && state.campuses[country.id] ? state.campuses[country.id] : null;
+        const unlocked = canTravelToCampus(country.id);
+        const current = state.currentCountryId === country.id;
+        const completed = state.completedCountryIds.includes(country.id);
+        const progress = countryProgressSummary(country);
+        const strategy = campusStrategy(campus);
+        const contribution = campus && campus.economy && campus.economy.contribution ? campus.economy.contribution : {};
+        const localTP = campus && campus.localTrainingPoints ? campus.localTrainingPoints.value : 0;
+        const coaches = campusAssignedCoaches(country);
+        const athleteCount = campusAthleteCount(country, campus);
+        const facilityProgress = campusFacilityProgress(country, campus);
+        const status = current ? "Active" : completed ? "Completed" : unlocked ? "Unlocked" : "Locked";
+        const actionLabel = current ? "Active Campus" : unlocked ? `Travel to ${country.name}` : unlockRequirementLabel(country);
+        return `
+          <article class="card campus-overview-card ${unlocked ? "" : "locked"} ${current ? "guide-highlight" : ""}" style="--accent:${country.accent || sportAccent(country.sportIds[0])}">
+            <div class="campus-overview-head">
+              <div class="country-token passport-stamp">${countryFlag(country)}</div>
+              <div class="campus-overview-copy">
+                <div class="campus-overview-title">${escapeHTML(country.name)} Campus</div>
+                <div class="campus-overview-note">${escapeHTML(country.specialization || country.theme || "Campus program")}</div>
+              </div>
+              <span class="badge ${current ? "hot" : completed ? "good" : ""}">${status}</span>
+            </div>
+            <div class="metric-row">
+              ${statMetric("Local TP", fmt(localTP))}
+              ${statMetric("Funding Contribution", fmt(contribution.lifetimeFundingGenerated || 0))}
+              ${statMetric("Strategy", strategy.short)}
+              ${statMetric("Assigned Coaches", coaches.length)}
+              ${statMetric("Athletes", athleteCount)}
+              ${statMetric("Facilities", facilityProgress.label)}
+            </div>
+            <div class="campus-sports-list">
+              ${country.sportIds.map(id => `<span class="pill">${sportLabel(id, "short")}</span>`).join("")}
+              <span class="pill">${facilityProgress.detail}</span>
+              <span class="pill">${progress.percent}% chapter</span>
+            </div>
+            <div class="campus-overview-actions">
+              <button class="${unlocked && !current ? "primary-btn" : "small-btn"}" data-action="travel-campus" data-id="${country.id}" ${unlocked && !current ? "" : "disabled"}>${actionLabel}</button>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderLocalEconomyCard() {
+        const country = currentCountry();
+        const campus = campusForState(state);
+        const strategy = campusStrategy(campus);
+        const contribution = campus && campus.economy ? campus.economy.contribution : {};
+        const localTP = campus && campus.localTrainingPoints ? campus.localTrainingPoints.value : state.tp;
+        const rate = campusContributionRate(campus);
+        const circuits = campus && campus.competitionCircuits && Array.isArray(campus.competitionCircuits.eligibleCircuitIds)
+          ? campus.competitionCircuits.eligibleCircuitIds.map(getCompetitionCircuit).filter(Boolean)
+          : [];
+        return `
+          <section>
+            <div class="section-title">
+              <h2>Local Economy</h2>
+              <span class="badge">${strategy.name}</span>
+            </div>
+            <div class="card local-economy-card" style="--accent:${country.accent || sportAccent(country.sportIds[0])}">
+              <div class="card-head">
+                <div>
+                  <h3>${country.name} Campus Economy</h3>
+                  <div class="role">Training Points stay local to this campus. Academy Funding belongs to Headquarters.</div>
+                </div>
+                <div class="level-token"><span>Funding</span><strong>${fmt(academyFundingValue())}</strong></div>
+              </div>
+              <div class="metric-row">
+                ${statMetric("Local TP", fmt(localTP))}
+                ${statMetric("Academy Funding", fmt(academyFundingValue()))}
+                ${statMetric("Contribution Rate", `${(rate * 100).toFixed(2)}%`)}
+                ${statMetric("Campus Contribution", fmt(contribution.lifetimeFundingGenerated || 0))}
+              </div>
+              <div class="strategy-grid">
+                ${CONTENT.campusStrategies.map(item => `
+                  <button class="small-btn strategy-option ${item.id === strategy.id ? "active" : ""}" data-action="set-campus-strategy" data-id="${item.id}">
+                    <strong>${item.name}</strong>
+                    <span>${item.focus} ${item.recommendedFor}.</span>
+                  </button>
+                `).join("")}
+              </div>
+              <div class="result-box">Academy Funding is generated by campuses and will later support Headquarters expansion, research, academy-wide upgrades, and future global systems. It is read-only in this milestone and does not reduce local TP.</div>
+              <div class="boost-strip">
+                ${circuits.slice(0, 4).map(circuit => `<span class="pill">${circuit.name}</span>`).join("")}
+              </div>
+            </div>
+          </section>
         `;
       }
 
@@ -7801,6 +9249,7 @@
                 ${statMetric("Medals", state.medals)}
                 ${statMetric("Reputation", state.reputation)}
                 ${statMetric("Championship Trophies", state.trophies)}
+                ${statMetric("Academy Funding", fmt(academyFundingValue()))}
                 ${statMetric("Current Academy Rank", academyRankByReputation())}
                 ${statMetric("Favorite Sport", favoriteSportLabel())}
                 ${statMetric("Highest Facility", highest)}
@@ -7961,6 +9410,7 @@
 
       function renderWorldDashboard() {
         const country = currentCountry();
+        const campus = campusForState(state);
         return `
           <section>
             <div class="section-title">
@@ -7969,9 +9419,11 @@
             </div>
             <div class="card" style="--accent:${country.accent || sportAccent(country.sportIds[0])}">
               <div class="mini-grid" style="grid-template-columns: repeat(2, 1fr);">
-                ${statMetric("Training Points", fmt(state.tp))}
+                ${statMetric("Local Training Points", fmt(state.tp))}
+                ${statMetric("Academy Funding", fmt(academyFundingValue()))}
                 ${statMetric("TP / sec", fmt(calculateIncome()))}
                 ${statMetric("Per drill", `+${fmt(clickReward())}`)}
+                ${statMetric("Campus Strategy", campusStrategy(campus).short)}
                 ${statMetric("Reputation", `${state.reputation} (${reputationLabel()})`)}
                 ${statMetric("Trophies", state.trophies)}
                 ${statMetric("Medals", medalsEarned())}
@@ -8004,8 +9456,8 @@
               </div>
               <div class="chapter-progress" aria-hidden="true"><div class="chapter-fill" style="width:${progress.percent}%"></div></div>
               <div class="goal-list">${progress.goals.map(renderGoalRow).join("")}</div>
-              <div class="result-box">${progress.rewardClaimed ? `${country.name} complete. ${next ? `${next.name} is unlocked.` : "Final country path pending."}` : `Chapter reward: ${reward.label || countryRewardLabel(country)}. ${next ? `Next country path: ${next.name}.` : "Final country path pending."}`}</div>
-              ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${next ? `Continue to ${next.name}` : "Claim Chapter Reward"}</button></div>` : ""}
+              <div class="result-box">${progress.rewardClaimed ? `${country.name} complete. ${next ? nextDestinationCopy(next) : "Final country path pending."}` : `Chapter reward: ${reward.label || countryRewardLabel(country)}. ${next ? nextDestinationCopy(next) : "Final country path pending."}`}</div>
+              ${progress.readyToClaim ? `<div class="button-row" style="grid-template-columns: 1fr;"><button class="primary-btn" data-action="claim-country-reward" data-id="${country.id}">${chapterRewardActionLabel(country)}</button></div>` : ""}
               <div class="boost-strip">${country.sportIds.map(id => `<span class="pill">${sportLabel(id)}</span>`).join("")}</div>
             </div>
           </section>
@@ -8145,7 +9597,7 @@
             </div>
             <p class="section-subtitle">Recruit athletes, assign them to facilities, and let their skill grow through training time.</p>
             ${athleteCap() === 0 ? `<div class="lock-card">Buy any facility to create athlete capacity. Athletes can still be reviewed here before recruiting.</div>` : ""}
-            <div class="stack">${CONTENT.athletes.map(renderAthleteCard).join("")}</div>
+            <div class="stack">${activeAthletes().map(renderAthleteCard).join("")}</div>
           </section>
         `;
       }
@@ -8301,7 +9753,7 @@
               ` : `
                 <div class="lock-card ${guideClass("competition", "")}">Next competition opportunity in ${formatDuration(nextCompetition)}. Assign athletes and upgrade coaches to improve your team power.</div>
               `}
-              <div class="result-box">Competition wins add TP and a 15-second 1.5x momentum boost. Cycling and Soccer development increase prize value.</div>
+              <div class="result-box">Competition wins add TP and a 15-second 1.5x momentum boost. Strong sport facilities, trained athletes, and campus bonuses improve prize value.</div>
             </div>
           </section>
           <section>
@@ -8723,6 +10175,8 @@
         if (action === "recruit-athlete") recruitAthlete(target.dataset.id);
         if (action === "train-athlete") trainAthlete(target.dataset.id);
         if (action === "assign-athlete") assignAthlete(target.dataset.id, target.dataset.facility);
+        if (action === "set-campus-strategy") setCampusStrategy(target.dataset.id);
+        if (action === "travel-campus") travelToCampus(target.dataset.id);
         if (action === "enter-competition") enterCompetition();
         if (action === "dismiss-competition-result") {
           setLastCompetitionResult(null);
@@ -8867,7 +10321,7 @@
       }
 
       function highestAthleteSkill() {
-        return CONTENT.athletes.reduce((highest, athlete) => {
+        return activeAthletes().reduce((highest, athlete) => {
           const record = state.athletes[athlete.id];
           return record && record.recruited ? Math.max(highest, record.skill) : highest;
         }, 0);
@@ -8931,7 +10385,7 @@
       }
 
       function athletesUsed() {
-        return CONTENT.athletes.reduce((sum, a) => sum + (state.athletes[a.id].recruited ? 1 : 0), 0);
+        return activeAthletes().reduce((sum, a) => sum + (state.athletes[a.id].recruited ? 1 : 0), 0);
       }
 
       function facilityAthleteCap(id) {
@@ -8956,6 +10410,10 @@
         return country && country.flag ? country.flag : country.short;
       }
 
+      function worldDestinationById(id) {
+        return getCountry(id) || FUTURE_DESTINATIONS.find(destination => destination.id === id) || null;
+      }
+
       function countryEffectMultiplier(type, country = currentCountry()) {
         return (country.bonuses || [])
           .filter(effect => effect.type === type)
@@ -8977,9 +10435,10 @@
 
       function nextCountry(country = currentCountry()) {
         const nextId = (country.futureCountryIds || [])[0];
-        if (nextId) return getCountry(nextId);
-        const index = CONTENT.countries.findIndex(item => item.id === country.id);
-        return index >= 0 ? CONTENT.countries[index + 1] : null;
+        if (nextId) return worldDestinationById(nextId);
+        const route = worldRouteDestinations();
+        const index = route.findIndex(item => item.id === country.id);
+        return index >= 0 ? route[index + 1] || null : null;
       }
 
       function countryProgressSummary(country = currentCountry()) {
@@ -9032,13 +10491,13 @@
 
       function goalCurrentValue(goal, countryId, record = ensureCountryProgress(countryId)) {
         if (goal.type === "chapterTPEarned") return record.chapterTPEarned;
-        if (goal.type === "facilityLevel") return state.facilities[goal.facilityId] ? state.facilities[goal.facilityId].level : 0;
-        if (goal.type === "seasonTPEarned") return state.seasonTPEarned;
+        if (goal.type === "facilityLevel") return facilityLevelForCountry(goal.facilityId, countryId);
+        if (goal.type === "seasonTPEarned") return record.chapterTPEarned;
         if (goal.type === "totalTPEarned") return state.totalTPEarned;
-        if (goal.type === "competitionsWon") return state.stats.competitionsWon;
+        if (goal.type === "competitionsWon") return record.competitionsWon;
         if (goal.type === "countryCompetitionsWon") return record.competitionsWon;
-        if (goal.type === "highestFacilityLevel") return state.stats.highestFacilityLevel;
-        if (goal.type === "highestAthleteSkill") return highestAthleteSkill();
+        if (goal.type === "highestFacilityLevel") return highestFacilityLevelForCountry(countryId);
+        if (goal.type === "highestAthleteSkill") return highestAthleteSkillForCountry(countryId);
         return 0;
       }
 
@@ -9095,11 +10554,11 @@
            <div class="metric-row">
              <div class="metric"><b>+${reward.medals || 0}</b><span>Medal earned</span></div>
              <div class="metric"><b>+${reward.reputation || 0}</b><span>Reputation earned</span></div>
-             <div class="metric"><b>${next ? `${countryFlag(next)} ${next.name}` : "Final"}</b><span>${next ? "Country unlocked" : "Tour status"}</span></div>
-             <div class="metric"><b>${state.medals}</b><span>Current medals</span></div>
+             <div class="metric"><b>+${fmt(reward.academyFunding || 0)}</b><span>Academy Funding</span></div>
+             <div class="metric"><b>${next ? `${countryFlag(next)} ${next.name}` : "Final"}</b><span>${next ? "Next destination" : "Tour status"}</span></div>
            </div>`,
           [
-            { label: nextPlayableCountry(country) ? `Continue to ${nextPlayableCountry(country).name}` : next ? `Unlock ${next.name}` : "Claim Chapter Reward", action: "claim-country-reward", kind: "primary" }
+            { label: chapterRewardActionLabel(country), action: "claim-country-reward", kind: "primary" }
           ]
         );
       }
@@ -9117,24 +10576,24 @@
         record.rewardClaimedAt = now();
         state.medals += Math.max(0, Math.floor(cleanNumber(reward.medals, 0)));
         state.reputation += Math.max(0, Math.floor(cleanNumber(reward.reputation, 0)));
+        grantAcademyFunding(reward.academyFunding || 0, "chapter-reward");
         if (!state.completedCountryIds.includes(country.id)) state.completedCountryIds.push(country.id);
         (reward.unlockCountryIds || country.futureCountryIds || []).forEach(nextId => {
-          if (getCountry(nextId) && !state.unlockedCountryIds.includes(nextId)) state.unlockedCountryIds.push(nextId);
+          if (getCountry(nextId) && !state.unlockedCountryIds.includes(nextId)) {
+            initializeFreshCampusForUnlock(nextId, state);
+            state.unlockedCountryIds.push(nextId);
+          }
         });
         refreshUnlockedCountries();
         const next = nextPlayableCountry(country);
         if (next && state.unlockedCountryIds.includes(next.id)) {
-          state.currentCountryId = next.id;
-          syncGlobalCoachAssignments(state, {
-            forceActiveCampus: true,
-            coachAssignmentSource: "chapter-reward-active-campus-sync"
-          });
+          switchActiveCampus(next.id);
         }
         state.ui.activeTab = "world";
         activeChapterModalCountryId = "";
         closeModal();
         saveState();
-        toast(`${country.name} complete: +${reward.medals || 0} Medal, +${reward.reputation || 0} Reputation.`);
+        toast(`${country.name} complete: ${countryRewardLabel(country)}.`);
         renderSoon();
       }
 
@@ -9151,11 +10610,30 @@
         const parts = [];
         if (reward.medals) parts.push(`+${reward.medals} ${reward.medals === 1 ? "Medal" : "Medals"}`);
         if (reward.reputation) parts.push(`+${reward.reputation} Reputation`);
+        if (reward.academyFunding) parts.push(`+${fmt(reward.academyFunding)} Academy Funding`);
         (reward.unlockCountryIds || []).forEach(id => {
           const unlocked = getCountry(id);
           if (unlocked) parts.push(`Unlock ${unlocked.name}`);
         });
         return parts.length ? parts.join(", ") : "Future chapter reward";
+      }
+
+      function chapterRewardActionLabel(country) {
+        const playableNext = nextPlayableCountry(country);
+        if (playableNext && state.unlockedCountryIds.includes(playableNext.id)) return `Continue to ${playableNext.name}`;
+        const reward = country.chapterReward || {};
+        const unlockId = (reward.unlockCountryIds || []).find(id => getCountry(id));
+        if (unlockId) return `Unlock ${getCountry(unlockId).name}`;
+        return "Claim Chapter Reward";
+      }
+
+      function nextDestinationCopy(destination) {
+        if (!destination) return "Next destination pending.";
+        const playableCountry = getCountry(destination.id);
+        if (playableCountry && state.unlockedCountryIds.includes(playableCountry.id)) {
+          return `${countryFlag(playableCountry)} ${playableCountry.name} is unlocked.`;
+        }
+        return `Next route destination: ${countryFlag(destination)} ${destination.name}.`;
       }
 
       function unlockRequirementLabel(country) {
@@ -9181,6 +10659,23 @@
       function activeFacilities() {
         const sportIds = new Set(activeSports().map(sport => sport.id));
         return CONTENT.facilities.filter(facility => sportIds.has(facility.sportId));
+      }
+
+      function activeAthletes() {
+        const sportIds = new Set(activeSports().map(sport => sport.id));
+        return CONTENT.athletes.filter(athlete => sportIds.has(athlete.sportId));
+      }
+
+      function competitionAvailableForCountry(comp, countryId = state.currentCountryId) {
+        if (!comp) return false;
+        if (Array.isArray(comp.countryIds) && comp.countryIds.length) return comp.countryIds.includes(countryId);
+        const country = getCountry(countryId);
+        if (!country || !Array.isArray(country.sportIds)) return true;
+        return (comp.sportIds || []).some(id => country.sportIds.includes(id));
+      }
+
+      function activeCompetitions() {
+        return CONTENT.competitions.filter(comp => competitionAvailableForCountry(comp));
       }
 
       function facilitiesForSport(sportId) {
@@ -9274,6 +10769,10 @@
         return BY_ID.facility[id];
       }
 
+      function getBuilding(id) {
+        return BY_ID.building[id];
+      }
+
       function getClickUpgrade(id) {
         return BY_ID.clickUpgrade[id];
       }
@@ -9296,6 +10795,14 @@
 
       function getCompetition(id) {
         return BY_ID.competition[id];
+      }
+
+      function getCampusStrategy(id) {
+        return BY_ID.campusStrategy[id];
+      }
+
+      function getCompetitionCircuit(id) {
+        return BY_ID.competitionCircuit[id];
       }
 
       function competitionTypeLabel(comp) {
@@ -9349,14 +10856,14 @@
         return `${s}s`;
       }
 
-      document.addEventListener("click", handleAction);
-      document.addEventListener("input", handleInput);
-      window.addEventListener("beforeunload", saveState);
-
+      await initializeContentDataRegistry();
       loadState();
       applyOfflineProgress();
       checkCountryProgress({ showModal: false });
       render();
+      document.addEventListener("click", handleAction);
+      document.addEventListener("input", handleInput);
+      window.addEventListener("beforeunload", saveState);
       if (offlineReport) {
         showOfflineModal();
       } else if (!state.tutorialSeen) {

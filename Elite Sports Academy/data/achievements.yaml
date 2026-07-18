@@ -1,0 +1,37 @@
+# Elite Sports Academy
+# Achievement Database
+
+achievements:
+
+  - id: first_campus
+    name: First Campus
+
+    description: Build your first campus.
+
+    reward:
+      reputation: 50
+
+  - id: world_expansion
+    name: World Expansion
+
+    description: Unlock a second campus.
+
+    reward:
+      academy_funding: 500
+
+  - id: champion
+    name: Champion
+
+    description: Win your first World Championship.
+
+    reward:
+      reputation: 500
+
+  - id: olympic_gold
+    name: Olympic Gold
+
+    description: Win your first Olympic Gold Medal.
+
+    reward:
+      reputation: 1000
+      academy_funding: 2500

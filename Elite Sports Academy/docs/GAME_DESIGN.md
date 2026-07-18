@@ -62,8 +62,8 @@ World Tour 3.0 decision:
 - The academy expands internationally by opening country campuses.
 - The player never abandons previous countries.
 - Completed countries remain playable forever.
-- Players can freely travel back to any completed country once travel support is implemented.
-- Brazil and later destinations must not become playable until they can support the Global Academy Architecture described in `WORLD_TOUR.md`.
+- Players can freely travel back to any unlocked playable country through the World tab.
+- Brazil is playable only because it now uses the Global Academy Architecture described in `WORLD_TOUR.md`; later destinations must remain preview-only until they meet the same bar.
 
 Global academy values never reset:
 - Academy Name
@@ -89,7 +89,7 @@ Each country campus eventually owns its own:
 - Chapter Progress
 - Country Bonus
 
-The current implementation is a transitional prototype where some country and economy state is still global. Future country work should move toward per-country campus state through additive migrations that preserve existing saves.
+The current implementation has USA, Japan, and Brazil as campus-owned playable branches with local TP, facilities, athletes, competitions, chapter progress, strategy metadata, and manual travel. Legacy root fields remain compatibility adapters while the project keeps migrating toward per-country campus state through additive migrations that preserve existing saves.
 
 Each country should:
 - have a unique sport lineup
@@ -102,7 +102,7 @@ Examples:
 - USA: Track, Swimming, Soccer
 - Japan: Swimming, Cycling
 - Kenya: Track, Distance Events, Cycling
-- Brazil: Soccer, Track, Volleyball
+- Brazil: Football, Volleyball, Futsal
 
 A country completion should feel like a milestone, not a simple reset.
 
@@ -116,8 +116,11 @@ Current foundation decision:
 - Japan is the second playable chapter. Its theme is Precision & Technique, with Swimming and Cycling as preferred sports.
 - Japan chapter goals are Swimming Center Level 15, Cycling Velodrome Level 15, 5 competitions won during the Japan chapter, and any athlete reaching Skill Level 10.
 - Japan country bonuses are +15% Athlete Experience and +10% Competition Rewards.
-- Claiming the Japan completion reward grants 2 Medals, +200 Reputation, and unlocks Brazil as the next preview destination without implementing Brazil gameplay.
-- Kenya and Brazil exist as data-driven future countries with unlock requirements and future reward data, but their playable chapter goals are not implemented yet.
+- Claiming the Japan completion reward grants 2 Medals, +200 Reputation, unlocks Brazil, and switches the current campus to Brazil when the reward is claimed.
+- Brazil is the third playable campus. It is based in Rio de Janeiro and focuses on Football, Volleyball, and Futsal.
+- Brazil chapter goals are Football Performance Center Level 15, Volleyball Training Center Level 12, Futsal Skills Court Level 8, 5 Brazilian competition wins, and any Brazil athlete reaching Skill Level 12.
+- Brazil's completion reward grants 3 Medals, +300 Reputation, and +500 Academy Funding. It does not unlock additional playable countries in this milestone.
+- Kenya exists as a data-driven future country with unlock requirements and future reward data, but its playable chapter goals are not implemented yet.
 - Medals and Reputation are real saved progression values. They are awarded by chapter completion and are no longer derived from total TP.
 - The long-term route direction is USA, Japan, Brazil, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games.
 - Olympic Games are the culmination of years of academy building, not an ordinary competition and not the end of the game.
@@ -308,7 +311,7 @@ Current UI direction:
 - Guidance highlights can be used after navigation to make the recommended Sports, Academy, Competitions, World, Session Drill, or Click Training target obvious.
 - Recommendation buttons should route the player to the right screen and highlighted area rather than completing management actions automatically.
 - The World tab should keep the same premium campaign identity by using route order, destination flags, current/completed/locked states, and future-country previews without implementing those future countries early.
-- Future countries should remain preview-only in the World tab until their chapter gameplay is intentionally implemented.
+- Countries after Brazil should remain preview-only in the World tab until their chapter gameplay is intentionally implemented.
 - Japan remains a Swimming/Cycling-only playable chapter for the current design direction.
 - Players can optionally pin a small Session Drill button from Preferences so tapping remains available from non-Home tabs.
 - Sports facilities remain the core upgrade cards, but they should carry stronger sport identity and show coach/athlete connections.

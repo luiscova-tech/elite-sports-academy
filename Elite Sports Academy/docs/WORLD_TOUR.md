@@ -2,7 +2,7 @@
 
 `WORLD_TOUR.md` is the design blueprint for future country, campus, competition-cycle, and Olympic expansion work.
 
-This document is architectural direction only. World Tour 3.0 does not implement Brazil gameplay, new countries, new economy systems, athlete redesigns, coach redesigns, competition redesigns, cloud saves, usernames, or leaderboards.
+This document is the World Tour architecture source of truth. The original World Tour 3.0 milestone was planning-only, but the current implementation now includes USA, Japan, and Brazil as playable country campuses under this architecture.
 
 ## World Tour Philosophy
 
@@ -233,7 +233,13 @@ Current long-term route direction:
 
 The route can expand after the Olympic Games. Olympic gold is a milestone, not a finale.
 
-Brazil remains preview-only until a later milestone explicitly implements Brazil gameplay under the Global Academy Architecture.
+Current playable campus route:
+
+1. USA
+2. Japan
+3. Brazil
+
+Brazil is the first expansion campus implemented under the Global Academy Architecture. Australia, Kenya, Norway, and later destinations remain future or preview content until their gameplay is intentionally implemented.
 
 ## Long-Term Vision
 

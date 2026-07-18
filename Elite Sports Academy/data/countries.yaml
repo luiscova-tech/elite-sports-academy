@@ -1,0 +1,676 @@
+# Elite Sports Academy
+# Country Database
+
+countries:
+
+  - id: usa
+    name: United States
+    region: North America
+
+    tagline: Innovation & Infrastructure
+
+    campus_bonus:
+      type: facility_efficiency
+      value: 0.10
+
+    signature_sports:
+      - Swimming
+      - Basketball
+      - Athletics
+
+    shared_sports:
+      - Baseball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: true
+
+  - id: canada
+    name: Canada
+    region: North America
+
+    tagline: Complete Athlete Development
+
+    campus_bonus:
+      type: recovery_speed
+      value: 0.10
+
+    signature_sports:
+      - Hockey
+      - Rowing
+      - Swimming
+
+    shared_sports:
+      - Basketball
+      - Baseball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Winter Championships
+
+    global_icon: false
+
+  - id: brazil
+    name: Brazil
+    region: South America
+
+    tagline: Where Future Football Legends Are Born
+
+    campus_bonus:
+      type: athlete_morale
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Volleyball
+
+    shared_sports:
+      - Athletics
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Football World Championship
+
+    global_icon: true
+
+  - id: argentina
+    name: Argentina
+    region: South America
+
+    tagline: Winning Mentality
+
+    campus_bonus:
+      type: coach_effectiveness
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Rugby
+      - Field Hockey
+
+    shared_sports:
+      - Volleyball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Football World Championship
+      - Rugby World Championship
+
+    global_icon: false
+
+  - id: colombia
+    name: Colombia
+    region: South America
+
+    tagline: Climb Higher
+
+    campus_bonus:
+      type: endurance_training
+      value: 0.15
+
+    signature_sports:
+      - Cycling
+
+    shared_sports:
+      - Football
+      - Volleyball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Cycling World Championship
+
+    global_icon: false
+
+  - id: venezuela
+    name: Venezuela
+    region: South America
+
+    tagline: Baseball Excellence
+
+    campus_bonus:
+      type: talent_discovery
+      value: 0.15
+
+    signature_sports:
+      - Baseball
+
+    shared_sports:
+      - Football
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - World Baseball Classic
+
+    global_icon: false
+
+  - id: chile
+    name: Chile
+    region: South America
+
+    tagline: Organized for Success
+
+    campus_bonus:
+      type: planning_efficiency
+      value: 0.10
+
+    signature_sports:
+      - Tennis
+      - Rowing
+
+    shared_sports:
+      - Football
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: spain
+    name: Spain
+    region: Europe
+
+    tagline: Technical Football Excellence
+
+    campus_bonus:
+      type: technical_training
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Basketball
+      - Tennis
+
+    shared_sports:
+      - Cycling
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Football World Championship
+
+    global_icon: true
+
+  - id: france
+    name: France
+    region: Europe
+
+    tagline: Athletic Excellence
+
+    campus_bonus:
+      type: athlete_versatility
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Judo
+      - Fencing
+
+    shared_sports:
+      - Cycling
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: true
+
+  - id: great_britain
+    name: Great Britain
+    region: Europe
+
+    tagline: Tradition Never Rests
+
+    campus_bonus:
+      type: coach_experience
+      value: 0.10
+
+    signature_sports:
+      - Rowing
+      - Football
+      - Athletics
+
+    shared_sports:
+      - Cycling
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: germany
+    name: Germany
+    region: Europe
+
+    tagline: Engineered for Success
+
+    campus_bonus:
+      type: facility_output
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Handball
+      - Rowing
+
+    shared_sports:
+      - Cycling
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: italy
+    name: Italy
+    region: Europe
+
+    tagline: Tactical Excellence
+
+    campus_bonus:
+      type: tactical_performance
+      value: 0.10
+
+    signature_sports:
+      - Football
+      - Cycling
+      - Fencing
+      - Volleyball
+
+    shared_sports:
+      - Tennis
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: netherlands
+    name: Netherlands
+    region: Europe
+
+    tagline: Innovation on Two Wheels
+
+    campus_bonus:
+      type: cycling_training
+      value: 0.15
+
+    signature_sports:
+      - Cycling
+      - Field Hockey
+      - Speed Skating
+
+    shared_sports:
+      - Football
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Winter Championships
+      - Cycling World Championship
+
+    global_icon: false
+
+  - id: belgium
+    name: Belgium
+    region: Europe
+
+    tagline: Precision Performance
+
+    campus_bonus:
+      type: competition_consistency
+      value: 0.10
+
+    signature_sports:
+      - Cycling
+      - Field Hockey
+
+    shared_sports:
+      - Football
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Cycling World Championship
+
+    global_icon: false
+
+  - id: slovenia
+    name: Slovenia
+    region: Europe
+
+    tagline: World Cycling Capital
+
+    campus_bonus:
+      type: cycling_development
+      value: 0.20
+
+    signature_sports:
+      - Cycling
+      - Sport Climbing
+      - Ski Jumping
+
+    shared_sports:
+      - Mountain Biking
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Winter Championships
+      - Cycling World Championship
+
+    global_icon: false
+
+  - id: japan
+    name: Japan
+    region: Asia
+
+    tagline: Precision in Every Movement
+
+    campus_bonus:
+      type: training_efficiency
+      value: 0.10
+
+    signature_sports:
+      - Judo
+      - Baseball
+      - Cycling
+      - Sumo
+
+    shared_sports:
+      - Swimming
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - World Baseball Classic
+
+    global_icon: true
+
+  - id: china
+    name: China
+    region: Asia
+
+    tagline: Olympic Powerhouse
+
+    campus_bonus:
+      type: athlete_capacity
+      value: 0.10
+
+    signature_sports:
+      - Table Tennis
+      - Badminton
+      - Weightlifting
+      - Gymnastics
+
+    shared_sports:
+      - Swimming
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: true
+
+  - id: south_korea
+    name: South Korea
+    region: Asia
+
+    tagline: Precision Under Pressure
+
+    campus_bonus:
+      type: focus_gain
+      value: 0.10
+
+    signature_sports:
+      - Archery
+      - Taekwondo
+      - Football
+      - Speed Skating
+
+    shared_sports:
+      - Baseball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Winter Championships
+
+    global_icon: false
+
+  - id: india
+    name: India
+    region: Asia
+
+    tagline: Tradition & Growth
+
+    campus_bonus:
+      type: youth_recruitment
+      value: 0.10
+
+    signature_sports:
+      - Cricket
+      - Field Hockey
+      - Wrestling
+      - Kabaddi
+
+    shared_sports:
+      - Athletics
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: taiwan
+    name: Taiwan
+    region: Asia
+
+    tagline: Small Island, World-Class Talent
+
+    campus_bonus:
+      type: technical_development
+      value: 0.10
+
+    signature_sports:
+      - Baseball
+      - Badminton
+      - Weightlifting
+
+    shared_sports:
+      - Table Tennis
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - World Baseball Classic
+
+    global_icon: false
+
+  - id: kenya
+    name: Kenya
+    region: Africa
+
+    tagline: Home of Champions
+
+    campus_bonus:
+      type: endurance_training
+      value: 0.20
+
+    signature_sports:
+      - Marathon
+      - Distance Running
+      - Rugby Sevens
+
+    shared_sports:
+      - Athletics
+      - Volleyball
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: south_africa
+    name: South Africa
+    region: Africa
+
+    tagline: Built for Champions
+
+    campus_bonus:
+      type: team_sport_training
+      value: 0.10
+
+    signature_sports:
+      - Rugby
+      - Swimming
+      - Cricket
+
+    shared_sports:
+      - Rowing
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Rugby World Championship
+
+    global_icon: false
+
+  - id: egypt
+    name: Egypt
+    region: Africa
+
+    tagline: Strength Through Tradition
+
+    campus_bonus:
+      type: strength_training
+      value: 0.10
+
+    signature_sports:
+      - Handball
+      - Weightlifting
+      - Fencing
+
+    shared_sports:
+      - Swimming
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: morocco
+    name: Morocco
+    region: Africa
+
+    tagline: Endurance and Determination
+
+    campus_bonus:
+      type: stamina_recovery
+      value: 0.10
+
+    signature_sports:
+      - Athletics
+      - Cycling
+      - Taekwondo
+
+    shared_sports:
+      - Football
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: false
+
+  - id: australia
+    name: Australia
+    region: Oceania
+
+    tagline: High Performance Through Science
+
+    campus_bonus:
+      type: sports_science
+      value: 0.10
+
+    signature_sports:
+      - Swimming
+      - Rowing
+      - Cricket
+      - Surfing
+
+    shared_sports:
+      - Rugby
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    global_icon: true
+
+  - id: new_zealand
+    name: New Zealand
+    region: Oceania
+
+    tagline: Small Nation, Giant Competitors
+
+    campus_bonus:
+      type: team_development
+      value: 0.10
+
+    signature_sports:
+      - Rugby
+      - Rowing
+      - Sailing
+      - Mountain Biking
+
+    shared_sports:
+      - Swimming
+
+    competition_circuits:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Rugby World Championship
+
+    global_icon: false
+
+    

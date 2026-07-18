@@ -24,15 +24,13 @@ Ideas here are intentionally not scheduled for the current milestone. Move them 
 - Academy profile sharing.
 
 ## Gameplay Systems
-- Brazil, Australia, Norway, and other future countries as playable country campuses.
-- Global Academy save architecture with per-country campus state.
-- Return travel to completed country campuses.
-- Local country Training Points and local campus economies.
-- Global coach assignment and transfer between country campuses.
+- Australia, Norway, Kenya, and other future countries as playable country campuses.
+- Deeper cleanup of legacy compatibility adapters after campus migrations stabilize.
+- Player-facing coach transfer between country campuses.
 - Continental events such as Pan American Games.
 - World Championships as a global academy milestone.
 - Olympic Games as a long-term culmination layer.
-- Brazil preview polish after Japan completion.
+- Brazil balance and identity polish after real playtest data.
 - Daily goals or short-session mission chains.
 - Country-aware competitions and rewards.
 - Deeper coach automation roles.

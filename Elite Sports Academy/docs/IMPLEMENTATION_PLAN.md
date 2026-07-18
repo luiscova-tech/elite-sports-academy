@@ -4,7 +4,7 @@
 
 Planning Status: Approved roadmap
 
-Implementation Status: Phase 4 implemented; Phase 5 is next
+Implementation Status: Phase 6 implemented; Phase 7 is next
 
 This document is the Version 2 engineering roadmap. It translates the approved Blue Book architecture into implementation phases without redesigning the game vision.
 
@@ -31,7 +31,7 @@ The Blue Book documents define the design. This implementation plan defines orde
 - Preserve existing saves.
 - Build adapters before moving gameplay reads and writes.
 - Separate global academy state from local campus state gradually.
-- Keep Brazil preview-only until the Global Academy architecture is stable.
+- Keep future countries after Brazil preview-only until the Global Academy architecture can support them safely.
 - Avoid implementing sponsors, SVG art, athlete generation, or competition redesign before their dependencies exist.
 - Prefer data-driven content and small helpers over hard-coded country logic.
 - Do not remove current systems until the replacement path is live, migrated, and validated.
@@ -77,7 +77,7 @@ When implementation begins, use a staged migration strategy:
 4. Migrate USA data first because it represents the original active academy progress.
 5. Migrate Japan second because it is the existing second playable country.
 6. Move coaches into a global pool after campus state exists.
-7. Split Training Points into local campus TP only after USA/Japan campus reads are stable.
+7. Split Training Points into local campus TP only after USA/Japan campus reads are stable. Complete in Phase 5 through active-campus compatibility adapters.
 8. Move athletes into local campus records after each campus can own local progression safely.
 9. Add migration assertions and debug summaries for every version step.
 10. Remove legacy compatibility only in a later cleanup milestone after multiple releases of stable migrated saves.
@@ -226,7 +226,7 @@ Implemented foundation:
 - Save version 11.
 - Japan campus-owned records for facilities, athletes, competition state, chapter progress, local Training Point bridge data, and migration metadata.
 - Active-campus legacy adapters now mirror `state.facilities`, `state.athletes`, active competition fields, and active Training Points through the current migrated campus.
-- Japan-active saves preserve current progress through a temporary compatibility bridge until the Local Training Point Economy milestone.
+- Japan-active saves preserve current progress through a temporary compatibility bridge until the Local Economy milestone. Superseded by Phase 5 local TP ownership.
 - USA migration validation remains active while Japan validation now checks the same ownership requirements.
 
 Major tasks:
@@ -247,7 +247,7 @@ Engineering validation:
 
 - Saves already in Japan remain in Japan.
 - Japan goals, bonuses, and reward state persist.
-- Brazil remains preview-only.
+- Brazil remained preview-only during Phase 3. Phase 6 later superseded this by implementing Brazil as a playable migrated campus.
 
 Gameplay validation:
 
@@ -267,7 +267,7 @@ Regression risks:
 Phase 3 follow-up notes:
 
 - Competitions remain globally surfaced through the existing UI while active competition state is mirrored into the active migrated campus.
-- Japan TP is not a full local economy yet; it remains an active-campus compatibility bridge until Phase 5.
+- Japan TP was a temporary active-campus compatibility bridge until Phase 5. Phase 5 now keeps TP campus-local while preserving `state.tp` as the active-campus mirror.
 - Legacy root fields remain compatibility mirrors and should not be removed until active campus travel, coach assignment, and local economy phases are stable.
 
 ## Phase 4 - Global Coach Assignment Foundation
@@ -319,17 +319,34 @@ Phase 4 follow-up notes:
 - Transfers are intentionally not exposed to players yet.
 - Legacy root coach fields remain compatibility adapters until the local economy and future Headquarters phases are stable.
 
-## Phase 5 - Local Training Point Economy
+## Phase 5 - Local Economy Foundation
 
 Goal: separate local Training Points from global Academy Funding.
 
+Status: Complete as of 2026-07-14.
+
+Implemented foundation:
+
+- Save version 13.
+- Campus-local Training Point ownership for USA and Japan through `state.campuses.*.localTrainingPoints`.
+- Legacy root `state.tp` retained as the active-campus compatibility mirror.
+- Headquarters-owned Academy Funding with lifetime earned tracking and no spending actions yet.
+- Campus strategy framework: Local Development, Balanced, Global Contribution, and High Performance.
+- Campus contribution tracking that generates Academy Funding as a sidecar from earned local TP without reducing local TP.
+- Preparatory Headquarters support metadata for future Operations Capacity.
+- Initial Competition Circuit framework for campus, regional, world, Olympic, winter, and future sport-specific circuits.
+- World-tab Local Economy panel for local TP, Academy Funding, strategy selection, contribution rate, campus contribution, and eligible circuits.
+- Active-campus switching now saves TP into the old campus and loads TP from the new campus.
+
 Major tasks:
 
-- Make TP campus-local.
-- Introduce Academy Funding shell if not already present.
-- Keep existing TP economy values for USA/Japan local play.
-- Ensure Resource Bar shows active campus TP.
-- Ensure Headquarters screens do not spend local TP.
+- Make TP campus-local. Complete.
+- Introduce Academy Funding shell if not already present. Complete.
+- Keep existing TP economy values for USA/Japan local play. Complete.
+- Ensure Resource Bar shows active campus TP. Complete through `state.tp` active-campus mirror.
+- Ensure Headquarters screens do not spend local TP. Complete; Headquarters remains metadata-only.
+- Add campus strategies and contribution framework. Complete.
+- Prepare Headquarters support metadata and Competition Circuit framework. Complete.
 
 Dependencies:
 
@@ -342,6 +359,7 @@ Engineering validation:
 - Active campus TP changes only for that campus.
 - Offline progress awards local TP to the correct active campus.
 - Import/export preserves local balances.
+- Automatic travel from USA to Japan loads Japan's local TP instead of carrying USA TP.
 
 Gameplay validation:
 
@@ -358,28 +376,104 @@ Regression risks:
 - Existing players feeling their TP disappeared.
 - Offline progress applying to the wrong campus.
 
-## Phase 6 - Regional Expansion Framework
+Phase 5 follow-up notes:
 
-Goal: create the framework for regions, campus opening, and future regional events.
+- Academy Funding is generated but cannot be spent yet.
+- Strategy currently affects Funding contribution rate and stores future local-growth, athlete, and competition metadata; it does not rebalance facility, athlete, coach, or competition formulas.
+- Inactive campus background operation and Operations Capacity limits remain future Headquarters systems.
+- Manual return travel between unlocked campuses was implemented in Phase 6.
+
+## Phase 6 - Campus Travel & Brazil Expansion
+
+Goal: turn World into the Global Academy management center, add manual travel between unlocked campuses, and implement Brazil as the first expansion campus under the new architecture.
+
+Status: Complete as of 2026-07-14.
+
+Implemented foundation:
+
+- Save version 14.
+- Brazil migrated as a playable campus in `state.campuses.brazil`.
+- Manual travel between unlocked playable campuses through the World tab.
+- World-tab campus overview cards for USA, Japan, and Brazil.
+- Brazil local Training Points, facilities, athlete archetypes, competitions, chapter progress, campus strategy, contribution tracking, campus identity, and competition circuit metadata.
+- Read-only Academy Funding explanation in World.
+- Competition offers filtered by active campus.
+- Athlete recruitment display filtered by active campus sports.
+- Futsal World Championship circuit metadata added as future framework only.
 
 Major tasks:
 
-- Add region data model.
-- Add campus unlock/opening state.
-- Add route milestone support for continental events.
-- Keep event systems dormant until scheduled.
-- Update World helpers for countries and non-country milestones.
+- Add manual travel between unlocked campuses. Complete.
+- Add return travel to USA and Japan. Complete.
+- Add Brazil campus content from the approved South America country file. Complete.
+- Keep Headquarters non-playable. Complete.
+- Keep Academy Funding read-only. Complete.
+- Keep regional, world, Olympic, and sport-specific competition circuits metadata-only. Complete.
+- Preserve existing USA/Japan gameplay and save compatibility. Complete.
 
 Dependencies:
 
 - Local campus state.
 - Local economy.
 - World Tour route helpers.
+- Brazil country documentation.
 
 Engineering validation:
 
 - Existing USA/Japan route still works.
-- Brazil remains locked or preview-only until Phase 7.
+- Brazil unlocks after Japan completion and can be manually selected afterward.
+- USA, Japan, and Brazil keep separate local TP.
+- Export/import, prestige, reset, and migration validation remain compatible.
+- Non-country route nodes remain preview destinations and do not behave like playable campuses.
+
+Gameplay validation:
+
+- World communicates current, unlocked, completed, and locked campuses.
+- Brazil feels like a new campus rather than a continuation of USA/Japan TP.
+- Players can return to USA and Japan after Brazil unlocks.
+
+Playtest goals:
+
+- Player should feel they own multiple campuses.
+- Player should understand Academy Funding is generated but not spendable yet.
+- Player should recognize Brazil's Football, Volleyball, and Futsal identity.
+
+Regression risks:
+
+- Travel loading the wrong campus TP.
+- Old saves unlocking Brazil without valid campus records.
+- Brazil content leaking into USA/Japan competitions or athlete recruitment.
+- Future destinations looking playable before their systems exist.
+
+Phase 6 follow-up notes:
+
+- Brazil implements generic athlete archetypes only. Named athlete generation and youth development remain future systems.
+- Coach assignment remains metadata-only; manual coach transfer gameplay is not implemented.
+- Brazil completion awards Academy Funding, but Headquarters spending is not implemented.
+- Inactive campus background production and Operations Capacity remain future Headquarters systems.
+
+## Phase 7 - Regional Expansion Framework
+
+Goal: expand the route framework after Brazil without implementing another country prematurely.
+
+Major tasks:
+
+- Add region data helpers.
+- Add campus opening state for future destinations.
+- Add route milestone support for continental events.
+- Keep event systems dormant until scheduled.
+- Update World helpers for countries and non-country milestones.
+
+Dependencies:
+
+- Phase 6 campus travel stability.
+- Local TP economy.
+- Competition Circuit metadata.
+
+Engineering validation:
+
+- Existing USA/Japan/Brazil route still works.
+- Australia, Kenya, Norway, and route milestones remain locked or preview-only.
 - Non-country route nodes do not break country helpers.
 
 Gameplay validation:
@@ -395,48 +489,6 @@ Regression risks:
 - Overcomplicated route state.
 - Region milestones behaving like playable countries.
 - Broken recommendation logic.
-
-## Phase 7 - Brazil Campus
-
-Goal: implement the first new campus under the new architecture.
-
-Major tasks:
-
-- Define Brazil using the approved country template.
-- Add 2 core sports, 2 shared sports, and 1 wildcard sport.
-- Add Brazil local facilities, athletes, competitions, bonuses, buildings, and chapter goals.
-- Use local TP and local athlete rules.
-- Use global coach assignment hooks.
-- Keep Brazil progression additive and data-driven.
-
-Dependencies:
-
-- Regional framework.
-- Local TP economy.
-- Global coach assignment.
-- Local athlete model sufficient for Brazil.
-
-Engineering validation:
-
-- Brazil does not use legacy chapter shortcuts.
-- Brazil save data is isolated from USA/Japan.
-- Brazil completion does not remove access to earlier campuses.
-
-Gameplay validation:
-
-- Brazil feels like a distinct campus ecosystem.
-- Unlocking Brazil feels like expansion, not reset.
-
-Playtest goals:
-
-- Player understands why Brazil is different from USA/Japan.
-- Player wants to return to prior campuses.
-
-Regression risks:
-
-- Brazil hard-coded into systems.
-- Local athlete rules not ready.
-- Route and recommendation logic becoming brittle.
 
 ## Phase 8 - SVG Campus Art Pass
 
@@ -525,11 +577,11 @@ Regression risks:
 3. Japan Campus Data Migration
 4. Global Coach Assignment Foundation
 5. Local TP and Academy Funding Split
-6. Active Campus and Return Travel Foundation
+6. Campus Travel and Brazil Expansion
 7. Regional Route Framework
-8. Brazil Campus Content
-9. Campus Visual Art Pass
-10. Headquarters Systems Foundation
+8. Campus Visual Art Pass
+9. Headquarters Systems Foundation
+10. Future Country Campus Content
 
 ## Cross-Phase Testing Checklist
 
@@ -557,7 +609,7 @@ Run after every phase:
 | Economy confusion | High | Preserve values first, explain local TP vs funding only when implemented |
 | Coach assignment complexity | Medium | Start with simple assignment and preserve current effects |
 | Athlete migration ambiguity | Medium | Keep athletes local and document assignment rules before migration |
-| Brazil implemented too early | High | Block Brazil gameplay until architecture phases are complete |
+| Future country implemented too early | High | Block additional country gameplay until travel, local economy, region data, and save migration requirements are met |
 | UI implying unfinished systems | Medium | Use preview/coming-soon language until mechanics exist |
 | Single-file complexity | Medium | Consider file split after save architecture stabilizes |
 
@@ -576,6 +628,6 @@ A phase is complete only when:
 
 ## Next Engineering Step
 
-Begin Phase 5: Local Training Point Economy.
+Begin Phase 7: Regional Expansion Framework.
 
-Do not implement Brazil, sponsors, SVG art, local athlete generation, competition redesign, or Headquarters systems until their prerequisite phases are complete.
+Do not implement Australia, Kenya, Norway, sponsors, local athlete generation, competition redesign, Headquarters gameplay, or sport-specific championship gameplay until their prerequisite phases are complete.

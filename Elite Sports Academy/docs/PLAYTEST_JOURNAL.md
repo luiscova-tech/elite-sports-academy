@@ -2,6 +2,119 @@
 
 This journal records real player or game-director feedback only. Do not invent ratings, play time, quotes, or bugs.
 
+## Entry - 2026-07-14 - Phase 6 Campus Travel & Brazil Expansion Direction
+
+### Version / Milestone
+Phase 6 - Campus Travel & Brazil Expansion
+
+### Date
+2026-07-14
+
+### Play Time
+Not provided.
+
+### Reviewer
+Game Director feedback from the current milestone request, plus implementation QA scope.
+
+### Overall Ratings
+Not provided.
+
+### Biggest Win
+- The Game Director approved manual return travel and the shift from preview-only Brazil to a real expansion campus under the Global Academy architecture.
+- The World tab now has a clear mandate to become the management center for multiple owned campuses.
+
+### Biggest Friction
+- Academy Funding remains visible but read-only, so the UI must keep explaining that Headquarters spending is future work.
+- Brazil must feel like a new local campus without introducing named athletes, youth development, Headquarters gameplay, or sponsor redesign too early.
+
+### Design Insights
+- Manual travel should be player-controlled from World rather than automatic-only after chapter rewards.
+- Brazil should use local TP, campus strategies, Academy Funding contribution, and competition circuit metadata from the approved architecture.
+- Future route destinations after Brazil should stay locked or preview-only until their campus gameplay is explicitly approved.
+
+### What Felt Good
+- Brazil has a distinct approved identity: Rio de Janeiro, Football, Volleyball, Futsal, tropical campus atmosphere, and Creative Athlete Development as future trait metadata.
+- The campus overview requirement gives the player a stronger sense of owning multiple branches instead of moving through disposable chapters.
+
+### What Was Confusing
+- The previous roadmap still separated Regional Expansion and Brazil into separate phases. The current director decision combines travel and Brazil in Phase 6.
+
+### Bugs Reported
+- No player-reported gameplay bugs.
+
+### Implementation QA Performed
+- `node --check` passed for the extracted game script from `elite-sports-academy.html`.
+- `node --check` passed for the extracted game script from `index.html`.
+- `git diff --check` passed.
+- Browser QA in Chrome passed for fresh save, simulated migrated version 13 save, Brazil campus migration, travel to Brazil, return travel to USA, return travel to Japan, export/import, prestige, reset, hidden developer diagnostics, and zero console/page errors.
+- Refreshed screenshots for Home, World, and Brazil after dismissing transient modal/toast overlays.
+
+### UX Improvements Requested
+- Improve the World tab so it feels like managing a global academy.
+- Display a read-only explanation of Academy Funding's future Headquarters purpose.
+
+### Ideas
+- Phase 7 should handle regional route framework and future milestones without adding another playable country immediately.
+
+### Priority
+High for Version 2 expansion. Headquarters gameplay, youth development, named athletes, winter sports, sponsor redesign, sport-specific championship gameplay, and additional countries remain out of scope.
+
+### Would The Player Keep Playing?
+Not provided.
+
+## Entry - 2026-07-14 - Phase 5 Local Economy Foundation QA
+
+### Version / Milestone
+Phase 5 - Local Economy Foundation
+
+### Date
+2026-07-14
+
+### Play Time
+Not provided.
+
+### Reviewer
+Implementation QA in Chrome via Playwright.
+
+### Overall Ratings
+Not provided.
+
+### Biggest Win
+- Browser QA confirmed the Local Economy foundation loads on a fresh save, migrates a simulated version 12 Japan-active save to version 13, preserves Japan as the active campus, and keeps Japan's local TP separate.
+- The World tab now exposes Local Economy information clearly enough for QA to verify local TP, Academy Funding, strategy, contribution rate, and eligible circuits from the UI.
+
+### Biggest Friction
+- First-run and post-prestige modals need explicit handling during automated QA because they correctly block navigation until dismissed.
+- Academy Funding is visible and generated, but Headquarters spending is intentionally unavailable, so the player may need later guidance once Funding has uses.
+
+### Design Insights
+- Local TP can become campus-owned without changing existing facility, coach, athlete, competition, prestige, or click formulas.
+- Strategy selection is a safe first step when it affects contribution rate only and stores deeper effects as future metadata.
+- Automatic country travel must save the old campus TP and load the new campus TP; otherwise the legacy `state.tp` mirror can accidentally flatten local balances.
+
+### What Felt Good
+- Fresh save, Session Drill, strategy selection, export/import, v12 migration, prestige, reset, and the refreshed World screenshot all passed Browser QA.
+- Chrome reported no app console errors or page errors after adding a no-op favicon.
+
+### What Was Confusing
+- Browser QA initially appeared to lose the simulated Japan-active migration fixture because reloading the same page triggered the app's `beforeunload` save. The test was corrected to seed localStorage in a fresh browser context.
+
+### Bugs Reported
+- No player-reported gameplay bugs.
+
+### UX Improvements Requested
+- No new Game Director UX feedback was provided during this milestone.
+
+### Ideas
+- Future regional expansion should build on the dormant Competition Circuit framework without changing current competition offers.
+- Future Headquarters guidance should explain what Academy Funding will eventually buy once global spending systems are approved.
+
+### Priority
+High for Version 2 architecture. Brazil gameplay, Headquarters gameplay, sponsors, youth development, named athletes, winter sports gameplay, and sport-specific championships remain out of scope.
+
+### Would The Player Keep Playing?
+Not provided.
+
 ## Entry - 2026-07-14 - Academy Illustration Pass 1 Direction
 
 ### Version / Milestone
@@ -343,7 +456,7 @@ Not provided.
 ### Ideas
 - Keep future countries preview-only until their gameplay is approved.
 - Continue evolving Home into an Academy Headquarters without reintroducing fixed dashboard cards.
-- Use playtest feedback to decide whether richer coach automation, richer competition design, or Brazil preview polish should come next.
+- Use playtest feedback to decide whether richer coach automation, richer competition design, or Brazil balance/identity polish should come next.
 
 ### Priority
 High for current player guidance and first-session clarity. New countries, athlete redesign, competition redesign, usernames, and leaderboards remain out of scope.

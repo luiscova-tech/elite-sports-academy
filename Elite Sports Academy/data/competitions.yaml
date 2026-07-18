@@ -1,0 +1,44 @@
+# Elite Sports Academy
+# Competition Database
+
+competitions:
+
+  - id: local_championship
+    name: Local Championship
+
+    level: local
+
+    reward:
+      training_points: 250
+      academy_funding: 0
+      reputation: 25
+
+  - id: regional_championship
+    name: Regional Championship
+
+    level: regional
+
+    reward:
+      training_points: 1000
+      academy_funding: 250
+      reputation: 100
+
+  - id: world_championship
+    name: World Championship
+
+    level: world
+
+    reward:
+      training_points: 2500
+      academy_funding: 1000
+      reputation: 300
+
+  - id: olympic_games
+    name: Olympic Games
+
+    level: olympic
+
+    reward:
+      training_points: 5000
+      academy_funding: 2500
+      reputation: 1000

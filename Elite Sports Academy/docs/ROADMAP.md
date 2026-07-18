@@ -199,28 +199,48 @@
 - Refreshed Home, Sports, Academy, Competitions, and World screenshot checkpoints.
 - Preserved gameplay, economy values, save version, country availability, and Headquarters non-playable status.
 
+### Phase 5 - Local Economy Foundation
+- Increased the save version to 13 with an additive Local Economy migration.
+- Confirmed Training Points as campus-local through `state.campuses.*.localTrainingPoints`, while keeping `state.tp` as the active-campus compatibility mirror.
+- Added Headquarters-owned Academy Funding with lifetime earned tracking and no spending actions yet.
+- Added campus strategies: Local Development, Balanced, Global Contribution, and High Performance.
+- Added campus contribution tracking that generates Academy Funding from earned local TP without reducing local TP or changing costs.
+- Added preparatory Headquarters support metadata for future Operations Capacity.
+- Added an initial Competition Circuit framework for campus, regional, world, Olympic, winter, and future sport-specific circuits.
+- Added a World-tab Local Economy panel with local TP, Academy Funding, strategy selection, contribution rate, campus contribution, and eligible circuits.
+- Updated active-campus switching so TP stays with the campus that earned it when Japan becomes active.
+- Preserved current USA/Japan gameplay, production formulas, costs, prestige, export/import, reset, and Brazil preview-only status.
+
+### Phase 6 - Campus Travel & Brazil Expansion
+- Increased the save version to 14 with an additive Brazil campus and travel migration.
+- Implemented manual travel between unlocked playable campuses from the World tab.
+- Added campus overview cards for USA, Japan, and Brazil with local TP, Academy Funding contribution, strategy, assigned coach count, athlete count, sports, and facility progress.
+- Implemented Brazil as the first expansion campus with Football, Volleyball, and Futsal.
+- Added Brazil facilities, coach archetypes, athlete archetypes, local competitions, chapter goals, campus identity, local TP ownership, and competition circuit metadata.
+- Added Brazil completion reward: +3 Medals, +300 Reputation, and +500 Academy Funding.
+- Kept Academy Funding read-only with a World-tab explanation of its future Headquarters purpose.
+- Kept Headquarters gameplay, sponsor redesign, youth development, named athletes, winter sports, sport-specific championship gameplay, and additional countries out of scope.
+
 ## Upcoming Milestones
 
-### Next Recommended: Visual Identity QA + Fresh Save Playtest
+### Next Recommended: Phase 7 - Regional Expansion Framework
+- Add region data helpers and route milestone support after Brazil without implementing another playable country.
+- Prepare campus opening state and regional route milestones for future expansion.
+- Keep existing USA/Japan/Brazil local economies, Funding, strategies, and circuits stable through compatibility adapters.
+- Validate that competition circuits can reference regions and future sport-specific events without changing current competition gameplay.
+
+### Parallel Review: Visual Identity QA + Fresh Save Playtest
 - Review the refreshed Home, Sports, Academy, Competitions, and World screenshots with the Game Director.
 - Play through a fresh save and confirm Home still feels playable with the arrival vista, welcome ceremony, Mission board, and Session Drill in the first viewport.
 - Tune illustration density, text spacing, and campus atmosphere from real feedback only.
-- Keep gameplay, economy, save structure, and country availability unchanged.
-
-### Next Engineering Phase: Phase 5 - Local Training Point Economy
-- Split Training Points into campus-local balances while preserving the current USA/Japan economy values.
-- Keep legacy root TP as an active-campus compatibility adapter until the UI and save migration are stable.
-- Add or confirm the Academy Funding shell remains global Headquarters metadata only.
-- Do not implement Brazil, sponsors, competition redesign, athlete redesign, coach transfers, or playable Headquarters systems yet.
+- Keep country availability, Headquarters playability, and post-Brazil gameplay unchanged.
 
 ### Later Milestones
-- Active Campus and Return Travel Foundation.
 - Regional Route Framework.
-- Brazil Campus Content.
 - Campus Visual Art Pass.
 - Headquarters Systems Foundation.
 - Visual Identity QA + fresh save playtest.
-- Brazil preview polish and post-Japan guidance under the Global Academy Architecture.
+- Brazil balance polish and post-Japan travel guidance under the Global Academy Architecture.
 - Coach automation and deeper coach roles.
 - Athlete roster expansion and assignment strategy.
 - Country-aware competitions and chapter rewards.

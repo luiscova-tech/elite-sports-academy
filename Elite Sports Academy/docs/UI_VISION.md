@@ -129,7 +129,7 @@ World Tour 3.0 UI direction:
 - Completed countries should read as playable campuses, not finished archives.
 - The active country should read as the current campus.
 - Locked future countries should remain preview destinations until implemented.
-- Future travel controls should support returning to completed campuses.
+- Travel controls support returning to unlocked playable campuses from the World tab.
 - Global academy values and local campus values should be visually separated so the player understands what persists globally and what belongs to the current country.
 
 ## Screen Purpose Rules
@@ -150,7 +150,7 @@ Every screen answers one primary player question:
 
 Identity surfaces should strengthen ownership without becoming another dashboard. Academy name, motto, crest, color theme, and rank should feel personal and persistent, while profile history belongs in World.
 
-Current World route order is USA, Japan, Brazil, Australia, Kenya, and Norway. Brazil and later destinations remain preview/locked content until their gameplay milestones are approved.
+Current World route order is USA, Japan, Brazil, Australia, Kenya, and Norway. USA, Japan, and Brazil are playable campuses. Australia, Kenya, Norway, and later destinations remain preview/locked content until their gameplay milestones are approved.
 
 Long-term World Tour route direction is USA, Japan, Brazil, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games. `WORLD_TOUR.md` is the blueprint for this route.
 

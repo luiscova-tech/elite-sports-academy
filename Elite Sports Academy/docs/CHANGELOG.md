@@ -1,5 +1,62 @@
 # Elite Sports Academy Changelog
 
+## 2026-07-14 - Phase 6: Campus Travel & Brazil Expansion
+
+### Added
+- Save version 14 with additive Brazil campus and manual travel migration.
+- Manual travel between unlocked playable campuses from the World tab.
+- World-tab campus overview cards for USA, Japan, and Brazil.
+- Brazil as the first expansion campus using Football, Volleyball, and Futsal.
+- Brazil local facilities: Football Performance Center, Volleyball Training Center, and Futsal Skills Court.
+- Brazil coach archetypes: Football Manager, Goalkeeper Coach, and Volleyball Specialist.
+- Brazil athlete archetypes: Football Prospect, Volleyball Prospect, and Futsal Creator.
+- Brazil local competitions: Brazil Nationals, Rio Invitational, São Paulo Cup, Copa da Academia, and Futsal Masters.
+- Brazil chapter goals and completion reward: +3 Medals, +300 Reputation, and +500 Academy Funding.
+- Futsal World Championship metadata as a future competition circuit placeholder.
+
+### Changed
+- World now functions as the Global Academy campus management center for playable campuses.
+- Academy Funding remains read-only but now includes a clearer World-tab explanation of its future Headquarters purpose.
+- Competition offers are filtered by active campus.
+- Athlete recruitment display is filtered by active campus sports.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Removed the remaining blocker where unlocked completed campuses could not be manually revisited.
+- Prevented Brazil-specific athlete and competition content from appearing in USA/Japan play.
+
+### Verified
+- Fresh save, simulated migrated save, Brazil travel, return travel, export/import, prestige, reset, developer migration diagnostics, syntax checks, diff whitespace checks, and zero browser console/page errors.
+
+### Unchanged
+- No Headquarters gameplay, coach transfers, sponsor redesign, youth development, named athletes, winter sports gameplay, sport-specific championship gameplay, or additional countries beyond Brazil were implemented.
+
+## 2026-07-14 - Phase 5: Local Economy Foundation
+
+### Added
+- Save version 13 with additive Local Economy foundation migration.
+- Campus-owned local Training Point metadata for USA and Japan with the legacy root `state.tp` preserved as the active-campus compatibility mirror.
+- Headquarters-owned Academy Funding record with lifetime earned tracking and metadata-only spending status.
+- Campus strategy framework with Local Development, Balanced, Global Contribution, and High Performance.
+- Campus contribution framework that generates Academy Funding as a sidecar from earned local TP without reducing local TP.
+- Preparatory Headquarters support metadata for future Operations Capacity.
+- Initial Competition Circuit framework for campus, regional, world, Olympic, winter, and future sport-specific circuits.
+- World-tab Local Economy panel showing local TP, Academy Funding, contribution rate, campus contribution, strategy controls, and eligible circuits.
+- Hidden developer diagnostics and save validation for local economy records, Funding ownership, strategy ids, and competition circuits.
+
+### Changed
+- Active campus switching now saves TP into the old campus and loads TP from the new campus, so Japan no longer inherits USA TP through the legacy mirror.
+- World dashboard and Academy Profile now label Training Points as local and surface Academy Funding.
+- Headquarters remains non-playable, with Funding present but no spending actions.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Fixed
+- Removed the remaining architecture gap where `state.tp` could flatten local campus balances during automatic country travel.
+- Added a no-op favicon so browser QA no longer reports an unrelated favicon 404 console error.
+
+### Unchanged
+- No Brazil gameplay, additional countries, Headquarters gameplay, sponsor redesign, youth development, named athletes, winter sports gameplay, sport-specific championships, facility costs, coach costs/effects, athlete costs/effects, competition rewards, prestige requirements, or current TP production formulas were implemented or rebalanced.
+
 ## 2026-07-14 - Academy Illustration Pass 1
 
 ### Added

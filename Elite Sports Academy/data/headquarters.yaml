@@ -1,0 +1,84 @@
+# Elite Sports Academy
+# Headquarters Database
+
+headquarters:
+
+  - id: operations
+    name: Operations
+
+    currency: academy_funding
+
+    base_cost: 1000
+
+    max_level: 20
+
+    bonuses:
+      - offline_capacity
+      - campus_capacity
+
+  - id: coach_education
+    name: Coach Education
+
+    currency: academy_funding
+
+    base_cost: 1000
+
+    max_level: 20
+
+    bonuses:
+      - coach_experience
+      - coach_level_cap
+
+  - id: sports_science
+    name: Sports Science
+
+    currency: academy_funding
+
+    base_cost: 1200
+
+    max_level: 20
+
+    bonuses:
+      - training_efficiency
+      - recovery_speed
+
+  - id: research
+    name: Research
+
+    currency: academy_funding
+
+    base_cost: 1500
+
+    max_level: 20
+
+    bonuses:
+      - facility_unlocks
+      - global_upgrades
+
+  - id: global_scouting
+    name: Global Scouting
+
+    currency: academy_funding
+
+    base_cost: 1500
+
+    max_level: 20
+
+    bonuses:
+      - athlete_quality
+      - international_recruitment
+
+  - id: marketing
+    name: Marketing
+
+    currency: academy_funding
+
+    base_cost: 1800
+
+    max_level: 20
+
+    bonuses:
+      - reputation_gain
+      - sponsor_value
+  
+  

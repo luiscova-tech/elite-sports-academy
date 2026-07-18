@@ -11,7 +11,7 @@ Owner:
 Game Director
 
 Implementation Status:
-Not Implemented
+Foundation Implemented
 
 ---
 
@@ -58,6 +58,14 @@ Training Points never move between campuses.
 
 Every campus owns its own TP balance.
 
+Current implementation:
+
+- USA, Japan, and Brazil own local TP through `state.campuses.*.localTrainingPoints`.
+- The legacy root `state.tp` remains an active-campus compatibility mirror.
+- Active campus travel saves TP into the old campus and loads TP from the selected unlocked campus.
+- Existing facility, coach, athlete, competition, prestige, and click formulas continue to spend and award the active campus TP through compatibility helpers.
+- Brazil uses local TP for its Football, Volleyball, and Futsal facilities, athletes, and local competitions.
+
 ---
 
 # Global Resources
@@ -95,6 +103,13 @@ Operations
 Future Systems
 
 Academy Funding never belongs to an individual campus.
+
+Current implementation:
+
+- Academy Funding is stored at `state.academy.headquarters.academyFunding`.
+- Academy Funding can be earned through campus contributions and approved chapter rewards.
+- Academy Funding spending is not implemented yet.
+- Academy Funding is displayed as a read-only Headquarters resource until Headquarters gameplay is approved.
 
 ---
 
@@ -139,6 +154,12 @@ Every campus can operate under one strategic focus.
 Players choose the strategy.
 
 Strategies can be changed later.
+
+Current implementation:
+
+- Strategy is saved per campus.
+- Strategy currently changes the campus contribution rate only.
+- Local growth, athlete development, and competition effects are stored as future metadata and do not rebalance the current game yet.
 
 ---
 
@@ -228,6 +249,12 @@ Future Headquarters upgrades
 
 Players decide how much each campus contributes through its chosen strategy.
 
+Current implementation:
+
+- Contributions generate Academy Funding as a sidecar from earned local TP.
+- Contributions do not reduce local TP.
+- Contribution history is tracked per campus.
+
 ---
 
 # Offline Operations
@@ -241,6 +268,11 @@ However, offline production is limited.
 Headquarters can improve offline performance through future Operations upgrades.
 
 Offline production should never completely replace active gameplay.
+
+Current implementation:
+
+- Offline progress still applies to the active campus only.
+- Inactive campus background operation and Operations Capacity limits are not implemented yet.
 
 ---
 

@@ -14,7 +14,7 @@ Campus Tier:
 Major
 
 Implementation Status:
-Not Implemented
+Implemented - Phase 6 Playable Campus
 
 ---
 

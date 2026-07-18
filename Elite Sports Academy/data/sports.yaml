@@ -1,0 +1,435 @@
+# Elite Sports Academy
+# Sport Database
+
+sports:
+
+  - id: swimming
+    name: Swimming
+    category: Aquatics
+
+    unlock_requirement:
+      type: campus
+      id: usa
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Speed
+      - Endurance
+      - Technique
+
+    team_size: 1
+
+    indoor: true
+
+  - id: athletics
+    name: Athletics
+    category: Athletics
+
+    unlock_requirement:
+      type: campus
+      id: usa
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Speed
+      - Strength
+      - Endurance
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: false
+
+  - id: basketball
+    name: Basketball
+    category: Team Sports
+
+    unlock_requirement:
+      type: campus
+      id: usa
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Teamwork
+      - Speed
+      - Shooting
+
+    min_roster: 12
+    max_roster: 15
+    competition_roster: 12
+
+    indoor: true
+
+  - id: cycling
+    name: Cycling
+    category: Cycling
+
+    campus_unlock: japan
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+      - Cycling World Championship
+
+    training_focus:
+      - Endurance
+      - Climbing
+      - Sprint
+
+    team_size: 1
+
+    indoor: false
+
+  - id: judo
+    name: Judo
+    category: Combat Sports
+
+    campus_unlock: japan
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Technique
+      - Strength
+      - Balance
+
+    team_size: 1
+
+    indoor: true
+
+  - id: baseball
+    name: Baseball
+    category: Team Sports
+
+    campus_unlock: japan
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Baseball Classic
+      - Olympic Games
+
+    training_focus:
+      - Throwing
+      - Batting
+      - Teamwork
+
+    min_roster: 9
+    max_roster: 25
+    competition_roster: 9
+
+    indoor: false
+
+  - id: football
+    name: Football
+
+    category: Team Sports
+
+    campus_unlock: brazil
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - Football World Championship
+      - Olympic Games
+
+    training_focus:
+      - Speed
+      - Passing
+      - Teamwork
+
+    min_roster: 11
+    max_roster: 25
+    competition_roster: 11
+
+    indoor: false
+
+  - id: volleyball
+    name: Volleyball
+
+    category: Team Sports
+
+    campus_unlock: brazil
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Jumping
+      - Teamwork
+      - Reflexes
+
+    min_roster: 6
+    max_roster: 14
+    competition_roster: 6
+
+    indoor: true
+
+  - id: tennis
+    name: Tennis
+    category: Racket Sports
+
+    unlock_requirement:
+      type: region
+      id: europe
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Agility
+      - Technique
+      - Endurance
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: false
+
+  - id: rowing
+    name: Rowing
+    category: Water Sports
+
+    unlock_requirement:
+      type: region
+      id: europe
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Endurance
+      - Power
+      - Synchronization
+
+    min_roster: 1
+    max_roster: 8
+    competition_roster: 8
+
+    indoor: false
+
+  - id: handball
+    name: Handball
+    category: Team Sports
+
+    unlock_requirement:
+      type: region
+      id: europe
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Teamwork
+      - Speed
+      - Throwing
+
+    min_roster: 7
+    max_roster: 16
+    competition_roster: 7
+
+    indoor: true
+
+  - id: field_hockey
+    name: Field Hockey
+    category: Team Sports
+
+    unlock_requirement:
+      type: region
+      id: europe
+
+    athlete_type: Team
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Teamwork
+      - Stick Skills
+      - Endurance
+
+    min_roster: 11
+    max_roster: 18
+    competition_roster: 11
+
+    indoor: false
+
+  - id: fencing
+    name: Fencing
+    category: Combat Sports
+
+    unlock_requirement:
+      type: region
+      id: europe
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Technique
+      - Reflexes
+      - Precision
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: true
+
+  - id: badminton
+    name: Badminton
+    category: Racket Sports
+
+    unlock_requirement:
+      type: region
+      id: asia
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Reflexes
+      - Agility
+      - Technique
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: true
+
+  - id: table_tennis
+    name: Table Tennis
+    category: Racket Sports
+
+    unlock_requirement:
+      type: region
+      id: asia
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Reflexes
+      - Precision
+      - Technique
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: true
+
+  - id: taekwondo
+    name: Taekwondo
+    category: Combat Sports
+
+    unlock_requirement:
+      type: region
+      id: asia
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Speed
+      - Technique
+      - Flexibility
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: true
+
+  - id: wrestling
+    name: Wrestling
+    category: Combat Sports
+
+    unlock_requirement:
+      type: region
+      id: asia
+
+    athlete_type: Individual
+
+    seasons:
+      - Regional Championships
+      - World Championships
+      - Olympic Games
+
+    training_focus:
+      - Strength
+      - Balance
+      - Technique
+
+    min_roster: 1
+    max_roster: 1
+    competition_roster: 1
+
+    indoor: true
+
+    

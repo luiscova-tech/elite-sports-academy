@@ -8,7 +8,7 @@ Version:
 1.0
 
 Implementation Status:
-Not Implemented
+Partially Implemented - Japan Campus Playable
 
 ---
 

@@ -73,4 +73,4 @@ Elite Sports Academy is not an idle clicker and not a sequence of disposable cou
 
 The academy's identity, reputation, medals, trophies, rank, Hall of Fame, and future global systems belong to the global academy forever. Each country campus should eventually own its own Training Points, facilities, athletes, competitions, buildings, local progress, visual theme, chapter progress, and country bonus.
 
-Future country work should preserve completed countries as playable branches. Brazil and later destinations should remain preview-only until their implementation supports the global academy plus local campus model.
+Future country work should preserve completed countries as playable branches. Brazil is now the first expansion campus implemented under the global academy plus local campus model. Later destinations should remain preview-only until their implementation supports the same architecture.

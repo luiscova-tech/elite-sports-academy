@@ -1,0 +1,55 @@
+# Elite Sports Academy
+# Sponsor Database
+
+sponsors:
+
+  - id: local_partner
+    name: Local Partner
+
+    tier: local
+
+    unlock_requirement:
+      type: starting_sponsor
+
+    bonuses:
+      academy_funding: 0.05
+      reputation: 0.05
+
+  - id: regional_partner
+    name: Regional Partner
+
+    tier: regional
+
+    unlock_requirement:
+      type: reputation
+      value: 500
+
+    bonuses:
+      academy_funding: 0.10
+      reputation: 0.10
+
+  - id: national_partner
+    name: National Partner
+
+    tier: national
+
+    unlock_requirement:
+      type: campuses
+      value: 3
+
+    bonuses:
+      academy_funding: 0.15
+      coach_experience: 0.10
+
+  - id: global_partner
+    name: Global Partner
+
+    tier: global
+
+    unlock_requirement:
+      type: world_championships_won
+      value: 1
+
+    bonuses:
+      academy_funding: 0.20
+      reputation: 0.15

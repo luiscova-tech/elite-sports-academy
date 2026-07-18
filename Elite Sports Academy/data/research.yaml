@@ -1,0 +1,64 @@
+# Elite Sports Academy
+# Research Database
+
+research:
+
+  - id: advanced_training
+    name: Advanced Training
+
+    department: sports_science
+
+    cost: 1000
+
+    unlock_requirement:
+      type: headquarters_level
+      department: sports_science
+      level: 5
+
+    effects:
+      - training_speed
+
+  - id: modern_recovery
+    name: Modern Recovery
+
+    department: sports_science
+
+    cost: 1500
+
+    unlock_requirement:
+      type: research
+      id: advanced_training
+
+    effects:
+      - recovery_speed
+
+  - id: talent_identification
+    name: Talent Identification
+
+    department: global_scouting
+
+    cost: 2000
+
+    unlock_requirement:
+      type: headquarters_level
+      department: global_scouting
+      level: 5
+
+    effects:
+      - athlete_quality
+
+  - id: global_logistics
+    name: Global Logistics
+
+    department: operations
+
+    cost: 2500
+
+    unlock_requirement:
+      type: headquarters_level
+      department: operations
+      level: 5
+
+    effects:
+      - offline_capacity
+      - campus_capacity
