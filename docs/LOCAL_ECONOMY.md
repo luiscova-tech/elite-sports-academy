@@ -108,8 +108,8 @@ Current implementation:
 
 - Academy Funding is stored at `state.academy.headquarters.academyFunding`.
 - Academy Funding can be earned through campus contributions and approved chapter rewards.
-- Academy Funding spending is not implemented yet.
-- Academy Funding is displayed as a read-only Headquarters resource until Headquarters gameplay is approved.
+- Academy Funding can currently be spent only on Operations Capacity offline-cap upgrades.
+- Broader Headquarters spending is still future work.
 
 ---
 
@@ -272,7 +272,8 @@ Offline production should never completely replace active gameplay.
 Current implementation:
 
 - Offline progress still applies to the active campus only.
-- Inactive campus background operation and Operations Capacity limits are not implemented yet.
+- Operations Capacity limits active-campus offline progress.
+- Inactive campus background operation remains future work.
 
 ---
 
@@ -280,19 +281,19 @@ Current implementation:
 
 Operations Capacity limits how long a campus can operate efficiently while the player is away.
 
-Operations Capacity can be upgraded later through Headquarters.
+Operations Capacity can be upgraded through the prepared Headquarters Operations support.
 
 Example progression:
+
+30 minutes
+
+1 hour
 
 2 hours
 
 4 hours
 
 8 hours
-
-12 hours
-
-24 hours
 
 Operations Capacity is global.
 

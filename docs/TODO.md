@@ -1,17 +1,19 @@
 # Elite Sports Academy TODO
 
 ## Priority 1
-- Game Director playtest: verify whether manual travel from USA to Japan, Japan to Brazil, Brazil back to USA, and Brazil back to Japan feels clear without extra tutorial copy.
-- Game Director playtest: review whether USA, Japan, and Brazil local TP separation is understandable during normal play.
-- Game Director playtest: review whether Brazil's first-pass facilities, athletes, competitions, chapter goals, and rewards feel like a new campus rather than a continuation of Japan.
-- Review whether Academy Funding's read-only explanation is clear enough until Headquarters spending exists.
+- Game Director playtest: verify USA to Japan, Japan to Brazil, and Brazil to Canada unlock pacing with local TP, local Session Drill, local facilities, and local athletes.
+- Game Director playtest: verify whether Canada feels like a fresh campus and not a continuation of Brazil.
+- Game Director playtest: review whether the 30-minute default Operations Capacity cap feels fair in the first hour.
+- Review Operations Capacity upgrade costs after Academy Funding has real playtest data.
+- Review whether the one-time Session Drill tutorial appears at the right moment and explains local drill progression clearly.
 - Review whether World campus overview cards communicate local TP, Funding contribution, strategy, assigned coaches, athletes, sports, and facility progress without becoming too dense on mobile.
-- Keep Headquarters gameplay, coach transfers, sponsors, youth development, named athletes, winter sports, sport-specific championship gameplay, and additional countries out of scope until approved.
+- Keep broader Headquarters gameplay, coach transfers, sponsors, youth development, named athletes, winter sports, sport-specific championship gameplay, and additional countries beyond Canada out of scope until approved.
 
 ## Priority 2
-- Prepare Phase 7: Regional Expansion Framework without implementing Australia, Kenya, Norway, or other additional playable countries.
+- Decide whether Canada should receive playable Hockey now or wait for the approved winter-sport systems.
+- Prepare the next regional expansion framework without implementing Australia, Kenya, Norway, or other additional playable countries.
 - Add region data helpers and route milestone support for continental events while keeping those events metadata-only.
-- Decide how Pan American Games should appear in the route after Brazil without becoming a playable country campus too early.
+- Decide how Pan American Games should appear in the route after Canada without becoming a playable country campus too early.
 - Review whether Brazil's first-pass balance feels like a new campus rather than a continuation of USA or Japan progression.
 - Review whether Brazil's Creative Athlete Development bonus should stay metadata-only until named traits and athlete personalities are implemented.
 - Decide when coach assignment should become player-facing transfer gameplay.

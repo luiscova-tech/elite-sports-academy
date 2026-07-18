@@ -160,23 +160,23 @@ Example
 
 Level 1
 
-2 Hours
+30 Minutes
 
 Level 2
 
-4 Hours
+1 Hour
 
 Level 3
 
-8 Hours
+2 Hours
 
 Level 4
 
-12 Hours
+4 Hours
 
 Level 5
 
-24 Hours
+8 Hours
 
 Future levels may increase this further.
 

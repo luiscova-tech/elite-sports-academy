@@ -1,5 +1,25 @@
 # Elite Sports Academy Changelog
 
+## 2026-07-18 - Economy & Canada
+
+### Added
+- Save version 17 with additive Operations Capacity and Canada migration.
+- Operations Capacity offline cap with Level 1 at 30 minutes, then 1 hour, 2 hours, 4 hours, and 8 hours through Level 5.
+- World-tab Operations Capacity panel showing current offline cap, accumulated credited offline time, last time away, and time beyond the cap.
+- Academy Funding spending for the narrow Operations Capacity upgrade path using the Operations department from `data/headquarters.yaml`.
+- One-time Session Drill tutorial explaining local Training Points, drill upgrades, local country drill progression, and global Championship Trial base income.
+- Canada as the fourth playable migrated campus using the Canada profile from `data/countries.yaml`.
+- Canada Rowing program content: Rowing Boathouse, Rowing Coach, Rowing Prospect, and Canada-specific competitions.
+
+### Changed
+- Offline progress now credits only up to the current Operations Capacity cap instead of the previous fixed 8-hour cap.
+- Brazil completion now unlocks Canada.
+- World route now includes Canada after Brazil.
+- `index.html` was synced to the updated single-file game implementation.
+
+### Unchanged
+- No prestige changes, competition redesign, Championship Trial changes, world rankings, research, AI countries, or tournament structures were implemented.
+
 ## 2026-07-14 - Phase 6: Campus Travel & Brazil Expansion
 
 ### Added

@@ -2,6 +2,15 @@
 
 ## Completed Milestones
 
+### Economy & Canada
+- Added save version 17 for Operations Capacity and Canada.
+- Replaced the old fixed offline cap with Operations Capacity: Level 1 starts at 30 minutes and upgrades through 1 hour, 2 hours, 4 hours, and 8 hours.
+- Added World-tab Operations Capacity display and a narrow Academy Funding upgrade action for the offline cap.
+- Added one-time Session Drill tutorial explaining local Training Points, local drill progression, and global Championship Trial base income.
+- Added Canada as the fourth playable campus after Brazil.
+- Added Canada Rowing content: Rowing Boathouse, Rowing Coach, Rowing Prospect, and Canada campus competitions.
+- Kept USA, Japan, and Brazil progression compatible while ensuring Canada starts as a fresh local campus.
+
 ### Core Playable Prototype
 - Built the single-file mobile-first idle/sports management prototype.
 - Added Training Points, Session Drill, facilities, coaches, athletes, competitions, offline progress, sponsorship events, prestige, achievements, stats, and settings.

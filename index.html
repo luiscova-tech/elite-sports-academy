@@ -3916,7 +3916,7 @@
     (async () => {
       "use strict";
 
-      const SAVE_VERSION = 16;
+      const SAVE_VERSION = 17;
       const STORAGE_KEY = "elite_sports_academy_save_v1";
       const ARCHITECTURE_VERSION = 1;
       const LOCAL_ECONOMY_VERSION = 1;
@@ -3928,10 +3928,19 @@
       const USA_CAMPUS_ID = "usa";
       const JAPAN_CAMPUS_ID = "japan";
       const BRAZIL_CAMPUS_ID = "brazil";
-      const PHASE_ONE_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID];
-      const MIGRATED_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID];
+      const CANADA_CAMPUS_ID = "canada";
+      const PHASE_ONE_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID, CANADA_CAMPUS_ID];
+      const MIGRATED_CAMPUS_IDS = [USA_CAMPUS_ID, JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID, CANADA_CAMPUS_ID];
       const SAVE_INTERVAL_MS = 10000;
-      const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
+      const OPERATIONS_CAPACITY_LEVELS = [
+        { level: 1, capMs: 30 * 60 * 1000 },
+        { level: 2, capMs: 60 * 60 * 1000 },
+        { level: 3, capMs: 2 * 60 * 60 * 1000 },
+        { level: 4, capMs: 4 * 60 * 60 * 1000 },
+        { level: 5, capMs: 8 * 60 * 60 * 1000 }
+      ];
+      const DEFAULT_OPERATIONS_CAPACITY_LEVEL = 1;
+      const MAX_OPERATIONS_CAPACITY_LEVEL = 5;
       const PRESTIGE_UNLOCK = 100000;
       const FACILITY_COST_MULTIPLIER = 1.15;
       const EVENT_BONUS_MS = 5000;
@@ -4050,15 +4059,45 @@
             { id: "win5BrazilCompetitions", type: "countryCompetitionsWon", target: 5, label: "Win 5 Brazilian Competitions" },
             { id: "brazilAthleteSkill12", type: "highestAthleteSkill", target: 12, label: "Train any Brazil Athlete to Skill Level 12" }
           ],
-          chapterReward: { medals: 3, reputation: 300, academyFunding: 500, unlockCountryIds: [], label: "+3 Medals, +300 Reputation, +500 Academy Funding" },
+          chapterReward: { medals: 3, reputation: 300, academyFunding: 500, unlockCountryIds: ["canada"], label: "+3 Medals, +300 Reputation, +500 Academy Funding, unlock Canada" },
           unlockRequirements: [{ type: "countryCompleted", countryId: "japan" }],
-          futureCountryIds: [],
+          futureCountryIds: ["canada"],
           completionTitle: "Joyful Excellence",
           completionMessage: "Brazil chapter complete. Your academy now has a true South American performance campus."
+        },
+        {
+          id: "canada",
+          name: "Canada",
+          short: "Canada",
+          flag: "🇨🇦",
+          accent: "#fb7185",
+          theme: "Complete athlete development campus",
+          specialization: "Swimming, Rowing & future Hockey",
+          description: "A complete athlete-development campus that blends swimming, rowing, and future winter-sport identity from the Canada data profile.",
+          regionId: "northAmericaCaribbean",
+          preferredSportIds: ["aquatics", "rowing"],
+          competitionCircuitIds: ["campusCircuit", "regionalChampionships", "worldChampionships", "olympicGames", "winterChampionships"],
+          bonuses: [
+            { type: "athleteXpMultiplier", value: 0.10, label: "+10% Athlete Recovery & Development" }
+          ],
+          sportIds: ["aquatics", "rowing"],
+          status: "locked",
+          playable: true,
+          chapterGoals: [
+            { id: "canadaSwimLevel18", type: "facilityLevel", facilityId: "aquatics", target: 18, label: "Swimming Center reaches Level 18" },
+            { id: "rowingLevel12", type: "facilityLevel", facilityId: "rowing", target: 12, label: "Rowing Boathouse reaches Level 12" },
+            { id: "win5CanadaCompetitions", type: "countryCompetitionsWon", target: 5, label: "Win 5 Canadian Competitions" },
+            { id: "canadaAthleteSkill12", type: "highestAthleteSkill", target: 12, label: "Train any Canada Athlete to Skill Level 12" }
+          ],
+          chapterReward: { medals: 3, reputation: 280, academyFunding: 650, unlockCountryIds: [], label: "+3 Medals, +280 Reputation, +650 Academy Funding" },
+          unlockRequirements: [{ type: "countryCompleted", countryId: "brazil" }],
+          futureCountryIds: [],
+          completionTitle: "Complete Development",
+          completionMessage: "Canada chapter complete. Your academy has proven it can build complete athletes across water and endurance programs."
         }
       ];
 
-      const WORLD_ROUTE_IDS = ["usa", "japan", "brazil", "australia", "kenya", "norway"];
+      const WORLD_ROUTE_IDS = ["usa", "japan", "brazil", "canada", "australia", "kenya", "norway"];
 
       const FUTURE_DESTINATIONS = [
         {
@@ -4090,7 +4129,8 @@
         { id: "soccer", name: "Soccer", short: "Pitch", mark: "SOC", accent: "#f7c948" },
         { id: "football", name: "Football", short: "Football", mark: "FTB", accent: "#f7c948" },
         { id: "volleyball", name: "Volleyball", short: "Volley", mark: "VOL", accent: "#38bdf8" },
-        { id: "futsal", name: "Futsal", short: "Futsal", mark: "FTS", accent: "#4ade80" }
+        { id: "futsal", name: "Futsal", short: "Futsal", mark: "FTS", accent: "#4ade80" },
+        { id: "rowing", name: "Rowing", short: "Row", mark: "ROW", accent: "#93c5fd" }
       ];
 
       const CLICK_UPGRADES = [
@@ -4268,6 +4308,21 @@
             { type: "clickMultiplier", perMilestone: 0.04, every: 10 }
           ],
           identity: "Compact technical courts sharpen Session Drill rhythm and creative training."
+        },
+        {
+          id: "rowing",
+          sportId: "rowing",
+          name: "Rowing Boathouse",
+          short: "Boathouse",
+          accent: "#93c5fd",
+          baseCost: 1600,
+          baseIncome: 24,
+          coachEvery: 9,
+          athleteRate: 1.6,
+          milestoneEffects: [
+            { type: "athleteXpMultiplier", perMilestone: 0.04, every: 10 }
+          ],
+          identity: "Boat bays, recovery docks, and endurance lanes develop complete Canadian athletes."
         }
       ];
 
@@ -4363,6 +4418,22 @@
             { type: "clickMultiplier", perLevel: 0.02 }
           ],
           summary: level => `Volleyball +${Math.round(level * 22)}%, Drill +${Math.round(level * 2)}%`
+        },
+        {
+          id: "rowingCoach",
+          name: "Rowing Coach",
+          specialty: "Crew rhythm and endurance",
+          path: "Canada Rowing Path",
+          baseCost: 3400,
+          growth: 2.34,
+          maxLevel: 12,
+          sportIds: ["rowing", "aquatics"],
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "rowing", perLevel: 0.22 },
+            { type: "sportOutputMultiplier", sportId: "aquatics", perLevel: 0.08 },
+            { type: "clickMultiplier", perLevel: 0.02 }
+          ],
+          summary: level => `Rowing +${Math.round(level * 22)}%, Swim +${Math.round(level * 8)}%, Drill +${Math.round(level * 2)}%`
         }
       ];
 
@@ -4485,6 +4556,23 @@
           ],
           preferred: "futsal",
           bonus: skill => `Futsal +${Math.round(skill * 4.5)}%, Drill +${Math.round(skill * 1.8)}%`
+        },
+        {
+          id: "rower",
+          name: "Rowing Prospect",
+          sportId: "rowing",
+          sport: "Rowing",
+          rarity: "Rare",
+          potential: 35,
+          baseCost: 4200,
+          trainCost: 1700,
+          preferredFacilityId: "rowing",
+          effects: [
+            { type: "sportOutputMultiplier", sportId: "rowing", perSkill: 0.04, requiresAssignedSport: true },
+            { type: "athleteXpMultiplier", perSkill: 0.02, requiresAssignedSport: true }
+          ],
+          preferred: "rowing",
+          bonus: skill => `Rowing +${Math.round(skill * 4)}%, athlete XP +${Math.round(skill * 2)}%`
         }
       ];
 
@@ -4576,6 +4664,39 @@
           baseReward: 7400,
           targetPower: 220,
           description: "A fast technical event where the Futsal Skills Court can swing the result."
+        },
+        {
+          id: "canadaDevelopmentMeet",
+          name: "Canada Development Meet",
+          sportIds: ["aquatics", "rowing"],
+          countryIds: ["canada"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 14,
+          baseReward: 3200,
+          targetPower: 115,
+          description: "A development meet that rewards balanced swimming and rowing preparation."
+        },
+        {
+          id: "boathouseClassic",
+          name: "Boathouse Classic",
+          sportIds: ["rowing"],
+          countryIds: ["canada"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 30,
+          baseReward: 7600,
+          targetPower: 240,
+          description: "A rowing-focused Canadian event built around endurance and crew rhythm."
+        },
+        {
+          id: "mapleChampionship",
+          name: "Maple Championship",
+          sportIds: ["aquatics", "rowing"],
+          countryIds: ["canada"],
+          circuitIds: ["campusCircuit"],
+          unlockIncome: 58,
+          baseReward: 14500,
+          targetPower: 380,
+          description: "Canada's complete-athlete showcase for mature water and endurance programs."
         }
       ];
 
@@ -4764,6 +4885,7 @@
         competitions: COMPETITIONS,
         campusStrategies: CAMPUS_STRATEGIES,
         competitionCircuits: COMPETITION_CIRCUITS,
+        headquarters: [],
         achievements: ACHIEVEMENTS
       };
 
@@ -4778,6 +4900,7 @@
         competition: mapById(CONTENT.competitions),
         campusStrategy: mapById(CONTENT.campusStrategies),
         competitionCircuit: mapById(CONTENT.competitionCircuits),
+        headquarters: mapById(CONTENT.headquarters),
         achievement: mapById(CONTENT.achievements)
       };
 
@@ -4810,7 +4933,8 @@
           data: {
             countries: [],
             sports: [],
-            buildings: []
+            buildings: [],
+            headquarters: []
           },
           sources: {},
           errors: [],
@@ -4842,7 +4966,9 @@
         mergeYamlCountries(contentDataRegistry.data.countries || []);
         mergeYamlSports(contentDataRegistry.data.sports || []);
         CONTENT.buildings = (contentDataRegistry.data.buildings || []).map(normalizeYamlBuildingForGame);
+        CONTENT.headquarters = Array.isArray(contentDataRegistry.data.headquarters) ? contentDataRegistry.data.headquarters : [];
         BY_ID.building = mapById(CONTENT.buildings);
+        BY_ID.headquarters = mapById(CONTENT.headquarters);
       }
 
       function mergeYamlCountries(countries) {
@@ -4906,7 +5032,8 @@
           counts: {
             countries: (contentDataRegistry.data.countries || []).length,
             sports: (contentDataRegistry.data.sports || []).length,
-            buildings: CONTENT.buildings.length
+            buildings: CONTENT.buildings.length,
+            headquarters: CONTENT.headquarters.length
           },
           sources: Object.fromEntries(Object.entries(contentDataRegistry.sources || {}).map(([key, source]) => [key, {
             path: source.path,
@@ -4939,8 +5066,40 @@
           value,
           lifetimeEarned,
           sourceModel: "campus-contributions",
-          spendEnabled: false,
+          spendEnabled: true,
           lastContributionAt: cleanNumber(saved.lastContributionAt, 0)
+        };
+      }
+
+      function operationsCapacityLevelRecord(level = DEFAULT_OPERATIONS_CAPACITY_LEVEL) {
+        return OPERATIONS_CAPACITY_LEVELS.find(item => item.level === level) || OPERATIONS_CAPACITY_LEVELS[0];
+      }
+
+      function operationsCapacityCapMs(level = DEFAULT_OPERATIONS_CAPACITY_LEVEL) {
+        return operationsCapacityLevelRecord(level).capMs;
+      }
+
+      function normalizeOperationsCapacityRecord(raw = {}) {
+        const saved = raw && typeof raw === "object" ? raw : {};
+        const level = clamp(Math.floor(cleanNumber(saved.level ?? saved.currentLevel, DEFAULT_OPERATIONS_CAPACITY_LEVEL)), 1, MAX_OPERATIONS_CAPACITY_LEVEL);
+        const capMs = operationsCapacityCapMs(level);
+        return {
+          status: "headquarters-support-active",
+          enabled: true,
+          limitsOfflineProduction: true,
+          level,
+          maxLevel: MAX_OPERATIONS_CAPACITY_LEVEL,
+          capMs,
+          efficientHours: capMs / (60 * 60 * 1000),
+          accumulatedOfflineMs: clamp(cleanNumber(saved.accumulatedOfflineMs ?? saved.lastCreditedMs, 0), 0, capMs),
+          lastElapsedMs: Math.max(0, cleanNumber(saved.lastElapsedMs, 0)),
+          lastCreditedMs: clamp(cleanNumber(saved.lastCreditedMs, 0), 0, capMs),
+          lastTruncatedMs: Math.max(0, cleanNumber(saved.lastTruncatedMs, 0)),
+          upgradedAt: cleanNumber(saved.upgradedAt, 0),
+          upgradeable: true,
+          upgradeCost: operationsCapacityUpgradeCost(level),
+          currency: "academy_funding",
+          departmentRef: "data/headquarters.yaml#operations"
         };
       }
 
@@ -4948,13 +5107,7 @@
         const saved = raw && typeof raw === "object" ? raw : {};
         const operations = saved.operationsCapacity && typeof saved.operationsCapacity === "object" ? saved.operationsCapacity : {};
         return {
-          operationsCapacity: {
-            status: "future-headquarters-upgrade",
-            enabled: false,
-            limitsOfflineProduction: false,
-            efficientHours: Math.max(0, cleanNumber(operations.efficientHours, 0)),
-            upgradeable: true
-          },
+          operationsCapacity: normalizeOperationsCapacityRecord(operations),
           supportModel: "prepared",
           gameplayEnabled: false
         };
@@ -5301,7 +5454,7 @@
           headquartersSupport: {
             status: "prepared",
             headquartersRef: "state.academy.headquarters",
-            operationsCapacityLimited: false,
+            operationsCapacityLimited: true,
             operationsCapacityRef: "state.academy.headquarters.support.operationsCapacity"
           },
           modifiers: {
@@ -5548,7 +5701,8 @@
           identityConfirmed: false,
           chapterReviewed: false,
           worldTourViewed: false,
-          firstCompetitionBriefed: false
+          firstCompetitionBriefed: false,
+          sessionDrillExplained: false
         };
       }
 
@@ -5895,7 +6049,7 @@
           migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
           migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
           syncArchitectureContainers(migrated, { source: "legacy" });
-          const resetSessionDrillIds = [JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID].filter(id => shouldResetUnlockedCampusSessionDrill(migrated, id));
+          const resetSessionDrillIds = [JAPAN_CAMPUS_ID, BRAZIL_CAMPUS_ID, CANADA_CAMPUS_ID].filter(id => shouldResetUnlockedCampusSessionDrill(migrated, id));
           resetSessionDrillIds.forEach(id => resetCampusSessionDrill(id, migrated));
           if (resetSessionDrillIds.includes(activeCampusIdForState(migrated))) syncCampusAdapters(migrated, { source: "campus" });
           logMigration(migrated, "v16-local-session-drill-progression", "Moved manual Session Drill upgrade progression into the active campus while preserving Championship Trial trophy scaling as global progression.", {
@@ -5903,6 +6057,18 @@
             resetSessionDrillIds,
             rootClickUpgradesRemainActiveCampusAdapter: true,
             freshCampusSessionDrillLevel: 1
+          });
+        }
+        if (version < 17) {
+          migrated.academy = normalizeAcademyContainer(migrated.academy, defaultAcademyContainer(cleanNumber(migrated.runStart, now())));
+          migrated.academy.headquarters.support = createHeadquartersSupportRecord(migrated.academy.headquarters.support);
+          migrated.campuses = normalizeCampusContainer(migrated.campuses, migrated);
+          refreshUnlockedCountriesForState(migrated);
+          syncArchitectureContainers(migrated, { source: "legacy" });
+          logMigration(migrated, "v17-economy-canada", "Added Operations Capacity offline cap support and Canada as a migrated local campus.", {
+            operationsCapacityLevel: migrated.academy.headquarters.support.operationsCapacity.level,
+            operationsCapacityCapMs: migrated.academy.headquarters.support.operationsCapacity.capMs,
+            canadaUnlocked: migrated.unlockedCountryIds.includes(CANADA_CAMPUS_ID)
           });
         }
         migrated.saveVersion = SAVE_VERSION;
@@ -6208,6 +6374,69 @@
 
       function academyFundingValue(targetState = state) {
         return academyFundingRecord(targetState).value;
+      }
+
+      function operationsDepartmentConfig() {
+        return getHeadquartersDepartment("operations") || {
+          id: "operations",
+          name: "Operations",
+          currency: "academy_funding",
+          base_cost: 1000,
+          max_level: MAX_OPERATIONS_CAPACITY_LEVEL
+        };
+      }
+
+      function operationsCapacityUpgradeCost(level = DEFAULT_OPERATIONS_CAPACITY_LEVEL) {
+        const currentLevel = clamp(Math.floor(cleanNumber(level, DEFAULT_OPERATIONS_CAPACITY_LEVEL)), 1, MAX_OPERATIONS_CAPACITY_LEVEL);
+        if (currentLevel >= MAX_OPERATIONS_CAPACITY_LEVEL) return 0;
+        const department = operationsDepartmentConfig();
+        const baseCost = Math.max(0, cleanNumber(department.base_cost ?? department.baseCost, 1000));
+        return Math.ceil(baseCost * currentLevel);
+      }
+
+      function operationsCapacityRecord(targetState = state) {
+        if (!targetState.academy || typeof targetState.academy !== "object") targetState.academy = defaultAcademyContainer();
+        if (!targetState.academy.headquarters || typeof targetState.academy.headquarters !== "object") {
+          targetState.academy.headquarters = defaultAcademyContainer().headquarters;
+        }
+        targetState.academy.headquarters.support = createHeadquartersSupportRecord(targetState.academy.headquarters.support);
+        return targetState.academy.headquarters.support.operationsCapacity;
+      }
+
+      function offlineProgressCapMs(targetState = state) {
+        return operationsCapacityRecord(targetState).capMs;
+      }
+
+      function offlineAccumulatedMs(targetState = state) {
+        const operations = operationsCapacityRecord(targetState);
+        return clamp(cleanNumber(operations.accumulatedOfflineMs, 0), 0, operations.capMs);
+      }
+
+      function upgradeOperationsCapacity() {
+        const operations = operationsCapacityRecord(state);
+        if (operations.level >= operations.maxLevel) {
+          toast("Operations Capacity is already at its current max.");
+          return;
+        }
+        const cost = operationsCapacityUpgradeCost(operations.level);
+        const funding = academyFundingRecord(state);
+        if (funding.value < cost) {
+          toast(`Need ${fmt(cost)} Academy Funding for the next Operations Capacity upgrade.`);
+          return;
+        }
+        funding.value -= cost;
+        state.academy.globalProgression.funding = funding.value;
+        operations.level += 1;
+        const updated = normalizeOperationsCapacityRecord({
+          ...operations,
+          level: operations.level,
+          accumulatedOfflineMs: Math.min(operations.accumulatedOfflineMs, operationsCapacityCapMs(operations.level)),
+          upgradedAt: now()
+        });
+        state.academy.headquarters.support.operationsCapacity = updated;
+        saveState();
+        toast(`Operations Capacity upgraded to Level ${updated.level}. Offline cap is now ${formatDuration(updated.capMs)}.`);
+        renderSoon();
       }
 
       function grantAcademyFunding(amount, source = "reward", targetState = state) {
@@ -6555,6 +6784,14 @@
         }
         if (!candidate.academy || !candidate.academy.headquarters || !candidate.academy.headquarters.support || candidate.academy.headquarters.support.gameplayEnabled !== false) {
           errors.push("Headquarters support must remain metadata-only.");
+        } else {
+          const operations = candidate.academy.headquarters.support.operationsCapacity;
+          if (!operations || typeof operations !== "object") errors.push("Missing Operations Capacity record.");
+          else {
+            if (operations.level < 1 || operations.level > MAX_OPERATIONS_CAPACITY_LEVEL) errors.push("Operations Capacity level is invalid.");
+            if (operations.capMs !== operationsCapacityCapMs(operations.level)) warnings.push("Operations Capacity cap will normalize to the current level.");
+            if (!operations.limitsOfflineProduction) errors.push("Operations Capacity must limit offline production.");
+          }
         }
         if (!candidate.academy || !candidate.academy.headquarters || !candidate.academy.headquarters.competitionCircuits) {
           errors.push("Missing global competition circuit framework.");
@@ -6603,12 +6840,15 @@
             activeCampusId,
             usaMigrationStatus: candidate.campuses && candidate.campuses.usa && candidate.campuses.usa.metadata && candidate.campuses.usa.metadata.migrationStatus,
             japanMigrationStatus: candidate.campuses && candidate.campuses.japan && candidate.campuses.japan.metadata && candidate.campuses.japan.metadata.migrationStatus,
+            brazilMigrationStatus: candidate.campuses && candidate.campuses.brazil && candidate.campuses.brazil.metadata && candidate.campuses.brazil.metadata.migrationStatus,
+            canadaMigrationStatus: candidate.campuses && candidate.campuses.canada && candidate.campuses.canada.metadata && candidate.campuses.canada.metadata.migrationStatus,
             legacyAdapters: adapterStatus,
             campusValidation,
             globalCoachPool: Boolean(candidate.academy && candidate.academy.coaches && candidate.academy.coaches.scope === "global-academy"),
             globalCoachAssignments: coachAssignmentValidation,
             headquartersPrepared: Boolean(candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.playable === false),
             academyFunding: candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.academyFunding,
+            operationsCapacity: candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.support && candidate.academy.headquarters.support.operationsCapacity,
             competitionCircuits: candidate.academy && candidate.academy.headquarters && candidate.academy.headquarters.competitionCircuits
           }
         };
@@ -6671,6 +6911,7 @@
           usaMigration: campusMigrationSummary(targetState, USA_CAMPUS_ID),
           japanMigration: campusMigrationSummary(targetState, JAPAN_CAMPUS_ID),
           brazilMigration: campusMigrationSummary(targetState, BRAZIL_CAMPUS_ID),
+          canadaMigration: campusMigrationSummary(targetState, CANADA_CAMPUS_ID),
           legacyAdapterStatus: legacyAdapterStatus(targetState),
           campusValidation: validation.summary.campusValidation,
           globalCoachAssignment: {
@@ -6691,6 +6932,7 @@
               themeId: targetState.academy && targetState.academy.themeId
             },
             headquarters: targetState.academy && targetState.academy.headquarters,
+            operationsCapacity: targetState.academy && targetState.academy.headquarters && targetState.academy.headquarters.support && targetState.academy.headquarters.support.operationsCapacity,
             globalProgression: targetState.academy && targetState.academy.globalProgression,
             coaches: targetState.academy && targetState.academy.coaches
           },
@@ -6931,6 +7173,7 @@
           football: `<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 6v12"/><circle cx="12" cy="12" r="2.5"/><path d="M4 10h3v4H4"/><path d="M20 10h-3v4h3"/>`,
           volleyball: `<circle cx="12" cy="8" r="3"/><path d="M4 13h16"/><path d="M7 13v7"/><path d="M17 13v7"/><path d="M9 20h6"/><path d="M9 8c1.5 1 3.5 1 6 0"/>`,
           futsal: `<rect x="5" y="7" width="14" height="10" rx="2"/><path d="M12 7v10"/><circle cx="12" cy="12" r="2"/><path d="M7 10h3v4H7"/><path d="M17 10h-3v4h3"/>`,
+          rowing: `<path d="M4 16h16"/><path d="M7 13h10l-2 4H9l-2-4Z"/><path d="M6 9l12 6"/><path d="M18 9 6 15"/><path d="M8 19h8"/>`,
           coach: `<path d="M7 8h10"/><path d="M7 12h7"/><path d="M7 16h5"/><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 4.5V3h6v1.5"/>`,
           athlete: `<circle cx="12" cy="6.5" r="2.5"/><path d="M8 21v-5l4-3 4 3v5"/><path d="M7 12l5-3 5 3"/>`,
           ticket: `<path d="M5 7h14v10H5z"/><path d="M8 7v10"/><path d="M11 10h5"/><path d="M11 14h4"/>`,
@@ -6947,7 +7190,9 @@
           ? "Precision paths, compact gardens, and technique-focused training shape this campus."
           : country.id === "brazil"
             ? "Open-air training centers, palm-lined courts, and a football plaza give Brazil its own rhythm."
-          : "Modern training halls, flags, and open courtyards mark the academy's home base.";
+            : country.id === "canada"
+              ? "Boathouses, recovery trails, and high-performance pools shape Canada's complete-athlete campus."
+              : "Modern training halls, flags, and open courtyards mark the academy's home base.";
         return `
           <div class="academy-arrival-scene country-${country.id}" style="--accent:${accent}">
             <div class="arrival-copy">
@@ -6987,6 +7232,20 @@
               <path class="art-line soft" d="M15 81c22-9 44-11 66-4 16 5 31 4 45-4"/>
               <path class="art-line soft" d="M17 43c8-15 17-16 26-3M111 52c6-13 13-15 22-4"/>
               <rect class="flag-panel" x="105" y="22" width="16" height="11" rx="2"/>
+            </svg>
+          `;
+        }
+        if (country.id === "canada") {
+          return `
+            <svg viewBox="0 0 140 92" aria-hidden="true" focusable="false">
+              <ellipse class="art-glow" cx="73" cy="80" rx="58" ry="11"/>
+              <path class="art-fill" d="M17 70h106l7 11H10l7-11Z"/>
+              <path class="art-fill" d="M24 46h82v27H24z"/>
+              <path class="art-fill" d="M35 31h58l11 16H24l11-16Z"/>
+              <path class="art-line" d="M32 57h66M43 72V48M63 72V35M83 72V48"/>
+              <path class="art-line water-line" d="M15 79c18-7 34-7 50-1s33 5 52-2"/>
+              <path class="art-line soft" d="M20 41c16-12 35-12 58 0M101 55h22"/>
+              <rect class="flag-panel" x="108" y="28" width="16" height="11" rx="2"/>
             </svg>
           `;
         }
@@ -7102,6 +7361,13 @@
             <path class="art-line soft" d="M48 37v25M19 46h10v8H19M77 46H67v8h10"/>
             <circle class="art-line" cx="48" cy="49" r="6"/>
             <path class="art-line score-light" d="M30 32h36"/>
+          `,
+          rowing: `
+            <path class="art-glow" d="M8 57h78v12H8z"/>
+            <path class="art-fill" d="M19 34h58v19H19z"/>
+            <path class="art-line water-line" d="M10 61c8 0 8-4 16-4s8 4 16 4 8-4 16-4 8 4 16 4"/>
+            <path class="art-line soft" d="M22 51h52M28 43h38M23 64l50-18M73 64 23 46"/>
+            <path class="art-line score-light" d="M34 29h30"/>
           `
         };
         return `<svg class="department-illustration department-illustration-${sportId}" viewBox="0 0 92 72" aria-hidden="true" focusable="false">${art[sportId] || art.track}</svg>`;
@@ -7299,7 +7565,12 @@
       function applyOfflineProgress() {
         const current = now();
         const elapsed = Math.max(0, current - cleanNumber(state.lastSave, current));
-        const capped = Math.min(elapsed, OFFLINE_CAP_MS);
+        const operations = operationsCapacityRecord(state);
+        const capped = Math.min(elapsed, operations.capMs);
+        operations.lastElapsedMs = elapsed;
+        operations.lastCreditedMs = capped;
+        operations.lastTruncatedMs = Math.max(0, elapsed - capped);
+        operations.accumulatedOfflineMs = capped;
         const result = simulateTrainingTime(capped, {
           startTime: current - capped,
           includeEvent: false,
@@ -7315,7 +7586,9 @@
             capped,
             earned: result.earned,
             passive: result.seconds > 0 ? result.earned / result.seconds : 0,
-            multiplier: permanentMultiplier()
+            multiplier: permanentMultiplier(),
+            cap: operations.capMs,
+            truncated: operations.lastTruncatedMs
           };
         }
         state.lastTick = current;
@@ -7470,6 +7743,7 @@
         }
         checkAchievements();
         checkCountryProgress();
+        showSessionDrillTutorial();
         renderSoon();
       }
 
@@ -9055,6 +9329,7 @@
           ${renderCampusOverview()}
           ${renderCountryProgressCard("full")}
           ${renderLocalEconomyCard()}
+          ${renderOperationsCapacityCard()}
           ${renderAcademyProfile()}
           ${renderHallOfFame()}
           ${renderWorldDashboard()}
@@ -9215,9 +9490,49 @@
                   </button>
                 `).join("")}
               </div>
-              <div class="result-box">Academy Funding is generated by campuses and will later support Headquarters expansion, research, academy-wide upgrades, and future global systems. It is read-only in this milestone and does not reduce local TP.</div>
+              <div class="result-box">Academy Funding is generated by campuses and now supports Operations Capacity offline-cap upgrades. Future milestones will expand Headquarters, research, academy-wide upgrades, and global systems.</div>
               <div class="boost-strip">
                 ${circuits.slice(0, 4).map(circuit => `<span class="pill">${circuit.name}</span>`).join("")}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderOperationsCapacityCard() {
+        const operations = operationsCapacityRecord(state);
+        const cost = operationsCapacityUpgradeCost(operations.level);
+        const maxed = operations.level >= operations.maxLevel;
+        const funding = academyFundingValue();
+        const canUpgrade = !maxed && funding >= cost;
+        return `
+          <section>
+            <div class="section-title">
+              <h2>Operations Capacity</h2>
+              <span class="badge">Level ${operations.level}</span>
+            </div>
+            <div class="card" style="--accent:#93c5fd">
+              <div class="card-head">
+                <div>
+                  <h3>Offline Operations</h3>
+                  <div class="role">Operations Capacity limits how much passive progress can accumulate while you are away.</div>
+                </div>
+                <div class="level-token"><span>Cap</span><strong>${formatDuration(operations.capMs)}</strong></div>
+              </div>
+              <div class="metric-row">
+                ${statMetric("Current Offline Cap", formatDuration(operations.capMs))}
+                ${statMetric("Accumulated Offline Time", formatDuration(offlineAccumulatedMs()))}
+                ${statMetric("Last Time Away", formatDuration(operations.lastElapsedMs))}
+                ${statMetric("Beyond Cap", formatDuration(operations.lastTruncatedMs))}
+                ${statMetric("Academy Funding", fmt(funding))}
+                ${statMetric("Next Upgrade", maxed ? "Max" : `${fmt(cost)} AF`)}
+              </div>
+              <div class="boost-strip">
+                ${OPERATIONS_CAPACITY_LEVELS.map(item => `<span class="pill ${item.level === operations.level ? "good" : ""}">L${item.level}: ${formatDuration(item.capMs)}</span>`).join("")}
+              </div>
+              <div class="result-box">Time beyond the current cap is not credited. Upgrade Operations Capacity with Academy Funding to support longer offline sessions.</div>
+              <div class="button-row" style="grid-template-columns: 1fr;">
+                <button class="primary-btn" data-action="upgrade-operations-capacity" ${canUpgrade ? "" : "disabled"}>${maxed ? "Operations Capacity Maxed" : `Upgrade Operations Capacity (${fmt(cost)} AF)`}</button>
               </div>
             </div>
           </section>
@@ -9411,6 +9726,7 @@
       function renderWorldDashboard() {
         const country = currentCountry();
         const campus = campusForState(state);
+        const operations = operationsCapacityRecord(state);
         return `
           <section>
             <div class="section-title">
@@ -9427,6 +9743,8 @@
                 ${statMetric("Reputation", `${state.reputation} (${reputationLabel()})`)}
                 ${statMetric("Trophies", state.trophies)}
                 ${statMetric("Medals", medalsEarned())}
+                ${statMetric("Offline Cap", formatDuration(operations.capMs))}
+                ${statMetric("Offline Accumulated", formatDuration(offlineAccumulatedMs()))}
                 ${statMetric("Coaches", `${coachSlotsUsed()} / ${coachSlotsCap()}`)}
                 ${statMetric("Athletes", `${athletesUsed()} / ${athleteCap()}`)}
               </div>
@@ -9950,6 +10268,26 @@
         saveState();
       }
 
+      function showSessionDrillTutorial() {
+        if (!state.onboarding) state.onboarding = defaultOnboardingState();
+        if (state.onboarding.sessionDrillExplained) return false;
+        state.onboarding.sessionDrillExplained = true;
+        saveState();
+        const country = currentCountry();
+        showModal(
+          "Session Drill",
+          `<div class="result-box">
+             <b>${countryFlag(country)} Session Drill is local to ${escapeHTML(country.name)}.</b><br>
+             Tapping Session Drill earns this campus's local Training Points. Drill upgrades make every tap stronger and add a small passive-income sync.
+           </div>
+           <p class="fine-print">Each country has its own Session Drill progression. When you unlock a new country, its drill upgrades start fresh while Championship Trial base income remains global.</p>`,
+          [
+            { label: "Got It", action: "close-modal", kind: "primary" }
+          ]
+        );
+        return true;
+      }
+
       function showOfflineModal() {
         if (!offlineReport) return;
         showModal(
@@ -9958,9 +10296,11 @@
              <div class="metric"><b>${formatDuration(offlineReport.elapsed)}</b><span>Time away</span></div>
              <div class="metric"><b>${fmt(offlineReport.earned)} TP</b><span>Offline earned</span></div>
              <div class="metric"><b>${formatDuration(offlineReport.capped)}</b><span>Credited time</span></div>
+             <div class="metric"><b>${formatDuration(offlineReport.cap)}</b><span>Offline cap</span></div>
+             <div class="metric"><b>${formatDuration(offlineReport.truncated)}</b><span>Beyond cap</span></div>
              <div class="metric"><b>${fmtMult(offlineReport.multiplier)}</b><span>Permanent multiplier</span></div>
            </div>
-           <p class="fine-print">Offline progress uses your passive academy income and permanent multipliers. Temporary pop-up boosts do not run while away.</p>`,
+           <p class="fine-print">Offline progress uses your passive academy income and permanent multipliers. Time beyond Operations Capacity does not accumulate.</p>`,
           [
             { label: "Collect", action: "close-modal", kind: "primary" }
           ]
@@ -10176,6 +10516,7 @@
         if (action === "train-athlete") trainAthlete(target.dataset.id);
         if (action === "assign-athlete") assignAthlete(target.dataset.id, target.dataset.facility);
         if (action === "set-campus-strategy") setCampusStrategy(target.dataset.id);
+        if (action === "upgrade-operations-capacity") upgradeOperationsCapacity();
         if (action === "travel-campus") travelToCampus(target.dataset.id);
         if (action === "enter-competition") enterCompetition();
         if (action === "dismiss-competition-result") {
@@ -10803,6 +11144,10 @@
 
       function getCompetitionCircuit(id) {
         return BY_ID.competitionCircuit[id];
+      }
+
+      function getHeadquartersDepartment(id) {
+        return BY_ID.headquarters[id];
       }
 
       function competitionTypeLabel(comp) {

@@ -103,6 +103,7 @@ Examples:
 - Japan: Swimming, Cycling
 - Kenya: Track, Distance Events, Cycling
 - Brazil: Football, Volleyball, Futsal
+- Canada: Swimming, Rowing, future Hockey
 
 A country completion should feel like a milestone, not a simple reset.
 
@@ -119,11 +120,21 @@ Current foundation decision:
 - Claiming the Japan completion reward grants 2 Medals, +200 Reputation, unlocks Brazil, and switches the current campus to Brazil when the reward is claimed.
 - Brazil is the third playable campus. It is based in Rio de Janeiro and focuses on Football, Volleyball, and Futsal.
 - Brazil chapter goals are Football Performance Center Level 15, Volleyball Training Center Level 12, Futsal Skills Court Level 8, 5 Brazilian competition wins, and any Brazil athlete reaching Skill Level 12.
-- Brazil's completion reward grants 3 Medals, +300 Reputation, and +500 Academy Funding. It does not unlock additional playable countries in this milestone.
+- Brazil's completion reward grants 3 Medals, +300 Reputation, +500 Academy Funding, unlocks Canada, and switches the current campus to Canada when the reward is claimed.
+- Canada is the fourth playable campus. It uses the Canada profile from `data/countries.yaml`, focuses on Swimming and Rowing for current gameplay, and keeps Hockey as identity/preview data until winter-sport gameplay is approved.
+- Canada chapter goals are Swimming Center Level 18, Rowing Boathouse Level 12, 5 Canadian competition wins, and any Canada athlete reaching Skill Level 12.
+- Canada's completion reward grants 3 Medals, +280 Reputation, and +650 Academy Funding.
 - Kenya exists as a data-driven future country with unlock requirements and future reward data, but its playable chapter goals are not implemented yet.
 - Medals and Reputation are real saved progression values. They are awarded by chapter completion and are no longer derived from total TP.
-- The long-term route direction is USA, Japan, Brazil, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games.
+- The long-term route direction is USA, Japan, Brazil, Canada, Pan American Games, Australia, Kenya, Norway, World Championships, France, Great Britain, Italy, and Olympic Games.
 - Olympic Games are the culmination of years of academy building, not an ordinary competition and not the end of the game.
+
+Current offline progression decision:
+- Offline progress is limited by Operations Capacity.
+- Operations Capacity starts at Level 1 with a 30-minute offline cap.
+- Levels 2 through 5 increase the cap to 1 hour, 2 hours, 4 hours, and 8 hours.
+- Time beyond the current cap does not accumulate.
+- Operations Capacity is the only current Academy Funding spending use; broader Headquarters gameplay remains future work.
 
 ## Clicker System
 The clicker must stay useful past the opening minutes.

@@ -18,21 +18,34 @@ Phase 5 - Local Economy Foundation updates the save shape to version 13 with cam
 
 Phase 6 - Campus Travel & Brazil Expansion updates the save shape to version 14 with Brazil as a migrated playable campus and manual travel between unlocked campuses. Brazil adds new local facilities, coaches, athlete archetypes, competitions, chapter goals, and a chapter reward. Academy Funding remains read-only and Headquarters remains non-playable.
 
+Economy & Canada updates the save shape to version 17 with Operations Capacity as the active offline-cap system and Canada as the fourth playable migrated campus. Offline rewards now credit only up to Operations Capacity. Academy Funding can currently be spent only on Operations Capacity upgrades; broader Headquarters gameplay remains non-playable.
+
 Future balance work should follow `WORLD_TOUR.md`: academy identity, reputation, medals, trophies, rank, Hall of Fame, future research, and future sponsors are global; Training Points, facilities, local athletes, competitions, buildings, local progress, visual theme, chapter progress, and country bonuses should eventually be campus-local.
 
 ## Global Values
-- Save version: 14
-- Offline progress cap: 8 hours
+- Save version: 17
+- Offline progress cap: Operations Capacity, default 30 minutes
 - Facility cost multiplier: 1.15 per level
 - Prestige unlock: 100,000 season TP
 - Trophy multiplier: 1.10x per trophy
 - Sponsorship event boost: 5x TP for 5 seconds
 - Momentum boost after competition win: 1.5x for 15 seconds
 
+## Operations Capacity
+Operations Capacity belongs to Headquarters support metadata and limits maximum credited offline progress. Time beyond the current cap does not accumulate.
+
+| Level | Offline Cap | Upgrade Cost |
+| ---: | --- | ---: |
+| 1 | 30 minutes | Starting level |
+| 2 | 1 hour | 1,000 Academy Funding |
+| 3 | 2 hours | 2,000 Academy Funding |
+| 4 | 4 hours | 3,000 Academy Funding |
+| 5 | 8 hours | 4,000 Academy Funding |
+
 ## Local Economy
 Training Points are owned by the active campus through `state.campuses[countryId].localTrainingPoints.value`. The legacy root `state.tp` remains as the active-campus compatibility mirror for current gameplay and UI helpers.
 
-Academy Funding is owned by Headquarters through `state.academy.headquarters.academyFunding.value`. Headquarters spending is not implemented yet.
+Academy Funding is owned by Headquarters through `state.academy.headquarters.academyFunding.value`. The only implemented spending use is Operations Capacity. Broader Headquarters spending is not implemented yet.
 
 Campus contributions currently generate Academy Funding as a sidecar from TP earned. This does not reduce local TP and does not change income, costs, or rewards.
 
@@ -89,6 +102,7 @@ Facility income is `level * baseIncome * multipliers`.
 | Football Performance Center | Football | 1,200 | 16 | every 9 levels | 1.80 | academy output +4% per 10 levels |
 | Volleyball Training Center | Volleyball | 850 | 11 | every 8 levels | 1.70 | athlete XP +4% per 10 levels |
 | Futsal Skills Court | Futsal | 2,200 | 28 | every 10 levels | 1.60 | click multiplier +4% per 10 levels |
+| Rowing Boathouse | Rowing | 1,600 | 24 | every 9 levels | 1.60 | athlete XP +4% per 10 levels |
 
 ## Coaches
 Coach cost is `baseCost * growth ^ currentLevel`.
@@ -113,6 +127,7 @@ These tiers do not add separate multipliers, discounts, automation, or unlocks i
 | Football Manager | 2,600 | 2.32 | 12 | Football output +20% per level; Futsal output +14% per level; Drill +2.5% per level |
 | Goalkeeper Coach | 3,800 | 2.38 | 12 | Football output +18% per level; Drill +2% per level |
 | Volleyball Specialist | 3,200 | 2.34 | 12 | Volleyball output +22% per level; Drill +2% per level |
+| Rowing Coach | 3,400 | 2.34 | 12 | Rowing output +22% per level; Swimming output +8% per level; Drill +2% per level |
 
 ## Athletes
 Manual athlete training cost is `trainCost * 1.42 ^ (skill - 1)`.
@@ -130,6 +145,7 @@ Japan country bonus adds +15% Athlete Experience while Japan is the active count
 | Football Prospect | Football | Elite | 5,200 | 2,100 | 38 | Football +3.5% per skill; competitions +2.5% per skill |
 | Volleyball Prospect | Volleyball | Rare | 3,600 | 1,500 | 34 | Volleyball +4% per skill; athlete XP +1.8% per skill |
 | Futsal Creator | Futsal | Uncommon | 2,400 | 980 | 32 | Futsal +4.5% per skill; Drill +1.8% per skill |
+| Rowing Prospect | Rowing | Rare | 4,200 | 1,700 | 35 | Rowing +4% per skill; athlete XP +2% per skill |
 
 ## Competitions
 Competition win chance is clamped between 18% and 95%:
@@ -152,9 +168,12 @@ The latest competition result is saved as presentation state so the UI can expla
 | São Paulo Cup | 42 | 9,600 | 280 | Football |
 | Copa da Academia | 70 | 18,000 | 430 | Football, Volleyball, Futsal |
 | Futsal Masters | 34 | 7,400 | 220 | Futsal |
+| Canada Development Meet | 14 | 3,200 | 115 | Swimming, Rowing |
+| Boathouse Classic | 30 | 7,600 | 240 | Rowing |
+| Maple Championship | 58 | 14,500 | 380 | Swimming, Rowing |
 
 ## Country Progression
-Current implementation note: USA and Japan are playable with the current transitional prototype economy. Future countries should not be implemented as fully playable campuses until the save and economy architecture can support local country Training Points, local facilities, local athletes, local competitions, and return travel while preserving existing saves.
+Current implementation note: USA, Japan, Brazil, and Canada are playable migrated campuses. Canada uses the Canada profile from `data/countries.yaml`; Hockey remains identity/preview data only until winter-sport gameplay is approved.
 
 USA active completion goals:
 - Track Facility reaches level 10
@@ -196,5 +215,20 @@ Brazil reward:
 - +3 Medals
 - +300 Reputation
 - +500 Academy Funding
+- Unlock Canada as a playable campus
+
+Canada active completion goals:
+- Swimming Center reaches level 18
+- Rowing Boathouse reaches level 12
+- Win 5 Canadian competitions during the Canada chapter
+- Train any Canada athlete to Skill Level 12
+
+Canada country bonus:
+- +10% Athlete Recovery & Development, implemented as athlete XP multiplier while Canada is active
+
+Canada reward:
+- +3 Medals
+- +280 Reputation
+- +650 Academy Funding
 
 Australia, Kenya, and Norway remain future or preview destinations unless a later milestone implements them.

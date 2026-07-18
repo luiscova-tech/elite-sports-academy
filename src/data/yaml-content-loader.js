@@ -19,6 +19,12 @@
       path: "data/buildings.yaml",
       required: ["id", "name", "category", "currency"],
       normalize: normalizeBuilding
+    },
+    {
+      key: "headquarters",
+      path: "data/headquarters.yaml",
+      required: ["id", "name", "currency", "base_cost"],
+      normalize: normalizeHeadquartersDepartment
     }
   ];
 
@@ -207,7 +213,7 @@
     return {
       status: "loading",
       loadedAt: 0,
-      data: { countries: [], sports: [], buildings: [] },
+      data: { countries: [], sports: [], buildings: [], headquarters: [] },
       sources: {},
       errors: [],
       warnings: []
@@ -294,6 +300,13 @@
   }
 
   function normalizeBuilding(raw) {
+    return {
+      ...raw,
+      bonuses: asList(raw.bonuses)
+    };
+  }
+
+  function normalizeHeadquartersDepartment(raw) {
     return {
       ...raw,
       bonuses: asList(raw.bonuses)
